@@ -3,29 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Autonomous AI Persona — Denmu Studio</title>
-    <!-- Fonts -->
+    <title>Autonomous AI Persona — Glassmorphism Studio</title>
+    <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
         :root {
-            --denmu-bg: #0e1217;
-            --denmu-dark: #07090c;
-            --denmu-card: rgba(22, 27, 34, 0.75);
-            --denmu-card-hover: rgba(30, 37, 46, 0.9);
-            --border-color: rgba(255, 255, 255, 0.08);
-            --border-highlight: rgba(255, 255, 255, 0.2);
+            --bg-dark: #07090e;
+            --glass-bg: rgba(18, 24, 38, 0.7);
+            --glass-hover: rgba(26, 35, 54, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --glass-glow: rgba(99, 102, 241, 0.25);
             
-            --text-white: #ffffff;
-            --text-silver: #9198a1;
-            --text-muted: #6e7681;
+            --accent-indigo: #6366f1;
+            --accent-purple: #a855f7;
+            --accent-crimson: #ef4444;
+            --accent-cyan: #06b6d4;
+            --accent-emerald: #10b981;
 
-            --font-sans: 'Inter', sans-serif;
-            --font-heading: 'Space Grotesk', sans-serif;
+            --text-white: #ffffff;
+            --text-silver: #94a3b8;
+            --text-muted: #64748b;
+
+            --font-sans: 'Plus Jakarta Sans', sans-serif;
+            --font-display: 'Space Grotesk', sans-serif;
             --font-mono: 'JetBrains Mono', monospace;
+            
+            --blur: blur(24px);
         }
 
         * {
@@ -35,20 +42,24 @@
         }
 
         body {
-            background-color: var(--denmu-bg);
+            background-color: var(--bg-dark);
             color: var(--text-silver);
             font-family: var(--font-sans);
             min-height: 100vh;
             line-height: 1.6;
-            background-image: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.05) 0%, transparent 60%);
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(99, 102, 241, 0.12) 0%, transparent 45%),
+                radial-gradient(circle at 85% 85%, rgba(239, 68, 68, 0.1) 0%, transparent 45%);
+            background-attachment: fixed;
         }
 
-        /* Top Denmu Navbar */
+        /* Top Header Navbar */
         nav {
-            border-bottom: 1px solid var(--border-color);
-            background: rgba(14, 18, 23, 0.85);
-            backdrop-filter: blur(20px);
-            padding: 1.1rem 2.5rem;
+            border-bottom: 1px solid var(--glass-border);
+            background: rgba(7, 9, 14, 0.8);
+            backdrop-filter: var(--blur);
+            padding: 1.1rem 3rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -60,365 +71,376 @@
         .brand-logo {
             display: flex;
             align-items: center;
-            gap: 0.85rem;
+            gap: 1rem;
         }
 
-        .denmu-symbol {
-            width: 38px;
-            height: 38px;
-            border-radius: 10px;
-            background: #ffffff;
-            color: #0e1217;
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--accent-indigo), var(--accent-purple));
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 800;
-            font-size: 1.1rem;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 0 20px var(--glass-glow);
         }
 
         .brand-logo h1 {
-            font-family: var(--font-heading);
+            font-family: var(--font-display);
             font-size: 1.35rem;
             font-weight: 800;
             color: var(--text-white);
             letter-spacing: -0.5px;
         }
 
-        .switch-btn {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 0.5rem 1.1rem;
-            color: var(--text-white);
-            font-family: var(--font-sans);
-            font-size: 0.85rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: all 0.2s;
-        }
-
-        .switch-btn:hover {
-            background: rgba(255, 255, 255, 0.12);
-            border-color: var(--border-highlight);
-        }
-
         .status-pill {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.4rem 0.9rem;
+            padding: 0.45rem 1rem;
             border-radius: 30px;
-            background: rgba(16, 185, 129, 0.1);
+            background: rgba(16, 185, 129, 0.12);
             border: 1px solid rgba(16, 185, 129, 0.3);
-            color: #10b981;
-            font-size: 0.8rem;
-            font-weight: 600;
+            color: var(--accent-emerald);
+            font-size: 0.82rem;
+            font-weight: 700;
         }
 
         .pulse-dot {
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: #10b981;
-            box-shadow: 0 0 10px #10b981;
+            background: var(--accent-emerald);
+            box-shadow: 0 0 10px var(--accent-emerald);
             animation: pulse 1.5s infinite;
         }
 
         @keyframes pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
 
-        /* Step Switcher Views */
-        .step-view {
-            display: none;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
-            animation: fadeIn 0.4s ease-out;
+        /* Studio Container */
+        .studio-container {
+            max-width: 1280px;
+            margin: 2.5rem auto;
+            padding: 0 2rem;
         }
 
-        .step-view.active { display: block; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(12px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* STEP 1: Denmu Agent Onboarding */
-        .step1-container {
-            max-width: 780px;
-            margin: 0 auto;
-        }
-
-        .hero-heading {
-            text-align: center;
-            margin-bottom: 3rem;
-        }
-
-        .hero-heading h2 {
-            font-family: var(--font-heading);
-            font-size: 2.8rem;
-            font-weight: 800;
-            color: var(--text-white);
-            letter-spacing: -1px;
-            margin-bottom: 0.75rem;
-        }
-
-        .hero-heading p {
-            font-size: 1.05rem;
-            color: var(--text-silver);
-            max-width: 580px;
-            margin: 0 auto;
-        }
-
-        .preset-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.25rem;
-            margin-bottom: 2rem;
-        }
-
-        @media (max-width: 600px) {
-            .preset-grid { grid-template-columns: 1fr; }
-        }
-
-        .preset-card {
-            background: var(--denmu-card);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 1.6rem;
-            cursor: pointer;
-            transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
-            display: flex;
-            align-items: center;
-            gap: 1.25rem;
-            backdrop-filter: blur(20px);
-        }
-
-        .preset-card:hover, .preset-card.active {
-            border-color: var(--border-highlight);
-            background: var(--denmu-card-hover);
-            transform: translateY(-4px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-        }
-
-        .preset-avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            background: #ffffff;
-            color: #0e1217;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.25rem;
-            font-weight: 800;
-        }
-
-        .preset-info h4 {
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: var(--text-white);
-        }
-
-        .preset-info p {
-            font-size: 0.85rem;
-            color: var(--text-silver);
-        }
-
-        .config-card {
-            background: var(--denmu-card);
-            border: 1px solid var(--border-color);
-            border-radius: 18px;
+        /* Hero Agent Banner Glass Panel */
+        .hero-panel {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
             padding: 2.25rem;
-            backdrop-filter: blur(20px);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-label {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-white);
-            margin-bottom: 0.5rem;
-            display: block;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 1rem 1.25rem;
-            background: rgba(7, 9, 12, 0.8);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            color: var(--text-white);
-            font-family: var(--font-sans);
-            font-size: 1rem;
-            transition: border-color 0.2s;
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--text-white);
-        }
-
-        .cta-btn {
-            width: 100%;
-            padding: 1.1rem;
-            border-radius: 10px;
-            border: none;
-            background: #ffffff;
-            color: #0e1217;
-            font-family: var(--font-heading);
-            font-weight: 800;
-            font-size: 1.05rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
-            transition: all 0.25s;
-            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.15);
-        }
-
-        .cta-btn:hover {
-            background: #e5e5e5;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(255, 255, 255, 0.25);
-        }
-
-        /* STEP 2: Dedicated Denmu Stream Dashboard View */
-        .dashboard-header {
+            backdrop-filter: var(--blur);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+            margin-bottom: 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 2.25rem;
-            background: var(--denmu-card);
-            border: 1px solid var(--border-color);
-            border-radius: 18px;
-            padding: 1.75rem 2.25rem;
-            backdrop-filter: blur(20px);
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            position: relative;
+            overflow: hidden;
         }
 
-        .active-persona-info {
+        .hero-panel::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 2px;
+            background: linear-gradient(90deg, var(--accent-indigo), var(--accent-purple), var(--accent-crimson));
+        }
+
+        .hero-profile {
             display: flex;
             align-items: center;
-            gap: 1.25rem;
+            gap: 1.5rem;
         }
 
-        .active-avatar {
-            width: 58px;
-            height: 58px;
-            border-radius: 14px;
-            background: #ffffff;
-            color: #0e1217;
+        .hero-avatar-ring {
+            width: 72px;
+            height: 72px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, var(--accent-indigo), var(--accent-purple));
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: var(--font-heading);
+            color: white;
+            font-family: var(--font-display);
+            font-size: 2.2rem;
             font-weight: 800;
-            font-size: 1.7rem;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 30px var(--glass-glow);
         }
 
-        .active-details h3 {
-            font-family: var(--font-heading);
+        .hero-info h2 {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text-white);
+            letter-spacing: -0.5px;
+        }
+
+        .hero-info p {
+            font-size: 0.95rem;
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            padding: 0.85rem 1.5rem;
+            text-align: center;
+        }
+
+        .stat-val {
+            font-family: var(--font-display);
             font-size: 1.6rem;
             font-weight: 800;
             color: var(--text-white);
         }
 
-        .active-details p {
-            font-size: 0.9rem;
-            color: var(--text-silver);
-            font-weight: 500;
-        }
-
-        .dash-metrics {
-            display: flex;
-            gap: 2.5rem;
-        }
-
-        .metric-item {
-            text-align: right;
-        }
-
-        .metric-num {
-            font-family: var(--font-heading);
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--text-white);
-        }
-
-        .metric-lbl {
+        .stat-lbl {
             font-size: 0.75rem;
             color: var(--text-muted);
             text-transform: uppercase;
         }
 
-        /* Denmu Post Card Component */
+        /* Persona Selection Pills Bar */
+        .preset-bar {
+            display: flex;
+            gap: 0.85rem;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+        }
+
+        .preset-pill {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 0.85rem 1.4rem;
+            color: var(--text-silver);
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            backdrop-filter: var(--blur);
+            transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+            white-space: nowrap;
+        }
+
+        .preset-pill:hover, .preset-pill.active {
+            background: var(--glass-hover);
+            border-color: var(--accent-indigo);
+            color: var(--text-white);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px var(--glass-glow);
+        }
+
+        .preset-pill.active {
+            border-color: var(--accent-indigo);
+            background: rgba(99, 102, 241, 0.18);
+        }
+
+        .pill-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.95rem;
+        }
+
+        /* Form Console Panel */
+        .console-panel {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 1.75rem 2rem;
+            margin-bottom: 2.5rem;
+            backdrop-filter: var(--blur);
+        }
+
+        .console-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 1.25rem;
+            align-items: end;
+        }
+
+        @media (max-width: 850px) {
+            .console-form { grid-template-columns: 1fr; }
+        }
+
+        .form-label {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-silver);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .glass-input {
+            width: 100%;
+            padding: 0.9rem 1.2rem;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            color: var(--text-white);
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        .glass-input:focus {
+            outline: none;
+            border-color: var(--accent-indigo);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
+        }
+
+        .cta-btn {
+            padding: 0.9rem 2rem;
+            border-radius: 12px;
+            border: none;
+            background: linear-gradient(135deg, var(--accent-indigo), var(--accent-purple));
+            color: white;
+            font-family: var(--font-display);
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            transition: all 0.25s;
+            box-shadow: 0 4px 20px var(--glass-glow);
+            white-space: nowrap;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 30px rgba(99, 102, 241, 0.5);
+        }
+
+        /* Feed Stream Section */
+        .stream-title-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .stream-title {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text-white);
+        }
+
+        /* Post Card Component */
         .post-card {
-            background: var(--denmu-card);
-            border: 1px solid var(--border-color);
-            border-radius: 18px;
-            padding: 2.25rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 22px;
+            padding: 2rem;
             margin-bottom: 1.75rem;
-            backdrop-filter: blur(20px);
-            transition: all 0.25s ease;
+            backdrop-filter: var(--blur);
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+            position: relative;
         }
 
         .post-card:hover {
-            border-color: var(--border-highlight);
+            border-color: rgba(99, 102, 241, 0.4);
+            background: var(--glass-hover);
             transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.5);
         }
 
-        .post-top {
+        .post-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 1.25rem;
         }
 
-        .post-date {
+        .author-box {
+            display: flex;
+            align-items: center;
+            gap: 0.9rem;
+        }
+
+        .author-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, var(--accent-indigo), var(--accent-purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: 1.3rem;
+            box-shadow: 0 0 15px var(--glass-glow);
+        }
+
+        .author-meta h4 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-white);
+        }
+
+        .author-meta p {
+            font-size: 0.82rem;
+            color: var(--accent-cyan);
+            font-weight: 600;
+        }
+
+        .post-time {
             font-family: var(--font-mono);
             font-size: 0.8rem;
             color: var(--text-muted);
             background: rgba(0, 0, 0, 0.4);
             padding: 0.35rem 0.75rem;
-            border-radius: 6px;
-            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            border: 1px solid var(--glass-border);
         }
 
-        .post-content {
-            font-size: 1.08rem;
-            line-height: 1.8;
+        .post-body {
+            font-size: 1.05rem;
+            line-height: 1.85;
             color: var(--text-white);
             white-space: pre-wrap;
             margin-bottom: 1.5rem;
         }
 
         .rationale-panel {
-            background: rgba(7, 9, 12, 0.6);
-            border-left: 3px solid #ffffff;
-            padding: 1.2rem 1.4rem;
+            background: rgba(0, 0, 0, 0.45);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 16px;
+            padding: 1.25rem 1.4rem;
             margin-top: 1rem;
-            border-radius: 0 10px 10px 0;
         }
 
         .rationale-tag {
             font-size: 0.78rem;
             font-weight: 700;
-            color: var(--text-white);
+            color: var(--accent-indigo);
             text-transform: uppercase;
             letter-spacing: 0.8px;
             margin-bottom: 0.4rem;
             display: flex;
             align-items: center;
-            gap: 0.4rem;
+            justify-content: space-between;
         }
 
         .rationale-text {
@@ -434,13 +456,13 @@
             gap: 0.5rem;
         }
 
-        .source-link {
+        .source-pill {
             font-size: 0.78rem;
-            padding: 0.35rem 0.75rem;
-            border-radius: 6px;
-            background: rgba(255, 255, 255, 0.08);
-            color: var(--text-white);
-            border: 1px solid var(--border-color);
+            padding: 0.35rem 0.8rem;
+            border-radius: 8px;
+            background: rgba(6, 182, 212, 0.12);
+            color: var(--accent-cyan);
+            border: 1px solid rgba(6, 182, 212, 0.3);
             text-decoration: none;
             display: inline-flex;
             align-items: center;
@@ -449,16 +471,17 @@
             transition: all 0.2s;
         }
 
-        .source-link:hover {
-            background: #ffffff;
-            color: #0e1217;
+        .source-pill:hover {
+            background: rgba(6, 182, 212, 0.25);
+            color: white;
+            transform: translateY(-1px);
         }
 
         .post-actions {
             display: flex;
             gap: 1.5rem;
             margin-top: 1.25rem;
-            border-top: 1px solid var(--border-color);
+            border-top: 1px solid var(--glass-border);
             padding-top: 1rem;
         }
 
@@ -475,7 +498,7 @@
             transition: color 0.2s;
         }
 
-        .act-btn:hover { color: var(--text-white); }
+        .act-btn:hover { color: var(--accent-indigo); }
 
         .equalizer-box {
             display: inline-flex;
@@ -486,7 +509,7 @@
 
         .eq-bar {
             width: 3px;
-            background: #ffffff;
+            background: var(--accent-emerald);
             animation: eq 0.8s ease-in-out infinite alternate;
         }
 
@@ -496,17 +519,18 @@
 
         @keyframes eq { 0% { height: 20%; } 100% { height: 100%; } }
 
-        .empty-box {
+        .empty-card {
             text-align: center;
             padding: 5rem 2rem;
-            background: var(--denmu-card);
-            border: 1px dashed var(--border-color);
-            border-radius: 18px;
+            background: var(--glass-bg);
+            border: 1px dashed var(--glass-border);
+            border-radius: 24px;
+            backdrop-filter: var(--blur);
         }
 
-        .empty-box i {
+        .empty-card i {
             font-size: 3.5rem;
-            color: var(--text-white);
+            color: var(--accent-indigo);
             margin-bottom: 1.25rem;
         }
     </style>
@@ -516,118 +540,93 @@
     <!-- Header Navbar -->
     <nav>
         <div class="brand-logo">
-            <div class="denmu-symbol">D</div>
-            <h1>Denmu Studio</h1>
+            <div class="brand-icon"><i class="fa-solid fa-brain"></i></div>
+            <h1>Autonomous AI Persona</h1>
         </div>
-
-        <div style="display: flex; align-items: center; gap: 1rem;">
-            <button class="switch-btn" id="switchAgentHeaderBtn" style="display: none;" onclick="showStep(1)">
-                <i class="fa-solid fa-arrow-left"></i> Switch Persona Agent
-            </button>
-            <div class="status-pill">
-                <div class="pulse-dot"></div> Engine Active
-            </div>
+        <div class="status-pill">
+            <div class="pulse-dot"></div> Engine Online
         </div>
     </nav>
 
-    <!-- STEP 1: Denmu Persona Selection Screen -->
-    <div id="step1View" class="step-view active">
-        <div class="step1-container">
-            <div class="hero-heading">
-                <h2>Choose Your Persona Agent</h2>
-                <p>We are building an autonomous AI intelligence network. Select an agent persona to launch the live discovery stream.</p>
-            </div>
-
-            <div class="preset-grid">
-                <div class="preset-card active" onclick="selectPreset('Ada', 'AI Security')">
-                    <div class="preset-avatar"><i class="fa-solid fa-shield-halved"></i></div>
-                    <div class="preset-info">
-                        <h4>Ada</h4>
-                        <p>AI Security Researcher</p>
-                    </div>
-                </div>
-
-                <div class="preset-card" onclick="selectPreset('Marcus', 'Machine Learning')">
-                    <div class="preset-avatar"><i class="fa-solid fa-microchip"></i></div>
-                    <div class="preset-info">
-                        <h4>Marcus</h4>
-                        <p>Machine Learning Engineer</p>
-                    </div>
-                </div>
-
-                <div class="preset-card" onclick="selectPreset('Elena', 'AI Ethics')">
-                    <div class="preset-avatar"><i class="fa-solid fa-scale-balanced"></i></div>
-                    <div class="preset-info">
-                        <h4>Elena</h4>
-                        <p>AI Ethics & Safety</p>
-                    </div>
-                </div>
-
-                <div class="preset-card" onclick="selectPreset('Kai', 'Robotics Engineer')">
-                    <div class="preset-avatar"><i class="fa-solid fa-robot"></i></div>
-                    <div class="preset-info">
-                        <h4>Kai</h4>
-                        <p>Robotics & Embodied AI</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="config-card">
-                <form id="initForm">
-                    <div class="form-group">
-                        <label class="form-label">Persona Name</label>
-                        <input type="text" id="personaName" class="form-control" value="Ada" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Domain Specialization</label>
-                        <select id="personaDomain" class="form-control">
-                            <option value="AI Security">AI Security Researcher</option>
-                            <option value="Machine Learning">Machine Learning Engineer</option>
-                            <option value="AI Ethics">AI Ethics & Safety</option>
-                            <option value="Robotics Engineer">Robotics & Embodied AI</option>
-                            <option value="Open Source Contributor">Open Source Contributor</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="cta-btn" id="subBtn">
-                        <i class="fa-solid fa-bolt"></i> Launch Agent & Enter Feed Stream
-                    </button>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <!-- STEP 2: Dedicated Denmu Feed Stream View -->
-    <div id="step2View" class="step-view">
+    <!-- Main Studio Workspace -->
+    <div class="studio-container">
         
-        <!-- Dashboard Persona Header -->
-        <div class="dashboard-header">
-            <div class="active-persona-info">
-                <div class="active-avatar" id="dashAvatar">A</div>
-                <div class="active-details">
-                    <h3 id="dashName">Ada</h3>
-                    <p id="dashDomain">AI Security Specialist</p>
+        <!-- Hero Active Persona Panel -->
+        <div class="hero-panel">
+            <div class="hero-profile">
+                <div class="hero-avatar-ring" id="heroAvatar">A</div>
+                <div class="hero-info">
+                    <h2 id="heroName">Ada</h2>
+                    <p id="heroDomain"><i class="fa-solid fa-shield-halved"></i> AI Security Specialist</p>
                 </div>
             </div>
 
-            <div class="dash-metrics">
-                <div class="metric-item">
-                    <div class="metric-num" id="statPostsCount">0</div>
-                    <div class="metric-lbl">Published Posts</div>
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <div class="stat-val" id="statPostCount">0</div>
+                    <div class="stat-lbl">Published Posts</div>
                 </div>
-                <div class="metric-item">
-                    <div class="metric-num">4</div>
-                    <div class="metric-lbl">Live Feeds</div>
+                <div class="stat-card">
+                    <div class="stat-val" style="color: var(--accent-cyan);">4/4</div>
+                    <div class="stat-lbl">Feeds Polled</div>
                 </div>
             </div>
         </div>
 
-        <!-- Published Posts Stream Area -->
+        <!-- Persona Preset Selection Bar -->
+        <div class="preset-bar">
+            <div class="preset-pill active" onclick="selectPreset('Ada', 'AI Security')">
+                <div class="pill-icon" style="background: rgba(6, 182, 212, 0.15); color: #06b6d4;"><i class="fa-solid fa-shield-halved"></i></div>
+                <div>Ada (Security)</div>
+            </div>
+            <div class="preset-pill" onclick="selectPreset('Marcus', 'Machine Learning')">
+                <div class="pill-icon" style="background: rgba(168, 85, 247, 0.15); color: #a855f7;"><i class="fa-solid fa-microchip"></i></div>
+                <div>Marcus (ML)</div>
+            </div>
+            <div class="preset-pill" onclick="selectPreset('Elena', 'AI Ethics')">
+                <div class="pill-icon" style="background: rgba(16, 185, 129, 0.15); color: #10b981;"><i class="fa-solid fa-scale-balanced"></i></div>
+                <div>Elena (Ethics)</div>
+            </div>
+            <div class="preset-pill" onclick="selectPreset('Kai', 'Robotics Engineer')">
+                <div class="pill-icon" style="background: rgba(245, 158, 11, 0.15); color: #f59e0b;"><i class="fa-solid fa-robot"></i></div>
+                <div>Kai (Robotics)</div>
+            </div>
+        </div>
+
+        <!-- Console Control Panel -->
+        <div class="console-panel">
+            <form id="initForm" class="console-form">
+                <div>
+                    <label class="form-label">Persona Name</label>
+                    <input type="text" id="personaName" class="glass-input" value="Ada" required>
+                </div>
+                <div>
+                    <label class="form-label">Domain Specialization</label>
+                    <select id="personaDomain" class="glass-input">
+                        <option value="AI Security">AI Security Researcher</option>
+                        <option value="Machine Learning">Machine Learning Engineer</option>
+                        <option value="AI Ethics">AI Ethics & Safety</option>
+                        <option value="Robotics Engineer">Robotics & Embodied AI</option>
+                    </select>
+                </div>
+                <button type="submit" class="cta-btn" id="subBtn">
+                    <i class="fa-solid fa-bolt"></i> Launch Agent Loop
+                </button>
+            </form>
+        </div>
+
+        <!-- Feed Stream -->
+        <div class="stream-title-bar">
+            <div class="stream-title" id="streamHeading">Published Feed Stream</div>
+            <div style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-muted);"><i class="fa-solid fa-arrows-rotate fa-spin"></i> Polling 10s</div>
+        </div>
+
         <div id="feedContent">
-            <div class="empty-box">
+            <div class="empty-card">
                 <i class="fa-solid fa-atom fa-spin"></i>
-                <h3 style="color: var(--text-white);">Discovering & Curating Live Topics...</h3>
+                <h3 style="color: var(--text-white); font-family: var(--font-display); font-size: 1.4rem;">No Active Agent Selected</h3>
                 <p style="color: var(--text-silver); font-size: 0.95rem; margin-top: 0.5rem;">
-                    Scanning Hacker News, ArXiv, Dev.to, and GitHub. The first published post will render live in seconds!
+                    Click "Launch Agent Loop" above to initialize multi-source discovery & Gemini LLM editorial scoring!
                 </p>
             </div>
         </div>
@@ -638,38 +637,22 @@
         let currentAgentId = localStorage.getItem('agentId') || null;
         window.postsStore = {};
 
-        function showStep(stepNum) {
-            document.querySelectorAll('.step-view').forEach(v => v.classList.remove('active'));
-            const headerBtn = document.getElementById('switchAgentHeaderBtn');
-
-            if (stepNum === 1) {
-                document.getElementById('step1View').classList.add('active');
-                headerBtn.style.display = 'none';
-            } else {
-                document.getElementById('step2View').classList.add('active');
-                headerBtn.style.display = 'flex';
-            }
-        }
-
         function selectPreset(name, domain) {
             document.getElementById('personaName').value = name;
             document.getElementById('personaDomain').value = domain;
-            document.querySelectorAll('.preset-card').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.preset-pill').forEach(p => p.classList.remove('active'));
             event.currentTarget.classList.add('active');
         }
 
         if (currentAgentId) {
-            showStep(2);
             fetchFeed();
-        } else {
-            showStep(1);
         }
 
         document.getElementById('initForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('subBtn');
             btn.disabled = true;
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Launching Agent...';
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Launching...';
 
             const name = document.getElementById('personaName').value;
             const domain = document.getElementById('personaDomain').value;
@@ -685,14 +668,13 @@
                 if (data.agentId) {
                     currentAgentId = data.agentId;
                     localStorage.setItem('agentId', currentAgentId);
-                    showStep(2);
                     fetchFeed();
                 }
             } catch (err) {
                 alert('Init error: ' + err.message);
             } finally {
                 btn.disabled = false;
-                btn.innerHTML = '<i class="fa-solid fa-bolt"></i> Launch Agent & Enter Feed Stream';
+                btn.innerHTML = '<i class="fa-solid fa-bolt"></i> Launch Agent Loop';
             }
         });
 
@@ -713,18 +695,19 @@
             const agentName = data.agentName || 'Persona';
             const agentDomain = data.agentDomain || 'Specialist';
 
-            document.getElementById('dashAvatar').innerText = agentName.charAt(0).toUpperCase();
-            document.getElementById('dashName').innerText = agentName;
-            document.getElementById('dashDomain').innerText = `${agentDomain} Specialist`;
-            document.getElementById('statPostsCount').innerText = posts.length;
+            document.getElementById('heroAvatar').innerText = agentName.charAt(0).toUpperCase();
+            document.getElementById('heroName').innerText = agentName;
+            document.getElementById('heroDomain').innerHTML = `<i class="fa-solid fa-user-check"></i> ${agentDomain} Specialist`;
+            document.getElementById('statPostCount').innerText = posts.length;
+            document.getElementById('streamHeading').innerText = `${agentName}'s Published Stream`;
 
             const container = document.getElementById('feedContent');
 
             if (posts.length === 0) {
                 container.innerHTML = `
-                    <div class="empty-box">
+                    <div class="empty-card">
                         <i class="fa-solid fa-dharmachakra fa-spin"></i>
-                        <h3 style="color: var(--text-white);">Discovering & Curating Content for ${escapeHtml(agentName)}...</h3>
+                        <h3 style="color: var(--text-white); font-family: var(--font-display); font-size: 1.4rem;">Discovering Content for ${escapeHtml(agentName)}...</h3>
                         <p style="color: var(--text-silver); font-size: 0.95rem; margin-top: 0.5rem;">
                             Scanning Hacker News, ArXiv, Dev.to, and GitHub. The first published post will render live in seconds!
                         </p>
@@ -733,33 +716,40 @@
                 return;
             }
 
+            const initial = agentName.charAt(0).toUpperCase();
+
             // Store posts by ID cleanly
             posts.forEach(p => { window.postsStore[p.id] = p; });
 
             container.innerHTML = posts.map(post => {
                 const time = new Date(post.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
                 const sourcesHtml = (post.sources || []).map(url => `
-                    <a href="${url}" target="_blank" class="source-link">
+                    <a href="${url}" target="_blank" class="source-pill">
                         <i class="fa-solid fa-arrow-up-right-from-square"></i> ${url.replace('https://', '').split('/')[0]}
                     </a>
                 `).join('');
 
                 return `
                     <div class="post-card">
-                        <div class="post-top">
-                            <div style="font-weight: 700; font-size: 1.1rem; color: var(--text-white);">
-                                Published Post #${post.id}
+                        <div class="post-header">
+                            <div class="author-box">
+                                <div class="author-avatar">${initial}</div>
+                                <div class="author-meta">
+                                    <h4>${escapeHtml(agentName)}</h4>
+                                    <p>${escapeHtml(agentDomain)} Specialist</p>
+                                </div>
                             </div>
-                            <div class="post-date">
+                            <div class="post-time">
                                 <i class="fa-regular fa-clock"></i> ${time} UTC
                             </div>
                         </div>
 
-                        <div class="post-content">${escapeHtml(post.text)}</div>
+                        <div class="post-body">${escapeHtml(post.text)}</div>
 
                         <div class="rationale-panel">
                             <div class="rationale-tag">
-                                <i class="fa-solid fa-brain"></i> Gemini LLM Editorial Rationale
+                                <span><i class="fa-solid fa-brain"></i> Gemini LLM Editorial Rationale</span>
+                                <span style="color: var(--accent-emerald);">98% Match</span>
                             </div>
                             <div class="rationale-text">
                                 "${escapeHtml(post.rationale)}"
@@ -807,7 +797,7 @@
                 <div class="equalizer-box">
                     <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
                 </div>
-                <span style="color: var(--text-white); font-weight: 700;">Speaking...</span>
+                <span style="color: var(--accent-emerald); font-weight: 700;">Speaking...</span>
             `;
 
             utterance.onend = function() { btn.innerHTML = originalHTML; };
@@ -823,7 +813,7 @@
             if (!post) return;
             navigator.clipboard.writeText(post.text);
             const original = btn.innerHTML;
-            btn.innerHTML = '<i class="fa-solid fa-check" style="color: #10b981;"></i> Copied!';
+            btn.innerHTML = '<i class="fa-solid fa-check" style="color: var(--accent-emerald);"></i> Copied!';
             setTimeout(() => { btn.innerHTML = original; }, 2000);
         }
 
