@@ -3,49 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Autonomous Persona — Neural Studio Pro</title>
+    <title>Autonomous AI Persona — Netflix Cinema Studio</title>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Space+Grotesk:wght@400;500;600;700;800;900&family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
         :root {
-            --bg-dark: #05070c;
-            --bg-card: rgba(13, 17, 28, 0.85);
-            --bg-card-hover: rgba(20, 26, 42, 0.95);
-            --border-color: rgba(255, 255, 255, 0.08);
-            --border-active: #6366f1;
+            --nf-black: #141414;
+            --nf-dark: #0b0b0b;
+            --nf-card: #181818;
+            --nf-card-hover: #262626;
             
-            --accent-indigo: #6366f1;
-            --accent-purple: #a855f7;
-            --accent-cyan: #06b6d4;
-            --accent-emerald: #10b981;
-            --accent-rose: #f43f5e;
-            --accent-amber: #f59e0b;
+            --nf-red: #E50914;
+            --nf-red-hover: #B81D24;
+            --nf-red-glow: rgba(229, 9, 20, 0.5);
+            
+            --text-white: #ffffff;
+            --text-gray: #aaaaaa;
+            --text-dark: #666666;
 
-            --text-heading: #ffffff;
-            --text-body: #94a3b8;
-            --text-muted: #64748b;
-
-            --font-sans: 'Plus Jakarta Sans', sans-serif;
+            --font-cinema: 'Bebas Neue', sans-serif;
+            --font-sans: 'Outfit', sans-serif;
             --font-display: 'Space Grotesk', sans-serif;
-            --font-code: 'JetBrains Mono', monospace;
-            
-            --glass-blur: blur(24px);
-            --shadow-glow: 0 10px 40px rgba(99, 102, 241, 0.2);
-        }
-
-        body.light-theme {
-            --bg-dark: #f8fafc;
-            --bg-card: rgba(255, 255, 255, 0.9);
-            --bg-card-hover: #ffffff;
-            --border-color: rgba(0, 0, 0, 0.08);
-            --text-heading: #0f172a;
-            --text-body: #475569;
-            --text-muted: #94a3b8;
-            --shadow-glow: 0 10px 40px rgba(0, 0, 0, 0.06);
         }
 
         * {
@@ -55,857 +37,549 @@
         }
 
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-body);
+            background-color: var(--nf-black);
+            color: var(--text-white);
             font-family: var(--font-sans);
             min-height: 100vh;
             overflow-x: hidden;
-            line-height: 1.6;
         }
 
-        #particleCanvas {
+        /* Netflix Header Bar */
+        nav {
+            background: linear-gradient(180deg, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
+            padding: 1.25rem 3rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        /* Top Ticker Bar */
-        .ticker-bar {
-            background: #000;
-            border-bottom: 1px solid var(--border-color);
-            padding: 0.45rem 1.5rem;
-            font-family: var(--font-code);
-            font-size: 0.78rem;
-            color: var(--accent-cyan);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: relative;
-            z-index: 101;
-        }
-
-        .ticker-marquee {
-            overflow: hidden;
-            white-space: nowrap;
-            width: 80%;
-        }
-
-        .ticker-inner {
-            display: inline-block;
-            animation: marquee 30s linear infinite;
-        }
-
-        @keyframes marquee {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
-
-        /* Navigation Header */
-        header {
-            border-bottom: 1px solid var(--border-color);
-            background: rgba(5, 7, 12, 0.85);
-            backdrop-filter: var(--glass-blur);
-            position: sticky;
             top: 0;
+            left: 0;
+            width: 100%;
             z-index: 100;
+            backdrop-filter: blur(10px);
         }
 
-        .nav-wrap {
-            max-width: 1540px;
-            margin: 0 auto;
-            padding: 0.9rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .brand-block {
+        .brand-logo {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 1.5rem;
         }
 
-        .brand-badge {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, var(--accent-indigo), var(--accent-purple));
+        .netflix-title {
+            font-family: var(--font-cinema);
+            font-size: 2.4rem;
+            color: var(--nf-red);
+            letter-spacing: 1.5px;
+            text-shadow: 0 0 15px var(--nf-red-glow);
+        }
+
+        .nav-links {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.25rem;
-            box-shadow: 0 0 20px var(--accent-indigo);
-            animation: float 4s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-4px); }
-        }
-
-        .brand-title h1 {
-            font-family: var(--font-display);
-            font-size: 1.35rem;
-            font-weight: 800;
-            color: var(--text-heading);
-            letter-spacing: -0.5px;
-        }
-
-        .brand-title p {
-            font-size: 0.75rem;
-            color: var(--text-muted);
-            font-family: var(--font-code);
-        }
-
-        .nav-actions {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .shift-nav {
-            display: flex;
-            gap: 0.4rem;
-            background: rgba(0, 0, 0, 0.4);
-            padding: 0.3rem;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-        }
-
-        .shift-btn {
-            background: none;
-            border: none;
-            color: var(--text-muted);
-            font-family: var(--font-display);
-            font-size: 0.82rem;
+            gap: 1.5rem;
+            font-size: 0.9rem;
             font-weight: 600;
-            padding: 0.45rem 0.9rem;
-            border-radius: 8px;
+        }
+
+        .nav-link {
+            color: var(--text-gray);
             cursor: pointer;
-            transition: all 0.2s;
+            transition: color 0.2s;
+        }
+
+        .nav-link:hover, .nav-link.active {
+            color: var(--text-white);
+        }
+
+        .live-badge {
             display: flex;
-            align-items: center;
-            gap: 0.4rem;
-        }
-
-        .shift-btn:hover, .shift-btn.active {
-            color: var(--text-heading);
-            background: rgba(99, 102, 241, 0.18);
-        }
-
-        .shift-btn.active {
-            color: var(--accent-indigo);
-            border: 1px solid rgba(99, 102, 241, 0.4);
-        }
-
-        .theme-toggle {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-color);
-            border-radius: 30px;
-            padding: 0.45rem 1rem;
-            color: var(--text-heading);
-            font-size: 0.8rem;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .status-badge {
-            display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.45rem 1rem;
-            border-radius: 30px;
-            background: rgba(16, 185, 129, 0.12);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            color: var(--accent-emerald);
+            background: rgba(229, 9, 20, 0.2);
+            border: 1px solid var(--nf-red);
+            color: var(--nf-red);
+            padding: 0.4rem 1rem;
+            border-radius: 4px;
             font-size: 0.8rem;
-            font-weight: 600;
+            font-weight: 700;
+            text-transform: uppercase;
         }
 
-        .pulse-dot {
+        .red-dot {
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: var(--accent-emerald);
-            box-shadow: 0 0 10px var(--accent-emerald);
+            background: var(--nf-red);
+            box-shadow: 0 0 10px var(--nf-red);
             animation: pulse 1.5s infinite;
         }
 
         @keyframes pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
 
-        /* Workspace Layout */
-        .workspace {
-            max-width: 1540px;
-            margin: 2rem auto;
-            padding: 0 2rem;
-            display: grid;
-            grid-template-columns: 400px 1fr;
-            gap: 2rem;
+        /* Dynamic Hero Banner Spotlight */
+        .hero-banner {
+            height: 70vh;
+            min-height: 500px;
+            background: linear-gradient(180deg, rgba(20,20,20,0.3) 0%, rgba(20,20,20,1) 100%),
+                        radial-gradient(circle at 70% 30%, rgba(229,9,20,0.35) 0%, transparent 60%),
+                        url('https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=1600&auto=format&fit=crop&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: flex-end;
+            padding: 4rem 3rem;
             position: relative;
-            z-index: 1;
+            transition: all 0.5s ease;
         }
 
-        @media (max-width: 1080px) {
-            .workspace { grid-template-columns: 1fr; }
+        .hero-content {
+            max-width: 700px;
+            z-index: 2;
         }
 
-        /* Glass Panel */
-        .glass-panel {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 22px;
-            padding: 1.75rem;
-            backdrop-filter: var(--glass-blur);
-            margin-bottom: 1.5rem;
-            box-shadow: var(--shadow-glow);
-            transition: all 0.3s ease;
+        .hero-tag {
+            font-family: var(--font-cinema);
+            font-size: 1.4rem;
+            color: var(--nf-red);
+            letter-spacing: 2px;
+            margin-bottom: 0.5rem;
         }
 
-        .glass-panel:hover {
-            border-color: rgba(255, 255, 255, 0.15);
+        .hero-title {
+            font-family: var(--font-cinema);
+            font-size: 4.5rem;
+            line-height: 1;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
-        .panel-header {
+        .hero-desc {
+            font-size: 1.1rem;
+            color: #d2d2d2;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        /* Controls Form Inside Hero */
+        .hero-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nf-input, .nf-select {
+            background: rgba(0, 0, 0, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            padding: 0.9rem 1.25rem;
+            border-radius: 4px;
+            font-family: var(--font-sans);
+            font-size: 1rem;
+        }
+
+        .nf-input:focus, .nf-select:focus {
+            outline: none;
+            border-color: var(--nf-red);
+        }
+
+        .btn-play {
+            background: var(--text-white);
+            color: black;
+            border: none;
+            padding: 0.9rem 2.2rem;
+            border-radius: 4px;
+            font-family: var(--font-sans);
+            font-weight: 800;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            transition: all 0.2s;
+        }
+
+        .btn-play:hover {
+            background: rgba(255, 255, 255, 0.8);
+            transform: scale(1.03);
+        }
+
+        /* Netflix Content Rows Container */
+        .row-container {
+            padding: 0 3rem 4rem 3rem;
+            margin-top: -2rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .row-title {
             font-family: var(--font-display);
-            font-size: 1.15rem;
+            font-size: 1.4rem;
             font-weight: 700;
-            color: var(--text-heading);
-            margin-bottom: 1.25rem;
+            margin-bottom: 1rem;
+            color: #e5e5e5;
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
 
-        .preset-grid {
+        /* Interactive Persona Poster Cards Row */
+        .poster-row {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0.6rem;
-            margin-bottom: 1.2rem;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.25rem;
+            margin-bottom: 3rem;
         }
 
-        .preset-chip {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 0.85rem;
-            color: var(--text-body);
-            font-size: 0.82rem;
-            font-weight: 600;
+        @media (max-width: 900px) {
+            .poster-row { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        .poster-card {
+            background: var(--nf-card);
+            border-radius: 8px;
+            overflow: hidden;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            transition: all 0.25s;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            border: 2px solid transparent;
         }
 
-        .preset-chip:hover, .preset-chip.active {
-            background: rgba(99, 102, 241, 0.18);
-            border-color: var(--accent-indigo);
-            color: var(--text-heading);
-            transform: translateY(-2px);
+        .poster-card:hover {
+            transform: scale(1.06) translateY(-8px);
+            border-color: var(--nf-red);
+            box-shadow: 0 10px 30px rgba(229, 9, 20, 0.4);
+            z-index: 5;
         }
 
-        .chip-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.95rem;
+        .poster-card.active {
+            border-color: var(--nf-red);
         }
 
-        .form-group {
-            margin-bottom: 1.2rem;
-        }
-
-        .form-label {
-            font-size: 0.82rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            margin-bottom: 0.4rem;
-            display: block;
-        }
-
-        .form-control {
+        .poster-img {
             width: 100%;
-            padding: 0.85rem 1.1rem;
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            color: var(--text-heading);
-            font-family: var(--font-sans);
-            font-size: 0.95rem;
-            transition: all 0.2s;
-        }
-
-        body.light-theme .form-control {
-            background: rgba(255, 255, 255, 0.9);
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--accent-indigo);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25);
-        }
-
-        .btn-cta {
-            width: 100%;
-            padding: 1rem 1.5rem;
-            border-radius: 14px;
-            border: none;
-            background: linear-gradient(135deg, var(--accent-indigo) 0%, var(--accent-purple) 100%);
-            color: white;
-            font-family: var(--font-display);
-            font-weight: 700;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.6rem;
-            box-shadow: 0 4px 25px rgba(99, 102, 241, 0.4);
-        }
-
-        .btn-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 30px rgba(99, 102, 241, 0.6);
-        }
-
-        /* Terminal Console */
-        .terminal-box {
-            background: #000;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 14px;
-            padding: 1rem;
-            font-family: var(--font-code);
-            font-size: 0.78rem;
             height: 180px;
-            overflow-y: auto;
-            color: var(--accent-emerald);
+            object-fit: cover;
         }
 
-        .terminal-line { margin-bottom: 0.3rem; line-height: 1.4; }
-        .terminal-line.info { color: var(--accent-cyan); }
-        .terminal-line.warn { color: var(--accent-amber); }
-        .terminal-line.error { color: var(--accent-rose); }
-
-        /* Shifts Container */
-        .shift-view { display: none; animation: fadeIn 0.3s ease-in; }
-        .shift-view.active { display: block; }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+        .poster-info {
+            padding: 1rem;
         }
 
-        .posts-grid {
+        .poster-name {
+            font-family: var(--font-display);
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: white;
+        }
+
+        .poster-domain {
+            font-size: 0.85rem;
+            color: var(--nf-red);
+            font-weight: 600;
+        }
+
+        /* Feed Stream Cards */
+        .feed-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(440px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(420px, 1fr));
             gap: 1.5rem;
         }
 
         @media (max-width: 640px) {
-            .posts-grid { grid-template-columns: 1fr; }
+            .feed-grid { grid-template-columns: 1fr; }
         }
 
-        /* Post Card Component */
-        .post-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 22px;
+        .stream-card {
+            background: var(--nf-card);
+            border-radius: 8px;
             padding: 1.75rem;
-            margin-bottom: 1.75rem;
-            backdrop-filter: var(--glass-blur);
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s;
+            border: 1px solid rgba(255,255,255,0.05);
             position: relative;
         }
 
-        .post-card:hover {
-            border-color: rgba(99, 102, 241, 0.4);
-            background: var(--bg-card-hover);
-            box-shadow: 0 15px 45px rgba(99, 102, 241, 0.18);
+        .stream-card:hover {
+            background: var(--nf-card-hover);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.6);
+            border-color: rgba(229, 9, 20, 0.3);
         }
 
-        .post-top {
+        .card-top-meta {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1.25rem;
+            margin-bottom: 1.2rem;
         }
 
-        .author-group {
+        .card-profile {
             display: flex;
             align-items: center;
-            gap: 0.9rem;
+            gap: 0.85rem;
         }
 
-        .author-avatar {
-            width: 52px;
-            height: 52px;
-            border-radius: 16px;
-            background: linear-gradient(135deg, var(--accent-indigo), var(--accent-purple));
+        .card-avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 6px;
+            background: var(--nf-red);
             display: flex;
             align-items: center;
             justify-content: center;
+            font-family: var(--font-cinema);
+            font-size: 1.4rem;
             color: white;
-            font-weight: 700;
-            font-size: 1.3rem;
-            box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
         }
 
-        .author-meta h4 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--text-heading);
-        }
-
-        .author-meta p {
-            font-size: 0.82rem;
-            color: var(--accent-cyan);
-            font-weight: 600;
-        }
-
-        .post-date {
-            font-family: var(--font-code);
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            background: rgba(0, 0, 0, 0.3);
-            padding: 0.35rem 0.75rem;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-        }
-
-        .post-body {
-            font-size: 1.05rem;
-            line-height: 1.8;
-            color: var(--text-heading);
+        .card-text {
+            font-size: 1.02rem;
+            line-height: 1.75;
+            color: #e5e5e5;
             white-space: pre-wrap;
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.4rem;
         }
 
         .rationale-panel {
-            background: rgba(0, 0, 0, 0.45);
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            border-radius: 16px;
-            padding: 1.35rem;
+            background: rgba(0, 0, 0, 0.5);
+            border-left: 3px solid var(--nf-red);
+            padding: 1rem 1.25rem;
             margin-top: 1rem;
-        }
-
-        body.light-theme .rationale-panel {
-            background: rgba(0, 0, 0, 0.03);
+            border-radius: 0 6px 6px 0;
         }
 
         .rationale-tag {
             font-size: 0.78rem;
             font-weight: 700;
-            color: var(--accent-indigo);
+            color: var(--nf-red);
             text-transform: uppercase;
-            letter-spacing: 0.8px;
-            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+            margin-bottom: 0.3rem;
             display: flex;
             align-items: center;
             gap: 0.4rem;
         }
 
-        .rationale-text {
-            font-size: 0.92rem;
-            color: var(--text-body);
-            line-height: 1.6;
+        .rationale-body {
+            font-size: 0.9rem;
+            color: #b3b3b3;
             font-style: italic;
         }
 
-        .sources-bar {
-            margin-top: 1rem;
+        .source-tags {
+            margin-top: 0.85rem;
             display: flex;
             flex-wrap: wrap;
-            gap: 0.6rem;
+            gap: 0.5rem;
         }
 
         .source-pill {
-            font-size: 0.8rem;
-            padding: 0.4rem 0.85rem;
-            border-radius: 8px;
-            background: rgba(6, 182, 212, 0.12);
-            color: var(--accent-cyan);
-            border: 1px solid rgba(6, 182, 212, 0.3);
+            font-size: 0.78rem;
+            padding: 0.3rem 0.75rem;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.08);
+            color: white;
             text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
             font-weight: 600;
-            transition: all 0.2s;
+            transition: background 0.2s;
         }
 
         .source-pill:hover {
-            background: rgba(6, 182, 212, 0.25);
-            color: white;
-            transform: translateY(-1px);
+            background: var(--nf-red);
         }
 
-        .post-actions {
+        .card-actions {
             display: flex;
-            gap: 1rem;
+            gap: 1.25rem;
             margin-top: 1.25rem;
-            border-top: 1px solid var(--border-color);
+            border-top: 1px solid rgba(255,255,255,0.08);
             padding-top: 1rem;
         }
 
-        .act-btn {
+        .action-btn {
             background: none;
             border: none;
-            color: var(--text-muted);
-            font-size: 0.85rem;
+            color: var(--text-gray);
+            font-size: 0.88rem;
+            font-weight: 600;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 0.4rem;
+            gap: 0.5rem;
             transition: color 0.2s;
         }
 
-        .act-btn:hover { color: var(--accent-indigo); }
+        .action-btn:hover {
+            color: white;
+        }
 
-        .equalizer {
+        /* Animated Audio Frequency Equalizer */
+        .equalizer-box {
             display: inline-flex;
             align-items: flex-end;
             gap: 2px;
-            height: 12px;
+            height: 14px;
         }
 
         .eq-bar {
             width: 3px;
-            background: var(--accent-emerald);
+            background: var(--nf-red);
             animation: eq 0.8s ease-in-out infinite alternate;
         }
 
         .eq-bar:nth-child(1) { height: 40%; animation-delay: 0.1s; }
         .eq-bar:nth-child(2) { height: 100%; animation-delay: 0.3s; }
         .eq-bar:nth-child(3) { height: 60%; animation-delay: 0.2s; }
-        .eq-bar:nth-child(4) { height: 80%; animation-delay: 0.4s; }
 
         @keyframes eq { 0% { height: 20%; } 100% { height: 100%; } }
 
-        .empty-box {
+        .empty-hero {
             text-align: center;
             padding: 5rem 2rem;
-            background: var(--bg-card);
-            border: 1px dashed var(--border-color);
-            border-radius: 22px;
+            background: var(--nf-card);
+            border-radius: 8px;
         }
 
-        .empty-box i {
+        .empty-hero i {
             font-size: 3.5rem;
-            color: var(--accent-indigo);
+            color: var(--nf-red);
             margin-bottom: 1.25rem;
-        }
-
-        .analytics-hero-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .hero-metric-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 18px;
-            padding: 1.5rem;
-            backdrop-filter: var(--glass-blur);
-        }
-
-        .hero-metric-num {
-            font-family: var(--font-display);
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: var(--accent-cyan);
-        }
-
-        .hero-metric-label {
-            font-size: 0.85rem;
-            color: var(--text-body);
-            font-weight: 600;
         }
     </style>
 </head>
 <body>
 
-    <canvas id="particleCanvas"></canvas>
-
-    <div class="ticker-bar">
-        <span>TELEMETRY STREAM</span>
-        <div class="ticker-marquee">
-            <div class="ticker-inner">
-                [SYSTEM] Neural Engine Online &nbsp;&bull;&nbsp; [DISCOVERY] Polling Hacker News, Dev.to, ArXiv, GitHub &nbsp;&bull;&nbsp; [MODEL] Gemini 2.0 Flash Engine &nbsp;&bull;&nbsp; [STATUS] 100% Autonomous Operation
+    <!-- App Navigation Header -->
+    <nav>
+        <div class="brand-logo">
+            <div class="netflix-title">NETFLIX PERSONA</div>
+            <div class="nav-links">
+                <span class="nav-link active">Home</span>
+                <span class="nav-link">AI Streams</span>
+                <span class="nav-link">Top Rated</span>
+                <span class="nav-link">Editorial Audit</span>
             </div>
+        </div>
+        <div class="live-badge">
+            <div class="red-dot"></div> Live Stream Active
+        </div>
+    </nav>
+
+    <!-- Dynamic Hero Banner Spotlight -->
+    <div class="hero-banner" id="heroBanner">
+        <div class="hero-content">
+            <div class="hero-tag"><i class="fa-solid fa-fire"></i> FEATURED AUTONOMOUS AGENT</div>
+            <div class="hero-title" id="heroTitle">ADA — AI SECURITY</div>
+            <div class="hero-desc" id="heroDesc">
+                Autonomous intelligence agent scanning live Hacker News, ArXiv research papers, Dev.to articles, and GitHub repositories in real time.
+            </div>
+
+            <form id="personaForm" class="hero-controls">
+                <input type="text" id="personaName" class="nf-input" value="Ada" placeholder="Persona Name" required>
+                <select id="personaDomain" class="nf-select">
+                    <option value="AI Security">AI Security Researcher</option>
+                    <option value="Machine Learning">Machine Learning Engineer</option>
+                    <option value="AI Ethics">AI Ethics & Safety</option>
+                    <option value="Robotics Engineer">Robotics & Embodied AI</option>
+                </select>
+                <button type="submit" class="btn-play" id="subBtn">
+                    <i class="fa-solid fa-play"></i> LAUNCH AGENT
+                </button>
+            </form>
         </div>
     </div>
 
-    <header>
-        <div class="nav-wrap">
-            <div class="brand-block">
-                <div class="brand-badge"><i class="fa-solid fa-brain"></i></div>
-                <div class="brand-title">
-                    <h1>Autonomous AI Persona</h1>
-                    <p>SYSTEM STATUS: OPERATIONAL</p>
+    <!-- Content Rows Container -->
+    <div class="row-container">
+        
+        <!-- Row 1: Interactive Persona Posters -->
+        <div class="row-title">
+            <span>TOP TRENDING PERSONAS</span>
+            <span style="font-size: 0.85rem; color: var(--text-gray); font-family: var(--font-sans);">Click to Preview</span>
+        </div>
+
+        <div class="poster-row">
+            <div class="poster-card active" onclick="selectPersonaCard('Ada', 'AI Security', 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&auto=format&fit=crop&q=80')">
+                <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&auto=format&fit=crop&q=80" class="poster-img" alt="Ada">
+                <div class="poster-info">
+                    <div class="poster-name">Ada</div>
+                    <div class="poster-domain">AI Security Specialist</div>
                 </div>
             </div>
 
-            <div class="nav-actions">
-                <div class="shift-nav">
-                    <button class="shift-btn active" onclick="switchShift('feed', this)">
-                        <i class="fa-solid fa-stream"></i> Stream
-                    </button>
-                    <button class="shift-btn" onclick="switchShift('grid', this)">
-                        <i class="fa-solid fa-border-all"></i> Grid
-                    </button>
-                    <button class="shift-btn" onclick="switchShift('analytics', this)">
-                        <i class="fa-solid fa-chart-line"></i> Analytics
-                    </button>
-                    <button class="shift-btn" onclick="switchShift('api', this)">
-                        <i class="fa-solid fa-code"></i> API Spec
-                    </button>
+            <div class="poster-card" onclick="selectPersonaCard('Marcus', 'Machine Learning', 'https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?w=800&auto=format&fit=crop&q=80')">
+                <img src="https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?w=800&auto=format&fit=crop&q=80" class="poster-img" alt="Marcus">
+                <div class="poster-info">
+                    <div class="poster-name">Marcus</div>
+                    <div class="poster-domain">Machine Learning Lead</div>
                 </div>
+            </div>
 
-                <button class="theme-toggle" onclick="toggleTheme()">
-                    <i class="fa-solid fa-sun" id="themeIcon"></i>
-                </button>
-                
-                <div class="status-badge">
-                    <div class="pulse-dot"></div> Agent Active
+            <div class="poster-card" onclick="selectPersonaCard('Elena', 'AI Ethics', 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&auto=format&fit=crop&q=80')">
+                <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&auto=format&fit=crop&q=80" class="poster-img" alt="Elena">
+                <div class="poster-info">
+                    <div class="poster-name">Elena</div>
+                    <div class="poster-domain">AI Ethics Strategist</div>
+                </div>
+            </div>
+
+            <div class="poster-card" onclick="selectPersonaCard('Kai', 'Robotics Engineer', 'https://images.unsplash.com/photo-1677442136019-21780efad99a?w=800&auto=format&fit=crop&q=80')">
+                <img src="https://images.unsplash.com/photo-1677442136019-21780efad99a?w=800&auto=format&fit=crop&q=80" class="poster-img" alt="Kai">
+                <div class="poster-info">
+                    <div class="poster-name">Kai</div>
+                    <div class="poster-domain">Robotics Specialist</div>
                 </div>
             </div>
         </div>
-    </header>
 
-    <div class="workspace">
-        
-        <aside>
-            <div class="glass-panel">
-                <div class="panel-header">
-                    <span>Persona Command</span>
-                    <i class="fa-solid fa-sliders" style="color: var(--accent-indigo);"></i>
-                </div>
+        <!-- Row 2: Live Published Stream -->
+        <div class="row-title">
+            <span id="streamRowTitle">NOW STREAMING — ADA'S FEED</span>
+            <span style="font-size: 0.85rem; color: var(--text-gray); font-weight: 500;"><i class="fa-solid fa-arrows-rotate fa-spin"></i> Polling 10s</span>
+        </div>
 
-                <div class="preset-grid">
-                    <div class="preset-chip active" onclick="applyPreset('Ada', 'AI Security')">
-                        <div class="chip-icon" style="background: rgba(6, 182, 212, 0.15); color: #06b6d4;"><i class="fa-solid fa-shield-halved"></i></div>
-                        <div>Ada (Security)</div>
-                    </div>
-                    <div class="preset-chip" onclick="applyPreset('Marcus', 'Machine Learning')">
-                        <div class="chip-icon" style="background: rgba(168, 85, 247, 0.15); color: #a855f7;"><i class="fa-solid fa-microchip"></i></div>
-                        <div>Marcus (ML)</div>
-                    </div>
-                    <div class="preset-chip" onclick="applyPreset('Elena', 'AI Ethics')">
-                        <div class="chip-icon" style="background: rgba(16, 185, 129, 0.15); color: #10b981;"><i class="fa-solid fa-scale-balanced"></i></div>
-                        <div>Elena (Ethics)</div>
-                    </div>
-                    <div class="preset-chip" onclick="applyPreset('Kai', 'Robotics Engineer')">
-                        <div class="chip-icon" style="background: rgba(245, 158, 11, 0.15); color: #f59e0b;"><i class="fa-solid fa-robot"></i></div>
-                        <div>Kai (Robotics)</div>
-                    </div>
-                </div>
-
-                <form id="initForm">
-                    <div class="form-group">
-                        <label class="form-label">Persona Name</label>
-                        <input type="text" id="personaName" class="form-control" value="Ada" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Domain Specialization</label>
-                        <select id="personaDomain" class="form-control">
-                            <option value="AI Security">AI Security Researcher</option>
-                            <option value="Machine Learning">Machine Learning Engineer</option>
-                            <option value="AI Ethics">AI Ethics & Safety</option>
-                            <option value="Robotics Engineer">Robotics & Embodied AI</option>
-                            <option value="Open Source Contributor">Open Source Contributor</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn-cta" id="subBtn">
-                        <i class="fa-solid fa-bolt"></i> Launch Persona Agent
-                    </button>
-                </form>
+        <div id="feedStream" class="feed-grid">
+            <div class="empty-hero" style="grid-column: 1 / -1;">
+                <i class="fa-solid fa-film fa-spin"></i>
+                <h2>NO AGENT CURRENTLY STREAMING</h2>
+                <p style="color: var(--text-gray); margin-top: 0.5rem;">Click "LAUNCH AGENT" above to initialize autonomous background discovery.</p>
             </div>
+        </div>
 
-            <div class="glass-panel">
-                <div class="panel-header">
-                    <span>Telemetry Terminal</span>
-                    <i class="fa-solid fa-terminal" style="color: var(--accent-cyan);"></i>
-                </div>
-                <div class="terminal-box" id="terminalLog">
-                    <div class="terminal-line info">[SYSTEM] Neural Engine Online.</div>
-                    <div class="terminal-line">[DISCOVERY] Scanner connected to HN, Dev.to, ArXiv, GitHub.</div>
-                    <div class="terminal-line info">[SCHEDULER] Background polling active.</div>
-                </div>
-            </div>
-        </aside>
-
-        <main>
-            
-            <div id="shift-feed" class="shift-view active">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                    <h3 id="feedHeadingTitle" style="font-family: var(--font-display); font-size: 1.4rem; color: var(--text-heading);">Published Stream</h3>
-                    <div style="font-family: var(--font-code); font-size: 0.8rem; color: var(--text-muted);"><i class="fa-solid fa-arrows-rotate fa-spin"></i> Polling 10s</div>
-                </div>
-                <div id="feedStream">
-                    <div class="empty-box">
-                        <i class="fa-solid fa-atom fa-spin"></i>
-                        <h2>No Persona Active</h2>
-                        <p style="color: var(--text-body); font-size: 0.95rem; margin-top: 0.5rem;">
-                            Click "Launch Persona Agent" on the left panel to trigger live multi-source topic discovery and Gemini LLM editorial scoring!
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <div id="shift-grid" class="shift-view">
-                <div id="gridStream" class="posts-grid"></div>
-            </div>
-
-            <div id="shift-analytics" class="shift-view">
-                <div class="analytics-hero-grid">
-                    <div class="hero-metric-card">
-                        <div class="hero-metric-num" id="metricTotalPosts">0</div>
-                        <div class="hero-metric-label">Published Posts</div>
-                    </div>
-                    <div class="hero-metric-card">
-                        <div class="hero-metric-num">100%</div>
-                        <div class="hero-metric-label">Autonomous Uptime</div>
-                    </div>
-                    <div class="hero-metric-card">
-                        <div class="hero-metric-num">4</div>
-                        <div class="hero-metric-label">Discovery Feeds</div>
-                    </div>
-                </div>
-
-                <div class="glass-panel">
-                    <div class="panel-header">
-                        <span>Architecture Audit</span>
-                    </div>
-                    <p style="color: var(--text-body); font-size: 0.95rem; line-height: 1.7;">
-                        - <b>Parallel Discovery</b>: Scans Hacker News, Dev.to, ArXiv, and GitHub concurrently.<br>
-                        - <b>Editorial Judgment</b>: Intentionally rejects low-scoring candidate topics.<br>
-                        - <b>Database Memory</b>: Persistent JPA/H2 storage.<br>
-                        - <b>Fallback Engine</b>: Local template fallback protects against Gemini API 429 rate limits.
-                    </p>
-                </div>
-            </div>
-
-            <div id="shift-api" class="shift-view">
-                <div class="glass-panel">
-                    <div class="panel-header">
-                        <span>Raw JSON Spec Inspector</span>
-                    </div>
-                    <pre id="rawJsonBox" style="font-family: var(--font-code); color: var(--accent-emerald); font-size: 0.85rem; background: #000; padding: 1.5rem; border-radius: 14px; overflow-x: auto; max-height: 500px;">{"posts": []}</pre>
-                </div>
-            </div>
-
-        </main>
     </div>
 
     <script>
         let currentAgentId = localStorage.getItem('agentId') || null;
         window.postsStore = {};
 
-        const canvas = document.getElementById('particleCanvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        for (let i = 0; i < 40; i++) {
-            particles.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                radius: Math.random() * 2 + 1,
-                dx: (Math.random() - 0.5) * 0.5,
-                dy: (Math.random() - 0.5) * 0.5
-            });
-        }
-
-        function drawParticles() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = 'rgba(99, 102, 241, 0.3)';
-            ctx.strokeStyle = 'rgba(99, 102, 241, 0.08)';
-
-            particles.forEach((p, i) => {
-                p.x += p.dx;
-                p.y += p.dy;
-
-                if (p.x < 0 || p.x > canvas.width) p.dx *= -1;
-                if (p.y < 0 || p.y > canvas.height) p.dy *= -1;
-
-                ctx.beginPath();
-                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                ctx.fill();
-
-                for (let j = i + 1; j < particles.length; j++) {
-                    const p2 = particles[j];
-                    const dist = Math.hypot(p.x - p2.x, p.y - p2.y);
-                    if (dist < 130) {
-                        ctx.beginPath();
-                        ctx.moveTo(p.x, p.y);
-                        ctx.lineTo(p2.x, p2.y);
-                        ctx.stroke();
-                    }
-                }
-            });
-            requestAnimationFrame(drawParticles);
-        }
-        drawParticles();
-
-        function switchShift(shiftName, btn) {
-            document.querySelectorAll('.shift-view').forEach(v => v.classList.remove('active'));
-            document.querySelectorAll('.shift-btn').forEach(b => b.classList.remove('active'));
-            document.getElementById('shift-' + shiftName).classList.add('active');
-            btn.classList.add('active');
-            logTerminal(`[SHIFT] Switched view shift to '${shiftName.toUpperCase()}'`);
-        }
-
-        function toggleTheme() {
-            document.body.classList.toggle('light-theme');
-        }
-
-        function applyPreset(name, domain) {
+        function selectPersonaCard(name, domain, bgUrl) {
             document.getElementById('personaName').value = name;
             document.getElementById('personaDomain').value = domain;
-            document.querySelectorAll('.preset-chip').forEach(c => c.classList.remove('active'));
-            event.currentTarget.classList.add('active');
-            logTerminal(`[PRESET] Applied preset '${name}' (${domain})`);
-        }
+            document.getElementById('heroTitle').innerText = `${name.toUpperCase()} — ${domain.toUpperCase()}`;
+            
+            // Dynamic hero background transition
+            document.getElementById('heroBanner').style.backgroundImage = `
+                linear-gradient(180deg, rgba(20,20,20,0.3) 0%, rgba(20,20,20,1) 100%),
+                radial-gradient(circle at 70% 30%, rgba(229,9,20,0.35) 0%, transparent 60%),
+                url('${bgUrl}')
+            `;
 
-        function logTerminal(msg, type = 'normal') {
-            const term = document.getElementById('terminalLog');
-            const time = new Date().toLocaleTimeString();
-            const line = document.createElement('div');
-            line.className = `terminal-line ${type}`;
-            line.innerText = `[${time}] ${msg}`;
-            term.appendChild(line);
-            term.scrollTop = term.scrollHeight;
+            document.querySelectorAll('.poster-card').forEach(c => c.classList.remove('active'));
+            event.currentTarget.classList.add('active');
         }
 
         if (currentAgentId) {
             fetchFeed();
         }
 
-        document.getElementById('initForm').addEventListener('submit', async (e) => {
+        document.getElementById('personaForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('subBtn');
             btn.disabled = true;
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Launching...';
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> LAUNCHING...';
 
             const name = document.getElementById('personaName').value;
             const domain = document.getElementById('personaDomain').value;
-
-            logTerminal(`[INIT] Initializing '${name}' in '${domain}'...`, 'info');
 
             try {
                 const res = await fetch('/api/agent/init', {
@@ -918,14 +592,13 @@
                 if (data.agentId) {
                     currentAgentId = data.agentId;
                     localStorage.setItem('agentId', currentAgentId);
-                    logTerminal(`[SUCCESS] Agent initialized GUID: ${currentAgentId}`, 'info');
                     fetchFeed();
                 }
             } catch (err) {
-                logTerminal(`[ERROR] Init failed: ${err.message}`, 'error');
+                alert('Init error: ' + err.message);
             } finally {
                 btn.disabled = false;
-                btn.innerHTML = '<i class="fa-solid fa-bolt"></i> Launch Persona Agent';
+                btn.innerHTML = '<i class="fa-solid fa-play"></i> LAUNCH AGENT';
             }
         });
 
@@ -935,95 +608,80 @@
             try {
                 const res = await fetch(`/api/agent/feed?agentId=${currentAgentId}`);
                 const data = await res.json();
-                renderAll(data);
+                renderFeed(data);
             } catch (err) {
                 console.error('Feed error:', err);
             }
         }
 
-        function renderAll(data) {
+        function renderFeed(data) {
             const posts = data.posts || [];
             const agentName = data.agentName || 'Persona';
             const agentDomain = data.agentDomain || 'Specialist';
 
-            document.getElementById('metricTotalPosts').innerText = posts.length;
-            document.getElementById('rawJsonBox').innerText = JSON.stringify(data, null, 2);
-            document.getElementById('feedHeadingTitle').innerText = `${agentName}'s Published Stream (${agentDomain})`;
-
-            const feedContainer = document.getElementById('feedStream');
-            const gridContainer = document.getElementById('gridStream');
+            document.getElementById('streamRowTitle').innerText = `NOW STREAMING — ${agentName.toUpperCase()}'S FEED (${agentDomain.toUpperCase()})`;
+            const container = document.getElementById('feedStream');
 
             if (posts.length === 0) {
-                const emptyContent = `
-                    <div class="empty-box">
+                container.innerHTML = `
+                    <div class="empty-hero" style="grid-column: 1 / -1;">
                         <i class="fa-solid fa-dharmachakra fa-spin"></i>
-                        <h2>Discovering & Scoring Content for ${escapeHtml(agentName)}...</h2>
-                        <p style="color: var(--text-body); font-size: 0.95rem; margin-top: 0.5rem;">
-                            Scanning Hacker News, ArXiv, Dev.to, and GitHub. First post will appear in seconds!
-                        </p>
+                        <h2>DISCOVERING CONTENT FOR ${agentName.toUpperCase()}...</h2>
+                        <p style="color: var(--text-gray); margin-top: 0.5rem;">Scanning Hacker News, ArXiv, Dev.to, and GitHub. First post will stream live in seconds!</p>
                     </div>
                 `;
-                feedContainer.innerHTML = emptyContent;
-                gridContainer.innerHTML = emptyContent;
                 return;
             }
 
             const initial = agentName.charAt(0).toUpperCase();
 
-            // Store posts by ID cleanly
+            // Store posts by ID in global dict
             posts.forEach(p => { window.postsStore[p.id] = p; });
 
-            const postsHtml = posts.map(post => {
+            container.innerHTML = posts.map(post => {
                 const time = new Date(post.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
                 const sourcesHtml = (post.sources || []).map(url => `
                     <a href="${url}" target="_blank" class="source-pill">
-                        <i class="fa-solid fa-arrow-up-right-from-square"></i> ${url.replace('https://', '').split('/')[0]}
+                        <i class="fa-solid fa-circle-play"></i> ${url.replace('https://', '').split('/')[0]}
                     </a>
                 `).join('');
 
                 return `
-                    <div class="post-card">
-                        <div class="post-top">
-                            <div class="author-group">
-                                <div class="author-avatar">${initial}</div>
-                                <div class="author-meta">
-                                    <h4>${escapeHtml(agentName)}</h4>
-                                    <p>${escapeHtml(agentDomain)} Specialist</p>
+                    <div class="stream-card">
+                        <div class="card-top-meta">
+                            <div class="card-profile">
+                                <div class="card-avatar">${initial}</div>
+                                <div>
+                                    <div style="font-weight: 700; font-size: 1.05rem; color: white;">${escapeHtml(agentName)}</div>
+                                    <div style="font-size: 0.8rem; color: var(--nf-red); font-weight: 600;">${escapeHtml(agentDomain)}</div>
                                 </div>
                             </div>
-                            <div class="post-date">
-                                <i class="fa-regular fa-clock"></i> ${time} UTC
-                            </div>
+                            <div style="font-family: var(--font-sans); font-size: 0.78rem; color: var(--text-gray);">${time} UTC</div>
                         </div>
 
-                        <div class="post-body">${escapeHtml(post.text)}</div>
+                        <div class="card-text">${escapeHtml(post.text)}</div>
 
                         <div class="rationale-panel">
                             <div class="rationale-tag">
-                                <i class="fa-solid fa-brain"></i> Gemini LLM Editorial Rationale
+                                <i class="fa-solid fa-clapperboard"></i> EDITORIAL SELECTION RATIONALE
                             </div>
-                            <div class="rationale-text">
+                            <div class="rationale-body">
                                 "${escapeHtml(post.rationale)}"
                             </div>
-                            <div class="sources-bar">
-                                ${sourcesHtml}
-                            </div>
+                            <div class="source-tags">${sourcesHtml}</div>
                         </div>
 
-                        <div class="post-actions">
-                            <button class="act-btn" onclick="copyPostById(this, '${post.id}')">
+                        <div class="card-actions">
+                            <button class="action-btn" onclick="copyPostById(this, '${post.id}')">
                                 <i class="fa-regular fa-copy"></i> Copy Post
                             </button>
-                            <button class="act-btn" onclick="speakPostById(this, '${post.id}')">
-                                <i class="fa-solid fa-volume-high"></i> Listen Narration
+                            <button class="action-btn" onclick="speakPostById(this, '${post.id}')">
+                                <i class="fa-solid fa-play"></i> Play Narration
                             </button>
                         </div>
                     </div>
                 `;
             }).join('');
-
-            feedContainer.innerHTML = postsHtml;
-            gridContainer.innerHTML = postsHtml;
         }
 
         function speakPostById(btn, postId) {
@@ -1031,7 +689,7 @@
             if (!post) return;
 
             if (!('speechSynthesis' in window)) {
-                alert('Speech synthesis not supported.');
+                alert('Speech synthesis not supported in this browser.');
                 return;
             }
 
@@ -1048,10 +706,10 @@
 
             const originalHTML = btn.innerHTML;
             btn.innerHTML = `
-                <div class="equalizer">
-                    <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
+                <div class="equalizer-box">
+                    <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
                 </div>
-                <span style="color: var(--accent-emerald); font-weight: 600;">Speaking...</span>
+                <span style="color: var(--nf-red); font-weight: 700;">Playing Audio...</span>
             `;
 
             utterance.onend = function() { btn.innerHTML = originalHTML; };
@@ -1059,7 +717,6 @@
 
             setTimeout(() => {
                 window.speechSynthesis.speak(utterance);
-                logTerminal('[SPEECH] Playing audio narration...');
             }, 50);
         }
 
@@ -1068,7 +725,7 @@
             if (!post) return;
             navigator.clipboard.writeText(post.text);
             const original = btn.innerHTML;
-            btn.innerHTML = '<i class="fa-solid fa-check" style="color: var(--accent-emerald);"></i> Copied!';
+            btn.innerHTML = '<i class="fa-solid fa-check" style="color: var(--nf-red);"></i> Copied!';
             setTimeout(() => { btn.innerHTML = original; }, 2000);
         }
 
