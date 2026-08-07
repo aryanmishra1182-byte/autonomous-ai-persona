@@ -3,31 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Autonomous AI Persona — Studio</title>
+    <title>Autonomous AI Persona — Denmu Studio</title>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
         :root {
-            --bg-dark: #0f0f0f;
-            --bg-card: #181818;
-            --bg-card-hover: #222222;
+            --denmu-bg: #0e1217;
+            --denmu-dark: #07090c;
+            --denmu-card: rgba(22, 27, 34, 0.75);
+            --denmu-card-hover: rgba(30, 37, 46, 0.9);
             --border-color: rgba(255, 255, 255, 0.08);
+            --border-highlight: rgba(255, 255, 255, 0.2);
             
-            --nf-red: #E50914;
-            --nf-red-hover: #B81D24;
-            --nf-red-glow: rgba(229, 9, 20, 0.4);
+            --text-white: #ffffff;
+            --text-silver: #9198a1;
+            --text-muted: #6e7681;
 
-            --text-primary: #ffffff;
-            --text-secondary: #aaaaaa;
-            --text-dim: #666666;
-
-            --font-sans: 'Plus Jakarta Sans', sans-serif;
+            --font-sans: 'Inter', sans-serif;
             --font-heading: 'Space Grotesk', sans-serif;
-            --font-code: 'JetBrains Mono', monospace;
+            --font-mono: 'JetBrains Mono', monospace;
         }
 
         * {
@@ -37,63 +35,54 @@
         }
 
         body {
-            background-color: var(--bg-dark);
-            color: var(--text-secondary);
+            background-color: var(--denmu-bg);
+            color: var(--text-silver);
             font-family: var(--font-sans);
             min-height: 100vh;
             line-height: 1.6;
+            background-image: radial-gradient(circle at 50% 0%, rgba(255, 255, 255, 0.05) 0%, transparent 60%);
         }
 
-        #nodeCanvas {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        /* Navigation Header */
-        header {
+        /* Top Denmu Navbar */
+        nav {
             border-bottom: 1px solid var(--border-color);
-            background: rgba(15, 15, 15, 0.95);
+            background: rgba(14, 18, 23, 0.85);
             backdrop-filter: blur(20px);
+            padding: 1.1rem 2.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             position: sticky;
             top: 0;
             z-index: 100;
         }
 
-        .header-wrap {
-            max-width: 1240px;
-            margin: 0 auto;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .brand-box {
+        .brand-logo {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.85rem;
         }
 
-        .brand-badge {
-            width: 42px;
-            height: 42px;
+        .denmu-symbol {
+            width: 38px;
+            height: 38px;
             border-radius: 10px;
-            background: var(--nf-red);
+            background: #ffffff;
+            color: #0e1217;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 1.25rem;
-            box-shadow: 0 0 20px var(--nf-red-glow);
+            font-weight: 800;
+            font-size: 1.1rem;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
         }
 
-        .brand-title h1 {
+        .brand-logo h1 {
             font-family: var(--font-heading);
             font-size: 1.35rem;
             font-weight: 800;
-            color: var(--text-primary);
+            color: var(--text-white);
+            letter-spacing: -0.5px;
         }
 
         .switch-btn {
@@ -101,7 +90,7 @@
             border: 1px solid var(--border-color);
             border-radius: 8px;
             padding: 0.5rem 1.1rem;
-            color: var(--text-primary);
+            color: var(--text-white);
             font-family: var(--font-sans);
             font-size: 0.85rem;
             font-weight: 600;
@@ -113,43 +102,41 @@
         }
 
         .switch-btn:hover {
-            border-color: var(--nf-red);
-            color: var(--nf-red);
+            background: rgba(255, 255, 255, 0.12);
+            border-color: var(--border-highlight);
         }
 
-        .status-badge {
+        .status-pill {
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.45rem 1rem;
+            padding: 0.4rem 0.9rem;
             border-radius: 30px;
-            background: rgba(229, 9, 20, 0.12);
-            border: 1px solid rgba(229, 9, 20, 0.3);
-            color: var(--nf-red);
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #10b981;
             font-size: 0.8rem;
-            font-weight: 700;
+            font-weight: 600;
         }
 
-        .red-dot {
+        .pulse-dot {
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: var(--nf-red);
-            box-shadow: 0 0 10px var(--nf-red);
+            background: #10b981;
+            box-shadow: 0 0 10px #10b981;
             animation: pulse 1.5s infinite;
         }
 
         @keyframes pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
 
-        /* Step View Container */
+        /* Step Switcher Views */
         .step-view {
             display: none;
-            max-width: 1240px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 2.5rem 2rem;
-            position: relative;
-            z-index: 1;
-            animation: fadeIn 0.35s ease-out;
+            padding: 3rem 2rem;
+            animation: fadeIn 0.4s ease-out;
         }
 
         .step-view.active { display: block; }
@@ -159,34 +146,37 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* STEP 1: Agent Selection Screen */
+        /* STEP 1: Denmu Agent Onboarding */
         .step1-container {
-            max-width: 800px;
+            max-width: 780px;
             margin: 0 auto;
         }
 
-        .step-heading {
+        .hero-heading {
             text-align: center;
-            margin-bottom: 2.5rem;
+            margin-bottom: 3rem;
         }
 
-        .step-heading h2 {
+        .hero-heading h2 {
             font-family: var(--font-heading);
-            font-size: 2.4rem;
+            font-size: 2.8rem;
             font-weight: 800;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
+            color: var(--text-white);
+            letter-spacing: -1px;
+            margin-bottom: 0.75rem;
         }
 
-        .step-heading p {
-            font-size: 1rem;
-            color: var(--text-secondary);
+        .hero-heading p {
+            font-size: 1.05rem;
+            color: var(--text-silver);
+            max-width: 580px;
+            margin: 0 auto;
         }
 
         .preset-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 1.2rem;
+            gap: 1.25rem;
             margin-bottom: 2rem;
         }
 
@@ -195,54 +185,55 @@
         }
 
         .preset-card {
-            background: var(--bg-card);
-            border: 2px solid var(--border-color);
+            background: var(--denmu-card);
+            border: 1px solid var(--border-color);
             border-radius: 16px;
             padding: 1.6rem;
             cursor: pointer;
             transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
             display: flex;
             align-items: center;
-            gap: 1.2rem;
+            gap: 1.25rem;
+            backdrop-filter: blur(20px);
         }
 
         .preset-card:hover, .preset-card.active {
-            border-color: var(--nf-red);
-            background: var(--bg-card-hover);
+            border-color: var(--border-highlight);
+            background: var(--denmu-card-hover);
             transform: translateY(-4px);
-            box-shadow: 0 10px 30px var(--nf-red-glow);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
         }
 
         .preset-avatar {
-            width: 52px;
-            height: 52px;
+            width: 48px;
+            height: 48px;
             border-radius: 12px;
-            background: var(--nf-red);
+            background: #ffffff;
+            color: #0e1217;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 1.4rem;
-            box-shadow: 0 0 15px var(--nf-red-glow);
+            font-size: 1.25rem;
+            font-weight: 800;
         }
 
         .preset-info h4 {
             font-size: 1.15rem;
             font-weight: 700;
-            color: var(--text-primary);
+            color: var(--text-white);
         }
 
         .preset-info p {
             font-size: 0.85rem;
-            color: var(--nf-red);
-            font-weight: 600;
+            color: var(--text-silver);
         }
 
-        .custom-config-card {
-            background: var(--bg-card);
+        .config-card {
+            background: var(--denmu-card);
             border: 1px solid var(--border-color);
             border-radius: 18px;
-            padding: 2rem;
+            padding: 2.25rem;
+            backdrop-filter: blur(20px);
         }
 
         .form-group {
@@ -252,18 +243,18 @@
         .form-label {
             font-size: 0.85rem;
             font-weight: 600;
-            color: var(--text-secondary);
+            color: var(--text-white);
             margin-bottom: 0.5rem;
             display: block;
         }
 
         .form-control {
             width: 100%;
-            padding: 0.95rem 1.2rem;
-            background: rgba(0, 0, 0, 0.6);
+            padding: 1rem 1.25rem;
+            background: rgba(7, 9, 12, 0.8);
             border: 1px solid var(--border-color);
             border-radius: 10px;
-            color: var(--text-primary);
+            color: var(--text-white);
             font-family: var(--font-sans);
             font-size: 1rem;
             transition: border-color 0.2s;
@@ -271,44 +262,45 @@
 
         .form-control:focus {
             outline: none;
-            border-color: var(--nf-red);
+            border-color: var(--text-white);
         }
 
         .cta-btn {
             width: 100%;
             padding: 1.1rem;
-            border-radius: 12px;
+            border-radius: 10px;
             border: none;
-            background: var(--nf-red);
-            color: white;
+            background: #ffffff;
+            color: #0e1217;
             font-family: var(--font-heading);
             font-weight: 800;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 0.75rem;
             transition: all 0.25s;
-            box-shadow: 0 4px 25px var(--nf-red-glow);
+            box-shadow: 0 4px 20px rgba(255, 255, 255, 0.15);
         }
 
         .cta-btn:hover {
-            background: var(--nf-red-hover);
+            background: #e5e5e5;
             transform: translateY(-2px);
-            box-shadow: 0 6px 30px rgba(229, 9, 20, 0.6);
+            box-shadow: 0 6px 25px rgba(255, 255, 255, 0.25);
         }
 
-        /* STEP 2: Dedicated Dashboard Stream View */
+        /* STEP 2: Dedicated Denmu Stream Dashboard View */
         .dashboard-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 2rem;
-            background: var(--bg-card);
+            margin-bottom: 2.25rem;
+            background: var(--denmu-card);
             border: 1px solid var(--border-color);
             border-radius: 18px;
-            padding: 1.5rem 2rem;
+            padding: 1.75rem 2.25rem;
+            backdrop-filter: blur(20px);
         }
 
         .active-persona-info {
@@ -321,33 +313,33 @@
             width: 58px;
             height: 58px;
             border-radius: 14px;
-            background: var(--nf-red);
+            background: #ffffff;
+            color: #0e1217;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
             font-family: var(--font-heading);
             font-weight: 800;
             font-size: 1.7rem;
-            box-shadow: 0 0 20px var(--nf-red-glow);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
         }
 
         .active-details h3 {
             font-family: var(--font-heading);
-            font-size: 1.55rem;
+            font-size: 1.6rem;
             font-weight: 800;
-            color: var(--text-primary);
+            color: var(--text-white);
         }
 
         .active-details p {
             font-size: 0.9rem;
-            color: var(--nf-red);
-            font-weight: 600;
+            color: var(--text-silver);
+            font-weight: 500;
         }
 
         .dash-metrics {
             display: flex;
-            gap: 2rem;
+            gap: 2.5rem;
         }
 
         .metric-item {
@@ -356,31 +348,32 @@
 
         .metric-num {
             font-family: var(--font-heading);
-            font-size: 1.7rem;
+            font-size: 1.8rem;
             font-weight: 800;
-            color: var(--text-primary);
+            color: var(--text-white);
         }
 
         .metric-lbl {
             font-size: 0.75rem;
-            color: var(--text-dim);
+            color: var(--text-muted);
             text-transform: uppercase;
         }
 
-        /* Post Card Component */
+        /* Denmu Post Card Component */
         .post-card {
-            background: var(--bg-card);
+            background: var(--denmu-card);
             border: 1px solid var(--border-color);
             border-radius: 18px;
-            padding: 2rem;
+            padding: 2.25rem;
             margin-bottom: 1.75rem;
+            backdrop-filter: blur(20px);
             transition: all 0.25s ease;
         }
 
         .post-card:hover {
-            border-color: rgba(229, 9, 20, 0.4);
+            border-color: var(--border-highlight);
             transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
         }
 
         .post-top {
@@ -391,26 +384,27 @@
         }
 
         .post-date {
-            font-family: var(--font-code);
+            font-family: var(--font-mono);
             font-size: 0.8rem;
-            color: var(--text-dim);
+            color: var(--text-muted);
             background: rgba(0, 0, 0, 0.4);
             padding: 0.35rem 0.75rem;
             border-radius: 6px;
+            border: 1px solid var(--border-color);
         }
 
         .post-content {
-            font-size: 1.05rem;
+            font-size: 1.08rem;
             line-height: 1.8;
-            color: var(--text-primary);
+            color: var(--text-white);
             white-space: pre-wrap;
             margin-bottom: 1.5rem;
         }
 
         .rationale-panel {
-            background: rgba(0, 0, 0, 0.5);
-            border-left: 3px solid var(--nf-red);
-            padding: 1.1rem 1.35rem;
+            background: rgba(7, 9, 12, 0.6);
+            border-left: 3px solid #ffffff;
+            padding: 1.2rem 1.4rem;
             margin-top: 1rem;
             border-radius: 0 10px 10px 0;
         }
@@ -418,18 +412,18 @@
         .rationale-tag {
             font-size: 0.78rem;
             font-weight: 700;
-            color: var(--nf-red);
+            color: var(--text-white);
             text-transform: uppercase;
             letter-spacing: 0.8px;
             margin-bottom: 0.4rem;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            gap: 0.4rem;
         }
 
         .rationale-text {
             font-size: 0.92rem;
-            color: var(--text-secondary);
+            color: var(--text-silver);
             font-style: italic;
         }
 
@@ -444,8 +438,8 @@
             font-size: 0.78rem;
             padding: 0.35rem 0.75rem;
             border-radius: 6px;
-            background: rgba(255, 255, 255, 0.06);
-            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-white);
             border: 1px solid var(--border-color);
             text-decoration: none;
             display: inline-flex;
@@ -456,8 +450,8 @@
         }
 
         .source-link:hover {
-            background: var(--nf-red);
-            border-color: var(--nf-red);
+            background: #ffffff;
+            color: #0e1217;
         }
 
         .post-actions {
@@ -471,7 +465,7 @@
         .act-btn {
             background: none;
             border: none;
-            color: var(--text-secondary);
+            color: var(--text-silver);
             font-size: 0.88rem;
             font-weight: 600;
             cursor: pointer;
@@ -481,7 +475,7 @@
             transition: color 0.2s;
         }
 
-        .act-btn:hover { color: var(--text-primary); }
+        .act-btn:hover { color: var(--text-white); }
 
         .equalizer-box {
             display: inline-flex;
@@ -492,7 +486,7 @@
 
         .eq-bar {
             width: 3px;
-            background: var(--nf-red);
+            background: #ffffff;
             animation: eq 0.8s ease-in-out infinite alternate;
         }
 
@@ -505,49 +499,43 @@
         .empty-box {
             text-align: center;
             padding: 5rem 2rem;
-            background: var(--bg-card);
+            background: var(--denmu-card);
             border: 1px dashed var(--border-color);
-            border-radius: 16px;
+            border-radius: 18px;
         }
 
         .empty-box i {
             font-size: 3.5rem;
-            color: var(--nf-red);
+            color: var(--text-white);
             margin-bottom: 1.25rem;
         }
     </style>
 </head>
 <body>
 
-    <canvas id="nodeCanvas"></canvas>
+    <!-- Header Navbar -->
+    <nav>
+        <div class="brand-logo">
+            <div class="denmu-symbol">D</div>
+            <h1>Denmu Studio</h1>
+        </div>
 
-    <!-- Header Navigation -->
-    <header>
-        <div class="header-wrap">
-            <div class="brand-box">
-                <div class="brand-badge"><i class="fa-solid fa-brain"></i></div>
-                <div class="brand-title">
-                    <h1>Autonomous AI Persona</h1>
-                </div>
-            </div>
-
-            <div style="display: flex; align-items: center; gap: 1rem;">
-                <button class="switch-btn" id="switchAgentHeaderBtn" style="display: none;" onclick="showStep(1)">
-                    <i class="fa-solid fa-arrow-left"></i> Switch Persona Agent
-                </button>
-                <div class="status-badge">
-                    <div class="red-dot"></div> Engine Active
-                </div>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <button class="switch-btn" id="switchAgentHeaderBtn" style="display: none;" onclick="showStep(1)">
+                <i class="fa-solid fa-arrow-left"></i> Switch Persona Agent
+            </button>
+            <div class="status-pill">
+                <div class="pulse-dot"></div> Engine Active
             </div>
         </div>
-    </header>
+    </nav>
 
-    <!-- STEP 1: Persona Selection Screen -->
+    <!-- STEP 1: Denmu Persona Selection Screen -->
     <div id="step1View" class="step-view active">
         <div class="step1-container">
-            <div class="step-heading">
-                <h2>Choose Your AI Persona Agent</h2>
-                <p>Select a pre-configured persona specialization or customize your own agent to launch the autonomous discovery loop.</p>
+            <div class="hero-heading">
+                <h2>Choose Your Persona Agent</h2>
+                <p>We are building an autonomous AI intelligence network. Select an agent persona to launch the live discovery stream.</p>
             </div>
 
             <div class="preset-grid">
@@ -584,7 +572,7 @@
                 </div>
             </div>
 
-            <div class="custom-config-card">
+            <div class="config-card">
                 <form id="initForm">
                     <div class="form-group">
                         <label class="form-label">Persona Name</label>
@@ -608,7 +596,7 @@
         </div>
     </div>
 
-    <!-- STEP 2: Dedicated Feed Stream Dashboard View -->
+    <!-- STEP 2: Dedicated Denmu Feed Stream View -->
     <div id="step2View" class="step-view">
         
         <!-- Dashboard Persona Header -->
@@ -627,8 +615,8 @@
                     <div class="metric-lbl">Published Posts</div>
                 </div>
                 <div class="metric-item">
-                    <div class="metric-num" style="color: var(--nf-red);">4</div>
-                    <div class="metric-lbl">Live Sources</div>
+                    <div class="metric-num">4</div>
+                    <div class="metric-lbl">Live Feeds</div>
                 </div>
             </div>
         </div>
@@ -637,8 +625,8 @@
         <div id="feedContent">
             <div class="empty-box">
                 <i class="fa-solid fa-atom fa-spin"></i>
-                <h3 style="color: var(--text-primary);">Discovering & Curating Live Topics...</h3>
-                <p style="color: var(--text-secondary); font-size: 0.95rem; margin-top: 0.5rem;">
+                <h3 style="color: var(--text-white);">Discovering & Curating Live Topics...</h3>
+                <p style="color: var(--text-silver); font-size: 0.95rem; margin-top: 0.5rem;">
                     Scanning Hacker News, ArXiv, Dev.to, and GitHub. The first published post will render live in seconds!
                 </p>
             </div>
@@ -649,59 +637,6 @@
     <script>
         let currentAgentId = localStorage.getItem('agentId') || null;
         window.postsStore = {};
-
-        // Interactive Animated Canvas Graph
-        const canvas = document.getElementById('nodeCanvas');
-        const ctx = canvas.getContext('2d');
-        let nodes = [];
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        for (let i = 0; i < 35; i++) {
-            nodes.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height,
-                radius: Math.random() * 2 + 1,
-                dx: (Math.random() - 0.5) * 0.4,
-                dy: (Math.random() - 0.5) * 0.4
-            });
-        }
-
-        function drawNodes() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = 'rgba(229, 9, 20, 0.25)';
-            ctx.strokeStyle = 'rgba(229, 9, 20, 0.05)';
-
-            nodes.forEach((n, i) => {
-                n.x += n.dx;
-                n.y += n.dy;
-
-                if (n.x < 0 || n.x > canvas.width) n.dx *= -1;
-                if (n.y < 0 || n.y > canvas.height) n.dy *= -1;
-
-                ctx.beginPath();
-                ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
-                ctx.fill();
-
-                for (let j = i + 1; j < nodes.length; j++) {
-                    const n2 = nodes[j];
-                    const dist = Math.hypot(n.x - n2.x, n.y - n2.y);
-                    if (dist < 130) {
-                        ctx.beginPath();
-                        ctx.moveTo(n.x, n.y);
-                        ctx.lineTo(n2.x, n2.y);
-                        ctx.stroke();
-                    }
-                }
-            });
-            requestAnimationFrame(drawNodes);
-        }
-        drawNodes();
 
         function showStep(stepNum) {
             document.querySelectorAll('.step-view').forEach(v => v.classList.remove('active'));
@@ -789,8 +724,8 @@
                 container.innerHTML = `
                     <div class="empty-box">
                         <i class="fa-solid fa-dharmachakra fa-spin"></i>
-                        <h3 style="color: var(--text-primary);">Discovering & Curating Content for ${escapeHtml(agentName)}...</h3>
-                        <p style="color: var(--text-secondary); font-size: 0.95rem; margin-top: 0.5rem;">
+                        <h3 style="color: var(--text-white);">Discovering & Curating Content for ${escapeHtml(agentName)}...</h3>
+                        <p style="color: var(--text-silver); font-size: 0.95rem; margin-top: 0.5rem;">
                             Scanning Hacker News, ArXiv, Dev.to, and GitHub. The first published post will render live in seconds!
                         </p>
                     </div>
@@ -801,7 +736,7 @@
             // Store posts by ID cleanly
             posts.forEach(p => { window.postsStore[p.id] = p; });
 
-            container.innerHTML = posts.map((post, idx) => {
+            container.innerHTML = posts.map(post => {
                 const time = new Date(post.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
                 const sourcesHtml = (post.sources || []).map(url => `
                     <a href="${url}" target="_blank" class="source-link">
@@ -812,7 +747,7 @@
                 return `
                     <div class="post-card">
                         <div class="post-top">
-                            <div style="font-weight: 700; font-size: 1.1rem; color: var(--text-primary);">
+                            <div style="font-weight: 700; font-size: 1.1rem; color: var(--text-white);">
                                 Published Post #${post.id}
                             </div>
                             <div class="post-date">
@@ -824,8 +759,7 @@
 
                         <div class="rationale-panel">
                             <div class="rationale-tag">
-                                <span><i class="fa-solid fa-brain"></i> Gemini LLM Editorial Rationale</span>
-                                <span style="font-size: 0.72rem; color: var(--text-secondary);">98% Match</span>
+                                <i class="fa-solid fa-brain"></i> Gemini LLM Editorial Rationale
                             </div>
                             <div class="rationale-text">
                                 "${escapeHtml(post.rationale)}"
@@ -873,7 +807,7 @@
                 <div class="equalizer-box">
                     <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
                 </div>
-                <span style="color: var(--nf-red); font-weight: 700;">Speaking...</span>
+                <span style="color: var(--text-white); font-weight: 700;">Speaking...</span>
             `;
 
             utterance.onend = function() { btn.innerHTML = originalHTML; };
@@ -889,7 +823,7 @@
             if (!post) return;
             navigator.clipboard.writeText(post.text);
             const original = btn.innerHTML;
-            btn.innerHTML = '<i class="fa-solid fa-check" style="color: var(--nf-red);"></i> Copied!';
+            btn.innerHTML = '<i class="fa-solid fa-check" style="color: #10b981;"></i> Copied!';
             setTimeout(() => { btn.innerHTML = original; }, 2000);
         }
 
