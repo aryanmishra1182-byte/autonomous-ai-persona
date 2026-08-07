@@ -49,7 +49,7 @@ public class AgentController {
     public record InitRequest(PersonaInput persona) {}
     public record InitResponse(String agentId) {}
     public record PostDto(String id, String createdAt, String text, String rationale, List<String> sources) {}
-    public record FeedResponse(List<PostDto> posts) {}
+    public record FeedResponse(String agentName, String agentDomain, List<PostDto> posts) {}
 
     /**
      * POST /api/agent/init
@@ -85,7 +85,7 @@ public class AgentController {
             schedulerService.saveMemory(agentId, "total_posts", "0");
             schedulerService.saveMemory(agentId, "initialized_at", Instant.now().toString());
 
-            log.info("\n\uD83C\uDF89 Agent initialized!");
+            log.info("\n🎉 Agent initialized!");
             log.info("   ID: {}", agentId);
             log.info("   Name: {}", name);
             log.info("   Domain: {}", domain);
@@ -102,22 +102,18 @@ public class AgentController {
 
     /**
      * GET /api/agent/feed?agentId=<id>
-     * Retrieve the agent's published feed
+     * Retrieve the agent's published feed (Read-only, compliant with hackathon spec)
      */
     @GetMapping("/feed")
     public ResponseEntity<?> getFeed(@RequestParam String agentId) {
         try {
-            Optional<Agent> agent = agentRepository.findById(agentId);
-            if (agent.isEmpty()) {
+            Optional<Agent> agentOpt = agentRepository.findById(agentId);
+            if (agentOpt.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND)
                         .body(Map.of("error", "Agent " + agentId + " not found"));
             }
 
-            // Trigger catch-up asynchronously (non-blocking)
-            new Thread(() -> {
-                try { schedulerService.triggerCatchUpAndSchedule(agentId); }
-                catch (Exception e) { log.error("Catch-up error: {}", e.getMessage()); }
-            }).start();
+            Agent agent = agentOpt.get();
 
             // Get posts in reverse chronological order
             List<Post> posts = postRepository.findByAgentIdOrderByCreatedAtDesc(agentId);
@@ -138,7 +134,7 @@ public class AgentController {
                 );
             }).collect(Collectors.toList());
 
-            return ResponseEntity.ok(new FeedResponse(postDtos));
+            return ResponseEntity.ok(new FeedResponse(agent.getName(), agent.getDomain(), postDtos));
         } catch (Exception e) {
             log.error("Feed error: {}", e.getMessage(), e);
             return ResponseEntity.internalServerError().body(Map.of("error", "Failed to retrieve feed"));

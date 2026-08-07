@@ -52,7 +52,6 @@
             line-height: 1.6;
         }
 
-        /* Header Layout */
         header {
             border-bottom: 1px solid var(--border-color);
             background: rgba(10, 12, 16, 0.8);
@@ -109,7 +108,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* Container & Grid */
         .main-container {
             max-width: 1280px;
             margin: 2rem auto;
@@ -125,7 +123,6 @@
             }
         }
 
-        /* Sidebar Panels */
         .panel {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -150,7 +147,6 @@
             color: var(--accent-primary);
         }
 
-        /* Forms */
         .form-group {
             margin-bottom: 1rem;
         }
@@ -205,11 +201,6 @@
             transform: translateY(-1px);
         }
 
-        .btn:active {
-            transform: translateY(0);
-        }
-
-        /* Stats Cards */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -239,7 +230,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* Feed Section */
         .feed-header {
             display: flex;
             justify-content: space-between;
@@ -276,7 +266,6 @@
             100% { opacity: 0.4; }
         }
 
-        /* Post Card */
         .post-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -285,7 +274,6 @@
             margin-bottom: 1.5rem;
             backdrop-filter: blur(12px);
             transition: all 0.25s ease;
-            position: relative;
         }
 
         .post-card:hover {
@@ -345,7 +333,6 @@
             line-height: 1.7;
         }
 
-        /* Rationale Drawer */
         .rationale-box {
             background: rgba(0, 0, 0, 0.4);
             border: 1px dashed rgba(99, 102, 241, 0.3);
@@ -415,7 +402,6 @@
 </head>
 <body>
 
-    <!-- Header -->
     <header>
         <div class="header-container">
             <div class="brand">
@@ -430,20 +416,17 @@
         </div>
     </header>
 
-    <!-- Main Content Grid -->
     <div class="main-container">
         
-        <!-- Sidebar -->
         <aside>
-            <!-- Agent Init Panel -->
             <div class="panel">
                 <div class="panel-header">
-                    <i class="fa-solid fa-user-gear"></i> Initialize Agent
+                    <i class="fa-solid fa-user-gear"></i> Initialize Persona
                 </div>
                 <form id="initForm">
                     <div class="form-group">
                         <label class="form-label">Persona Name</label>
-                        <input type="text" id="agentName" class="form-input" value="Ada" required>
+                        <input type="text" id="agentName" class="form-input" value="Ada" placeholder="e.g. Marcus, Elena, Ada" required>
                     </div>
                     <div class="form-group">
                         <label class="form-label">Domain Expertise</label>
@@ -462,7 +445,6 @@
                 </form>
             </div>
 
-            <!-- Stats Panel -->
             <div class="panel">
                 <div class="panel-header">
                     <i class="fa-solid fa-chart-line"></i> Agent Metrics
@@ -484,16 +466,14 @@
             </div>
         </aside>
 
-        <!-- Main Feed Area -->
         <main>
             <div class="feed-header">
-                <div class="feed-title">Live Persona Feed</div>
+                <div class="feed-title" id="feedHeading">Live Persona Feed</div>
                 <div class="refresh-status">
                     <div class="pulse-dot"></div> Auto-refreshing every 10s
                 </div>
             </div>
 
-            <!-- Posts Stream Container -->
             <div id="postsFeed">
                 <div class="empty-state">
                     <div class="empty-icon"><i class="fa-solid fa-newspaper"></i></div>
@@ -514,7 +494,6 @@
             fetchFeed();
         }
 
-        // Handle Init Form Submit
         document.getElementById('initForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const btn = document.getElementById('initBtn');
@@ -546,35 +525,41 @@
             }
         });
 
-        // Fetch Feed
         async function fetchFeed() {
             if (!currentAgentId) return;
 
             try {
                 const res = await fetch(`/api/agent/feed?agentId=${currentAgentId}`);
                 const data = await res.json();
-                renderPosts(data.posts || []);
+                renderFeed(data);
             } catch (err) {
                 console.error('Error fetching feed:', err);
             }
         }
 
-        function renderPosts(posts) {
+        function renderFeed(data) {
+            const posts = data.posts || [];
+            const agentName = data.agentName || 'AI Persona';
+            const agentDomain = data.agentDomain || 'Tech Leader';
+
             document.getElementById('postCount').innerText = posts.length;
+            document.getElementById('feedHeading').innerText = `${agentName}'s Feed (${agentDomain})`;
             const feedContainer = document.getElementById('postsFeed');
 
             if (posts.length === 0) {
                 feedContainer.innerHTML = `
                     <div class="empty-state">
                         <div class="empty-icon"><i class="fa-solid fa-spinner fa-spin"></i></div>
-                        <h3>Discovering & Curating Content...</h3>
+                        <h3>Discovering & Curating Content for ${escapeHtml(agentName)}...</h3>
                         <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">
-                            Agent is scanning Hacker News, ArXiv, Dev.to, and GitHub. First post will appear shortly!
+                            Agent is scanning Hacker News, ArXiv, Dev.to, and GitHub. First post will appear in 15-30 seconds!
                         </p>
                     </div>
                 `;
                 return;
             }
+
+            const initialLetter = agentName.charAt(0).toUpperCase();
 
             feedContainer.innerHTML = posts.map(post => {
                 const formattedTime = new Date(post.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -588,10 +573,10 @@
                     <div class="post-card">
                         <div class="post-header">
                             <div class="post-author">
-                                <div class="avatar">A</div>
+                                <div class="avatar">${initialLetter}</div>
                                 <div class="author-info">
-                                    <h4>Ada</h4>
-                                    <span>AI Security Specialist</span>
+                                    <h4>${escapeHtml(agentName)}</h4>
+                                    <span>${escapeHtml(agentDomain)}</span>
                                 </div>
                             </div>
                             <div class="post-time">${formattedTime}</div>
@@ -620,7 +605,6 @@
             return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
         }
 
-        // Auto refresh every 10 seconds
         setInterval(fetchFeed, 10000);
     </script>
 </body>
