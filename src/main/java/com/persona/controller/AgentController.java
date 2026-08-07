@@ -93,6 +93,16 @@ public class AgentController {
             // Start autonomous scheduler
             schedulerService.startScheduler(agentId);
 
+            // Trigger immediate first publishing cycle asynchronously
+            new Thread(() -> {
+                try {
+                    log.info("🚀 Triggering immediate initial post cycle for {}", name);
+                    schedulerService.runPublishingCycle(agentId);
+                } catch (Exception e) {
+                    log.error("Initial cycle error: {}", e.getMessage());
+                }
+            }).start();
+
             return ResponseEntity.status(HttpStatus.CREATED).body(new InitResponse(agentId));
         } catch (Exception e) {
             log.error("Init error: {}", e.getMessage(), e);
