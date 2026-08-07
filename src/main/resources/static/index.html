@@ -833,7 +833,7 @@
                             <button class="act-btn" onclick="copyText(this, \`${escapeJs(post.text)}\`)">
                                 <i class="fa-regular fa-copy"></i> Copy Post
                             </button>
-                            <button class="act-btn" onclick="speakPost(\`${escapeJs(post.text)}\`)">
+                            <button class="act-btn" onclick="speakPost(this, \`${escapeJs(post.text)}\`)">
                                 <i class="fa-solid fa-volume-high"></i> Listen Narration
                             </button>
                         </div>
@@ -842,14 +842,31 @@
             }).join('');
         }
 
-        function speakPost(text) {
-            if ('speechSynthesis' in window) {
-                window.speechSynthesis.cancel();
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.rate = 1.0;
-                window.speechSynthesis.speak(utterance);
-                logTerminal('[SPEECH] Playing post audio narration...');
+        function speakPost(btn, text) {
+            if (!('speechSynthesis' in window)) {
+                alert('Text-to-speech is not supported in your browser.');
+                return;
             }
+
+            window.speechSynthesis.cancel();
+
+            const cleanText = text.replace(/#\w+/g, '').replace(/https?:\/\/\S+/g, '');
+            const utterance = new SpeechSynthesisUtterance(cleanText);
+            utterance.rate = 0.95;
+            utterance.pitch = 1.0;
+
+            const voices = window.speechSynthesis.getVoices();
+            const englishVoice = voices.find(v => v.lang.startsWith('en')) || voices[0];
+            if (englishVoice) utterance.voice = englishVoice;
+
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-volume-high fa-beat" style="color: var(--accent-emerald);"></i> Speaking...';
+
+            utterance.onend = function() { btn.innerHTML = originalHTML; };
+            utterance.onerror = function() { btn.innerHTML = originalHTML; };
+
+            window.speechSynthesis.speak(utterance);
+            logTerminal('[SPEECH] Playing audio narration...');
         }
 
         function copyText(btn, text) {
