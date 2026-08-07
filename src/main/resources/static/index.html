@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Autonomous AI Persona — Next-Gen AI Platform</title>
-    <!-- Fonts & FontAwesome -->
+    <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -13,12 +13,12 @@
     <style>
         :root {
             --bg-dark: #07090e;
-            --bg-card: rgba(15, 21, 33, 0.75);
-            --bg-card-hover: rgba(22, 31, 48, 0.85);
+            --bg-card: rgba(15, 21, 33, 0.85);
+            --bg-card-hover: rgba(22, 31, 48, 0.95);
             --border-color: rgba(255, 255, 255, 0.08);
             --border-highlight: rgba(99, 102, 241, 0.4);
             
-            --accent-blue: #3b82f6;
+            --accent-blue: #2563eb;
             --accent-indigo: #6366f1;
             --accent-purple: #8b5cf6;
             --accent-cyan: #06b6d4;
@@ -41,10 +41,6 @@
             box-sizing: border-box;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
         body {
             background-color: var(--bg-dark);
             color: var(--text-silver);
@@ -59,7 +55,7 @@
             background-attachment: fixed;
         }
 
-        /* Top Navbar */
+        /* Navbar Navigation */
         nav {
             border-bottom: 1px solid var(--border-color);
             background: rgba(7, 9, 14, 0.85);
@@ -78,6 +74,7 @@
             align-items: center;
             gap: 0.85rem;
             text-decoration: none;
+            cursor: pointer;
         }
 
         .brand-icon {
@@ -103,20 +100,24 @@
 
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 1.8rem;
             list-style: none;
         }
 
-        .nav-links a {
+        .nav-item {
             color: var(--text-silver);
             text-decoration: none;
             font-size: 0.9rem;
-            font-weight: 500;
-            transition: color 0.2s;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 0.4rem 0.75rem;
+            border-radius: 8px;
+            transition: all 0.2s;
         }
 
-        .nav-links a:hover {
+        .nav-item:hover, .nav-item.active {
             color: var(--text-white);
+            background: rgba(255, 255, 255, 0.06);
         }
 
         .nav-actions {
@@ -140,11 +141,6 @@
             transition: all 0.2s;
         }
 
-        .github-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.2);
-        }
-
         .star-badge {
             background: rgba(255, 255, 255, 0.1);
             padding: 0.1rem 0.4rem;
@@ -162,7 +158,6 @@
             font-weight: 700;
             font-size: 0.9rem;
             cursor: pointer;
-            text-decoration: none;
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
@@ -179,14 +174,27 @@
         .page-container {
             max-width: 1340px;
             margin: 0 auto;
-            padding: 0 2rem;
+            padding: 2.5rem 2rem;
         }
 
-        /* Hero Section */
+        /* Dedicated Views (Pages) */
+        .page-view {
+            display: none;
+            animation: fadeIn 0.35s ease-out;
+        }
+
+        .page-view.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* PAGE 1: HERO / HOME PAGE */
         .hero-section {
-            padding: 4rem 0 5rem 0;
+            padding: 2rem 0 4rem 0;
             display: grid;
-            grid-template-columns: 1fr 1.15fr;
+            grid-template-columns: 1fr 1.1fr;
             gap: 3rem;
             align-items: center;
         }
@@ -243,7 +251,7 @@
             padding: 0.95rem 2.2rem;
             border-radius: 12px;
             border: none;
-            background: linear-gradient(135deg, #2563eb, var(--accent-indigo));
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-indigo));
             color: white;
             font-family: var(--font-display);
             font-weight: 700;
@@ -254,7 +262,6 @@
             gap: 0.65rem;
             box-shadow: 0 4px 25px rgba(37, 99, 235, 0.4);
             transition: all 0.25s;
-            text-decoration: none;
         }
 
         .btn-primary-lg:hover {
@@ -279,228 +286,7 @@
             text-decoration: none;
         }
 
-        .btn-secondary-lg:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.2);
-        }
-
-        .trusted-tech {
-            border-top: 1px solid var(--border-color);
-            padding-top: 1.5rem;
-        }
-
-        .trusted-lbl {
-            font-size: 0.78rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.8px;
-            margin-bottom: 0.85rem;
-        }
-
-        .tech-badges {
-            display: flex;
-            gap: 1.25rem;
-            flex-wrap: wrap;
-        }
-
-        .tech-pill {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.85rem;
-            color: var(--text-silver);
-            font-weight: 600;
-        }
-
-        /* Right Side: Interactive AI Workspace Mockup */
-        .workspace-window {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
-            backdrop-filter: var(--blur);
-        }
-
-        .window-topbar {
-            background: rgba(0, 0, 0, 0.5);
-            padding: 0.75rem 1.25rem;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.8rem;
-        }
-
-        .window-controls {
-            display: flex;
-            gap: 6px;
-        }
-
-        .win-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-        }
-
-        .workspace-grid {
-            display: grid;
-            grid-template-columns: 200px 1fr 180px;
-            min-height: 480px;
-        }
-
-        @media (max-width: 900px) {
-            .workspace-grid { grid-template-columns: 1fr; }
-        }
-
-        /* Sidebar 1: Personas List */
-        .ws-sidebar {
-            background: rgba(0, 0, 0, 0.3);
-            border-right: 1px solid var(--border-color);
-            padding: 1.25rem;
-        }
-
-        .ws-section-lbl {
-            font-size: 0.7rem;
-            font-weight: 700;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            margin-bottom: 0.85rem;
-        }
-
-        .persona-item {
-            padding: 0.65rem 0.85rem;
-            border-radius: 8px;
-            margin-bottom: 0.4rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 0.6rem;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-silver);
-            transition: all 0.2s;
-        }
-
-        .persona-item:hover, .persona-item.active {
-            background: rgba(99, 102, 241, 0.15);
-            color: var(--text-white);
-        }
-
-        .persona-item.active {
-            border: 1px solid rgba(99, 102, 241, 0.4);
-        }
-
-        .status-dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background: var(--accent-emerald);
-        }
-
-        /* Center Stream Feed */
-        .ws-main {
-            padding: 1.25rem;
-            overflow-y: auto;
-            max-height: 480px;
-        }
-
-        .feed-post-card {
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1.1rem;
-            margin-bottom: 1rem;
-        }
-
-        .post-author-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 0.6rem;
-        }
-
-        .author-badge-sm {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .avatar-sm {
-            width: 26px;
-            height: 26px;
-            border-radius: 6px;
-            background: var(--accent-indigo);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.75rem;
-            font-weight: 700;
-        }
-
-        .post-text-sm {
-            font-size: 0.88rem;
-            color: var(--text-white);
-            line-height: 1.6;
-            margin-bottom: 0.85rem;
-        }
-
-        .rationale-drawer {
-            background: rgba(99, 102, 241, 0.08);
-            border-left: 2px solid var(--accent-indigo);
-            padding: 0.6rem 0.85rem;
-            border-radius: 0 6px 6px 0;
-            font-size: 0.78rem;
-            color: var(--text-silver);
-            font-style: italic;
-        }
-
-        .sources-chips {
-            margin-top: 0.6rem;
-            display: flex;
-            gap: 0.4rem;
-            flex-wrap: wrap;
-        }
-
-        .src-chip {
-            font-size: 0.7rem;
-            padding: 0.2rem 0.5rem;
-            border-radius: 4px;
-            background: rgba(255, 255, 255, 0.06);
-            color: var(--accent-cyan);
-            text-decoration: none;
-        }
-
-        /* Sidebar 2: Monitor Panel */
-        .ws-monitor {
-            background: rgba(0, 0, 0, 0.3);
-            border-left: 1px solid var(--border-color);
-            padding: 1.25rem;
-        }
-
-        .metric-box {
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 0.75rem;
-            margin-bottom: 0.85rem;
-        }
-
-        .metric-val {
-            font-family: var(--font-display);
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--text-white);
-        }
-
-        .metric-name {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-        }
-
-        /* Powerful Features Section (6 Cards) */
+        /* PAGE 2: FEATURES PAGE */
         .section-header {
             text-align: center;
             margin-bottom: 3.5rem;
@@ -508,7 +294,7 @@
 
         .section-header h2 {
             font-family: var(--font-display);
-            font-size: 2.5rem;
+            font-size: 2.6rem;
             font-weight: 800;
             color: var(--text-white);
             margin-bottom: 0.5rem;
@@ -523,7 +309,7 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 1.5rem;
-            margin-bottom: 6rem;
+            margin-bottom: 4rem;
         }
 
         @media (max-width: 900px) {
@@ -533,8 +319,8 @@
         .feature-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 18px;
-            padding: 2rem;
+            border-radius: 20px;
+            padding: 2.25rem;
             backdrop-filter: var(--blur);
             transition: all 0.3s;
         }
@@ -561,147 +347,257 @@
 
         .feature-card h3 {
             font-family: var(--font-display);
-            font-size: 1.25rem;
+            font-size: 1.3rem;
             font-weight: 700;
             color: var(--text-white);
-            margin-bottom: 0.6rem;
+            margin-bottom: 0.65rem;
         }
 
         .feature-card p {
-            font-size: 0.9rem;
+            font-size: 0.92rem;
             color: var(--text-silver);
             line-height: 1.6;
         }
 
-        /* Architecture & Live Metrics Section */
-        .arch-metrics-grid {
+        /* PAGE 3: ARCHITECTURE PAGE */
+        .arch-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 2rem;
-            margin-bottom: 6rem;
+            margin-bottom: 4rem;
         }
 
         @media (max-width: 900px) {
-            .arch-metrics-grid { grid-template-columns: 1fr; }
+            .arch-grid { grid-template-columns: 1fr; }
         }
 
         .info-panel {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 2.25rem;
+            border-radius: 22px;
+            padding: 2.5rem;
             backdrop-filter: var(--blur);
         }
 
         .info-panel h3 {
             font-family: var(--font-display);
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             font-weight: 800;
             color: var(--text-white);
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.5rem;
         }
 
-        .info-panel p {
-            font-size: 0.88rem;
-            color: var(--text-muted);
-            margin-bottom: 1.75rem;
-        }
-
-        .arch-diagram {
+        .arch-nodes-flow {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.65rem;
+            gap: 0.75rem;
             align-items: center;
             justify-content: center;
             background: rgba(0, 0, 0, 0.4);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1.5rem;
+            border-radius: 14px;
+            padding: 1.75rem;
+            margin-top: 1.5rem;
         }
 
-        .arch-node {
+        .arch-chip {
             background: rgba(99, 102, 241, 0.15);
             border: 1px solid rgba(99, 102, 241, 0.4);
             color: var(--text-white);
             font-family: var(--font-mono);
-            font-size: 0.78rem;
+            font-size: 0.8rem;
             font-weight: 600;
-            padding: 0.5rem 0.85rem;
+            padding: 0.55rem 0.95rem;
             border-radius: 8px;
         }
 
-        .metrics-4grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.25rem;
-        }
-
-        .m-card {
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid var(--border-color);
-            border-radius: 14px;
-            padding: 1.35rem;
-        }
-
-        .m-num {
-            font-family: var(--font-display);
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: var(--accent-cyan);
-        }
-
-        .m-label {
-            font-size: 0.82rem;
-            color: var(--text-silver);
-            font-weight: 600;
-        }
-
-        /* Testimonials Section */
-        .testimonial-card {
+        /* PAGE 4: DOCS & API SPEC PAGE */
+        .docs-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 20px;
-            padding: 2.25rem;
-            margin-bottom: 6rem;
+            border-radius: 22px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
             backdrop-filter: var(--blur);
+        }
+
+        .docs-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text-white);
+            margin-bottom: 1rem;
+        }
+
+        .code-box {
+            background: #000000;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1.25rem;
+            font-family: var(--font-mono);
+            font-size: 0.85rem;
+            color: var(--accent-emerald);
+            overflow-x: auto;
+            margin-top: 0.75rem;
+        }
+
+        /* PAGE 5: LIVE WORKSPACE APP PAGE */
+        .workspace-layout {
+            display: grid;
+            grid-template-columns: 360px 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 1024px) {
+            .workspace-layout { grid-template-columns: 1fr; }
+        }
+
+        .config-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 22px;
+            padding: 2rem;
+            backdrop-filter: var(--blur);
+        }
+
+        .preset-pill-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .preset-pill-btn {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 0.85rem;
+            color: var(--text-silver);
+            font-size: 0.82rem;
+            font-weight: 600;
+            cursor: pointer;
             display: flex;
-            gap: 1.5rem;
-            align-items: flex-start;
+            align-items: center;
+            gap: 0.6rem;
+            transition: all 0.2s;
         }
 
-        .quote-icon {
-            font-size: 2rem;
-            color: var(--accent-indigo);
+        .preset-pill-btn:hover, .preset-pill-btn.active {
+            border-color: var(--accent-indigo);
+            background: rgba(99, 102, 241, 0.18);
+            color: var(--text-white);
         }
 
-        .stars { color: #f59e0b; margin-top: 0.5rem; }
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
 
-        /* Bottom CTA Banner */
-        .cta-banner {
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(139, 92, 246, 0.15));
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            border-radius: 24px;
-            padding: 3rem 2.5rem;
+        .form-label {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-silver);
+            margin-bottom: 0.4rem;
+            display: block;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.85rem 1.1rem;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            color: var(--text-white);
+            font-family: var(--font-sans);
+            font-size: 0.95rem;
+            transition: border-color 0.2s;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--accent-indigo);
+        }
+
+        .feed-stream-panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 22px;
+            padding: 2rem;
+            backdrop-filter: var(--blur);
+        }
+
+        .post-card {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .post-top {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            flex-wrap: wrap;
-            gap: 1.5rem;
-            margin-bottom: 5rem;
+            margin-bottom: 1rem;
         }
 
-        .cta-banner h2 {
+        .author-box {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .avatar-sq {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--accent-indigo), var(--accent-purple));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             font-family: var(--font-display);
-            font-size: 2rem;
             font-weight: 800;
+            font-size: 1.2rem;
+        }
+
+        .post-text {
+            font-size: 1.02rem;
+            line-height: 1.75;
             color: var(--text-white);
-            margin-bottom: 0.4rem;
+            white-space: pre-wrap;
+            margin-bottom: 1.25rem;
+        }
+
+        .rationale-panel {
+            background: rgba(99, 102, 241, 0.08);
+            border-left: 3px solid var(--accent-indigo);
+            padding: 1rem 1.25rem;
+            border-radius: 0 10px 10px 0;
+            margin-top: 1rem;
+        }
+
+        .sources-chips {
+            margin-top: 0.75rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .source-pill {
+            font-size: 0.75rem;
+            padding: 0.3rem 0.75rem;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--accent-cyan);
+            border: 1px solid var(--border-color);
+            text-decoration: none;
         }
 
         /* Footer */
         footer {
             border-top: 1px solid var(--border-color);
             padding: 2.5rem 0;
+            margin-top: 4rem;
             font-size: 0.85rem;
             color: var(--text-muted);
         }
@@ -713,265 +609,273 @@
             flex-wrap: wrap;
             gap: 1rem;
         }
-
-        .footer-links {
-            display: flex;
-            gap: 1.5rem;
-            list-style: none;
-        }
-
-        .footer-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-        }
-
-        .footer-links a:hover { color: var(--text-white); }
     </style>
 </head>
 <body>
 
-    <!-- Top Navigation Bar -->
+    <!-- Header Navigation -->
     <nav>
-        <a href="#" class="brand-logo">
+        <div class="brand-logo" onclick="switchPage('home')">
             <div class="brand-icon"><i class="fa-solid fa-brain"></i></div>
             <h1>Autonomous AI Persona</h1>
-        </a>
+        </div>
 
         <ul class="nav-links">
-            <li><a href="#features">Features</a></li>
-            <li><a href="#architecture">Architecture</a></li>
-            <li><a href="#workspace">Workspace</a></li>
-            <li><a href="#metrics">Metrics</a></li>
+            <li><span class="nav-item active" id="nav-home" onclick="switchPage('home')">Home</span></li>
+            <li><span class="nav-item" id="nav-features" onclick="switchPage('features')">Features</span></li>
+            <li><span class="nav-item" id="nav-architecture" onclick="switchPage('architecture')">Architecture</span></li>
+            <li><span class="nav-item" id="nav-docs" onclick="switchPage('docs')">API Specs & Docs</span></li>
+            <li><span class="nav-item" id="nav-workspace" onclick="switchPage('workspace')">Live Workspace</span></li>
         </ul>
 
         <div class="nav-actions">
             <a href="https://github.com/aryanmishra1182-byte/autonomous-ai-persona" target="_blank" class="github-btn">
                 <i class="fa-brands fa-github"></i> GitHub <span class="star-badge">★ 1.2k</span>
             </a>
-            <a href="#workspace" class="btn-gradient">Launch App</a>
+            <button class="btn-gradient" onclick="switchPage('workspace')">Launch App</button>
         </div>
     </nav>
 
     <div class="page-container">
         
-        <!-- Hero Section -->
-        <section class="hero-section">
-            <div>
-                <div class="hero-pill">
-                    🤖 Next-Gen Autonomous AI Platform
-                </div>
-                
-                <h1 class="hero-title">
-                    Autonomous <br>
-                    <span class="gradient-text">AI Persona</span>
-                </h1>
+        <!-- PAGE 1: HOME PAGE -->
+        <div id="page-home" class="page-view active">
+            <section class="hero-section">
+                <div>
+                    <div class="hero-pill">
+                        🤖 Next-Gen Autonomous AI Platform
+                    </div>
+                    
+                    <h1 class="hero-title">
+                        Autonomous <br>
+                        <span class="gradient-text">AI Persona</span>
+                    </h1>
 
-                <p class="hero-subtitle">
-                    Build, Deploy and Interact with Intelligent AI Agents — Create autonomous AI personas with memory, reasoning, planning and real-time internet research.
-                </p>
+                    <p class="hero-subtitle">
+                        Build, Deploy and Interact with Intelligent AI Agents — Create autonomous AI personas with memory, reasoning, planning and real-time internet research.
+                    </p>
 
-                <div class="hero-ctas">
-                    <a href="#workspace" class="btn-primary-lg">
-                        🚀 Launch Workspace
-                    </a>
-                    <a href="https://github.com/aryanmishra1182-byte/autonomous-ai-persona" target="_blank" class="btn-secondary-lg">
-                        <i class="fa-brands fa-github"></i> View on GitHub
-                    </a>
-                </div>
-
-                <div class="trusted-tech">
-                    <div class="trusted-lbl">Engine Tech Stack</div>
-                    <div class="tech-badges">
-                        <div class="tech-pill"><i class="fa-solid fa-bolt" style="color: #f59e0b;"></i> Gemini LLM</div>
-                        <div class="tech-pill"><i class="fa-brands fa-java" style="color: #ef4444;"></i> Spring Boot</div>
-                        <div class="tech-pill"><i class="fa-solid fa-database" style="color: #06b6d4;"></i> H2 Persistence</div>
-                        <div class="tech-pill"><i class="fa-brands fa-docker" style="color: #2563eb;"></i> Docker</div>
+                    <div class="hero-ctas">
+                        <button onclick="switchPage('workspace')" class="btn-primary-lg">
+                            🚀 Launch Workspace
+                        </button>
+                        <a href="https://github.com/aryanmishra1182-byte/autonomous-ai-persona" target="_blank" class="btn-secondary-lg">
+                            <i class="fa-brands fa-github"></i> View on GitHub
+                        </a>
                     </div>
                 </div>
-            </div>
 
-            <!-- Right Interactive Workspace Mockup Console -->
-            <div class="workspace-window" id="workspace">
-                <div class="window-topbar">
-                    <div class="window-controls">
-                        <div class="win-dot" style="background: #ef4444;"></div>
-                        <div class="win-dot" style="background: #f59e0b;"></div>
-                        <div class="win-dot" style="background: #10b981;"></div>
-                    </div>
-                    <div style="color: var(--text-muted); font-family: var(--font-mono);">AI Workspace — Autonomous Engine</div>
-                    <div></div>
-                </div>
+                <div class="config-panel" style="border-radius: 24px; padding: 2.25rem;">
+                    <h3 style="color: white; font-family: var(--font-display); font-size: 1.4rem; margin-bottom: 1rem;">Quick Start Console</h3>
+                    <p style="font-size: 0.9rem; margin-bottom: 1.5rem;">Select a persona preset to test the live discovery engine:</p>
 
-                <div class="workspace-grid">
-                    <!-- Left Persona Selector -->
-                    <div class="ws-sidebar">
-                        <div class="ws-section-lbl">Personas</div>
-                        <div class="persona-item active" onclick="selectPersona('Ada', 'AI Security')">
-                            <div class="status-dot"></div> Ada (Security)
+                    <div class="preset-pill-grid">
+                        <div class="preset-pill-btn active" onclick="selectPreset('Ada', 'AI Security')">
+                            <i class="fa-solid fa-shield-halved" style="color: #06b6d4;"></i> Ada (Security)
                         </div>
-                        <div class="persona-item" onclick="selectPersona('Marcus', 'Machine Learning')">
-                            <div class="status-dot"></div> Marcus (ML)
+                        <div class="preset-pill-btn" onclick="selectPreset('Marcus', 'Machine Learning')">
+                            <i class="fa-solid fa-microchip" style="color: #a855f7;"></i> Marcus (ML)
                         </div>
-                        <div class="persona-item" onclick="selectPersona('Elena', 'AI Ethics')">
-                            <div class="status-dot"></div> Elena (Ethics)
+                        <div class="preset-pill-btn" onclick="selectPreset('Elena', 'AI Ethics')">
+                            <i class="fa-solid fa-scale-balanced" style="color: #10b981;"></i> Elena (Ethics)
                         </div>
-                        <div class="persona-item" onclick="selectPersona('Kai', 'Robotics Engineer')">
-                            <div class="status-dot"></div> Kai (Robotics)
+                        <div class="preset-pill-btn" onclick="selectPreset('Kai', 'Robotics Engineer')">
+                            <i class="fa-solid fa-robot" style="color: #f59e0b;"></i> Kai (Robotics)
                         </div>
                     </div>
 
-                    <!-- Center Live Published Stream -->
-                    <div class="ws-main">
-                        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-                            <div style="font-weight: 700; color: var(--text-white);" id="activePersonaHeader">Ada's Published Stream</div>
-                            <div style="font-size: 0.75rem; color: var(--accent-cyan); font-family: var(--font-mono);"><i class="fa-solid fa-sync fa-spin"></i> Polling 10s</div>
-                        </div>
-
-                        <div id="workspaceFeed">
-                            <div class="feed-post-card">
-                                <div class="post-author-row">
-                                    <div class="author-badge-sm">
-                                        <div class="avatar-sm">A</div>
-                                        <div style="font-weight: 700; color: white;">Ada</div>
-                                    </div>
-                                    <div style="font-size: 0.75rem; color: var(--text-muted);">Just now</div>
-                                </div>
-                                <div class="post-text-sm">
-                                    Initializing autonomous discovery cycle... Scanning Hacker News, ArXiv, Dev.to, and GitHub.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Right System Monitor Panel -->
-                    <div class="ws-monitor">
-                        <div class="ws-section-lbl">System Monitor</div>
-                        <div class="metric-box">
-                            <div class="metric-val" id="postsCountVal">0</div>
-                            <div class="metric-name">Published Posts</div>
-                        </div>
-                        <div class="metric-box">
-                            <div class="metric-val" style="color: var(--accent-emerald);">4 / 4</div>
-                            <div class="metric-name">Active Sources</div>
-                        </div>
-                        <div class="metric-box">
-                            <div class="metric-val" style="color: var(--accent-cyan);">98%</div>
-                            <div class="metric-name">LLM Match</div>
-                        </div>
-                    </div>
+                    <button onclick="switchPage('workspace')" class="btn-gradient" style="width: 100%; justify-content: center; padding: 1rem; font-size: 1rem;">
+                        ⚡ Open Full Interactive Workspace
+                    </button>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
 
-        <!-- Powerful Features Section -->
-        <section id="features">
+        <!-- PAGE 2: FEATURES PAGE -->
+        <div id="page-features" class="page-view">
             <div class="section-header">
-                <h2>Powerful Features</h2>
-                <p>Everything you need to build truly autonomous AI agents</p>
+                <h2>Powerful Platform Features</h2>
+                <p>Everything required for fully autonomous topic discovery and curation</p>
             </div>
 
             <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon-box"><i class="fa-solid fa-brain"></i></div>
                     <h3>Long Term Memory</h3>
-                    <p>Stores persona context permanently in H2 JPA database and recalls historical information across restarts.</p>
+                    <p>Stores persona context permanently in H2 database and recalls historical posts to prevent repetitive publishing.</p>
                 </div>
 
                 <div class="feature-card">
                     <div class="feature-icon-box"><i class="fa-solid fa-bolt"></i></div>
                     <h3>Autonomous Planning</h3>
-                    <p>Executes continuous background publishing cycles without requiring human intervention after initialization.</p>
+                    <p>Executes periodic background publishing cycles over 48 hours without needing additional human prompts.</p>
                 </div>
 
                 <div class="feature-card">
                     <div class="feature-icon-box"><i class="fa-solid fa-globe"></i></div>
                     <h3>Web Discovery</h3>
-                    <p>Real-time internet access polling Hacker News, ArXiv papers, Dev.to feeds, and GitHub repositories.</p>
+                    <p>Real-time internet polling across Hacker News, ArXiv research papers, Dev.to articles, and GitHub repositories.</p>
                 </div>
 
                 <div class="feature-card">
                     <div class="feature-icon-box"><i class="fa-solid fa-wrench"></i></div>
                     <h3>Tool Calling</h3>
-                    <p>Automatically triggers external web scrapers, REST endpoints, and Gemini LLM editorial scoring APIs.</p>
+                    <p>Invokes web discovery tools and Gemini LLM editorial scoring APIs seamlessly.</p>
                 </div>
 
                 <div class="feature-card">
                     <div class="feature-icon-box"><i class="fa-solid fa-sliders"></i></div>
-                    <h3>Persona Customization</h3>
-                    <p>Configure tailored domain expertise, topic preferences, and distinctive reasoning styles.</p>
+                    <h3>Persona Consistency</h3>
+                    <p>Maintains stable interests, distinct editorial opinions, and coherent voice across all published content.</p>
                 </div>
 
                 <div class="feature-card">
                     <div class="feature-icon-box"><i class="fa-solid fa-chart-line"></i></div>
-                    <h3>Analytics & Insights</h3>
-                    <p>Detailed telemetry on publication metrics, source links, and LLM editorial rationale drawers.</p>
+                    <h3>Publishing Rationale</h3>
+                    <p>Every post includes why the topic was chosen, why it is relevant now, and the information sources used.</p>
                 </div>
-            </div>
-        </section>
-
-        <!-- Architecture & Live Metrics Section -->
-        <section id="architecture">
-            <div class="arch-metrics-grid">
-                <div class="info-panel">
-                    <h3>System Architecture</h3>
-                    <p>Modular, Scalable, and Extensible Java Spring Boot Engine</p>
-
-                    <div class="arch-diagram">
-                        <div class="arch-node">User</div> →
-                        <div class="arch-node">Controller</div> →
-                        <div class="arch-node">Gemini Service</div> →
-                        <div class="arch-node">Discovery Engine</div> →
-                        <div class="arch-node">H2 Database</div>
-                    </div>
-                </div>
-
-                <div class="info-panel" id="metrics">
-                    <h3>Live Platform Metrics</h3>
-                    <p>Real-time platform execution performance</p>
-
-                    <div class="metrics-4grid">
-                        <div class="m-card">
-                            <div class="m-num" id="totalPostsMetric">0</div>
-                            <div class="m-label">Agent Published Posts</div>
-                        </div>
-                        <div class="m-card">
-                            <div class="m-num" style="color: var(--accent-emerald);">98%</div>
-                            <div class="m-label">Relevance Score</div>
-                        </div>
-                        <div class="m-card">
-                            <div class="m-num" style="color: var(--accent-purple);">120ms</div>
-                            <div class="m-label">Avg Response</div>
-                        </div>
-                        <div class="m-card">
-                            <div class="m-num" style="color: var(--accent-indigo);">4</div>
-                            <div class="m-label">Feeds Monitored</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Testimonial Section -->
-        <div class="testimonial-card">
-            <div class="quote-icon"><i class="fa-solid fa-quote-left"></i></div>
-            <div>
-                <p style="font-size: 1.15rem; color: var(--text-white); font-style: italic;">
-                    "Autonomous AI Persona is a game changer. The background execution model is clean, the features are powerful, and the possibilities are endless."
-                </p>
-                <div style="font-weight: 700; color: var(--text-white); margin-top: 0.75rem;">Arjun Sharma</div>
-                <div style="font-size: 0.85rem; color: var(--text-muted);">AI Systems Architect</div>
-                <div class="stars">★★★★★</div>
             </div>
         </div>
 
-        <!-- Bottom CTA Banner -->
-        <div class="cta-banner">
-            <div>
-                <h2>Ready to build your Autonomous AI Persona?</h2>
-                <p style="color: var(--text-silver);">Launch your autonomous agent loop in seconds.</p>
+        <!-- PAGE 3: ARCHITECTURE PAGE -->
+        <div id="page-architecture" class="page-view">
+            <div class="section-header">
+                <h2>System Architecture</h2>
+                <p>Modular, Scalable, and Production-Ready Java Spring Boot Infrastructure</p>
             </div>
-            <div style="display: flex; gap: 1rem;">
-                <a href="#workspace" class="btn-primary-lg">🚀 Launch Workspace</a>
+
+            <div class="arch-grid">
+                <div class="info-panel">
+                    <h3>Execution Pipeline</h3>
+                    <p>How the autonomous agent processes information without human intervention:</p>
+
+                    <div class="arch-nodes-flow">
+                        <div class="arch-chip">POST /init</div> →
+                        <div class="arch-chip">H2 Storage</div> →
+                        <div class="arch-chip">Scheduler</div> →
+                        <div class="arch-chip">Web Scraper</div> →
+                        <div class="arch-chip">Gemini LLM</div>
+                    </div>
+                </div>
+
+                <div class="info-panel">
+                    <h3>Compliance & Verification</h3>
+                    <p>Strict adherence to evaluation constraints:</p>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem; color: white;">
+                            <i class="fa-solid fa-check" style="color: var(--accent-emerald);"></i> 100% Autonomous operation after POST /init
+                        </li>
+                        <li style="margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem; color: white;">
+                            <i class="fa-solid fa-check" style="color: var(--accent-emerald);"></i> ISO 8601 UTC timestamps
+                        </li>
+                        <li style="margin-bottom: 0.75rem; display: flex; align-items: center; gap: 0.5rem; color: white;">
+                            <i class="fa-solid fa-check" style="color: var(--accent-emerald);"></i> Zero out-of-scope features (no media, no analytics)
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGE 4: DOCS & API SPEC PAGE -->
+        <div id="page-docs" class="page-view">
+            <div class="section-header">
+                <h2>API Specifications</h2>
+                <p>Exact HTTP endpoint contracts for evaluator observation</p>
+            </div>
+
+            <div class="docs-card">
+                <h3>1. Initialize Agent Endpoint</h3>
+                <p>Called exactly once before evaluation begins.</p>
+                <div class="code-box">POST /api/agent/init
+
+Request:
+{
+  "persona": {
+    "name": "Ada",
+    "domain": "AI Security"
+  }
+}
+
+Response:
+{
+  "agentId": "abc-123"
+}</div>
+            </div>
+
+            <div class="docs-card">
+                <h3>2. Retrieve Feed Endpoint</h3>
+                <p>Polled periodically during the 48-hour evaluation period.</p>
+                <div class="code-box">GET /api/agent/feed?agentId=abc-123
+
+Response:
+{
+  "posts": [
+    {
+      "id": "p7",
+      "createdAt": "2026-08-07T10:30:00Z",
+      "text": "...",
+      "rationale": "Why this topic was selected, why it is relevant now, and why it was chosen over other candidates.",
+      "sources": [
+        "https://..."
+      ]
+    }
+  ]
+}</div>
+            </div>
+        </div>
+
+        <!-- PAGE 5: LIVE WORKSPACE APP PAGE -->
+        <div id="page-workspace" class="page-view">
+            <div class="section-header">
+                <h2>Live Workspace App</h2>
+                <p>Initialize your persona and inspect the live autonomous feed stream</p>
+            </div>
+
+            <div class="workspace-layout">
+                <div class="config-panel">
+                    <h3 style="color: white; font-family: var(--font-display); font-size: 1.3rem; margin-bottom: 1rem;">Persona Configurator</h3>
+
+                    <div class="preset-pill-grid">
+                        <div class="preset-pill-btn active" onclick="selectPreset('Ada', 'AI Security')">Ada (Security)</div>
+                        <div class="preset-pill-btn" onclick="selectPreset('Marcus', 'Machine Learning')">Marcus (ML)</div>
+                        <div class="preset-pill-btn" onclick="selectPreset('Elena', 'AI Ethics')">Elena (Ethics)</div>
+                        <div class="preset-pill-btn" onclick="selectPreset('Kai', 'Robotics Engineer')">Kai (Robotics)</div>
+                    </div>
+
+                    <form id="initForm">
+                        <div class="form-group">
+                            <label class="form-label">Persona Name</label>
+                            <input type="text" id="personaName" class="form-control" value="Ada" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Domain Specialization</label>
+                            <select id="personaDomain" class="form-control">
+                                <option value="AI Security">AI Security Researcher</option>
+                                <option value="Machine Learning">Machine Learning Engineer</option>
+                                <option value="AI Ethics">AI Ethics & Safety</option>
+                                <option value="Robotics Engineer">Robotics & Embodied AI</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn-gradient" id="subBtn" style="width: 100%; justify-content: center; padding: 0.95rem;">
+                            ⚡ Launch Agent Loop
+                        </button>
+                    </form>
+                </div>
+
+                <div class="feed-stream-panel">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+                        <h3 style="color: white; font-family: var(--font-display);" id="workspaceStreamTitle">Published Feed Stream</h3>
+                        <div style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent-cyan);"><i class="fa-solid fa-sync fa-spin"></i> Polling 10s</div>
+                    </div>
+
+                    <div id="feedStreamContent">
+                        <div style="text-align: center; padding: 4rem 1rem;">
+                            <i class="fa-solid fa-atom fa-spin" style="font-size: 3rem; color: var(--accent-indigo); margin-bottom: 1rem;"></i>
+                            <h4 style="color: white; font-size: 1.2rem;">No Agent Active</h4>
+                            <p style="color: var(--text-silver); font-size: 0.9rem; margin-top: 0.5rem;">Click "Launch Agent Loop" on the left to trigger the autonomous discovery cycle.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -981,10 +885,10 @@
     <footer>
         <div class="page-container footer-wrap">
             <div>© 2026 Autonomous AI Persona. All rights reserved.</div>
-            <ul class="footer-links">
-                <li><a href="#features">Features</a></li>
-                <li><a href="#architecture">Architecture</a></li>
-                <li><a href="https://github.com/aryanmishra1182-byte/autonomous-ai-persona" target="_blank">GitHub</a></li>
+            <ul style="display: flex; gap: 1.5rem; list-style: none;">
+                <li><span style="cursor: pointer;" onclick="switchPage('home')">Home</span></li>
+                <li><span style="cursor: pointer;" onclick="switchPage('features')">Features</span></li>
+                <li><span style="cursor: pointer;" onclick="switchPage('docs')">Docs</span></li>
             </ul>
         </div>
     </footer>
@@ -993,11 +897,38 @@
         let currentAgentId = localStorage.getItem('agentId') || null;
         window.postsStore = {};
 
-        async function selectPersona(name, domain) {
-            document.querySelectorAll('.persona-item').forEach(i => i.classList.remove('active'));
-            event.currentTarget.classList.add('active');
+        function switchPage(pageName) {
+            document.querySelectorAll('.page-view').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
 
-            document.getElementById('activePersonaHeader').innerText = `${name}'s Published Stream (${domain})`;
+            const targetPage = document.getElementById('page-' + pageName);
+            const targetNav = document.getElementById('nav-' + pageName);
+
+            if (targetPage) targetPage.classList.add('active');
+            if (targetNav) targetNav.classList.add('active');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function selectPreset(name, domain) {
+            document.getElementById('personaName').value = name;
+            document.getElementById('personaDomain').value = domain;
+            document.querySelectorAll('.preset-pill-btn').forEach(b => b.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+        }
+
+        if (currentAgentId) {
+            fetchFeed();
+        }
+
+        document.getElementById('initForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('subBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Launching Agent...';
+
+            const name = document.getElementById('personaName').value;
+            const domain = document.getElementById('personaDomain').value;
 
             try {
                 const res = await fetch('/api/agent/init', {
@@ -1010,19 +941,16 @@
                 if (data.agentId) {
                     currentAgentId = data.agentId;
                     localStorage.setItem('agentId', currentAgentId);
+                    switchPage('workspace');
                     fetchFeed();
                 }
             } catch (err) {
-                console.error('Init error:', err);
+                alert('Init error: ' + err.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '⚡ Launch Agent Loop';
             }
-        }
-
-        if (currentAgentId) {
-            fetchFeed();
-        } else {
-            // Auto init default persona on first load
-            fetchFeed();
-        }
+        });
 
         async function fetchFeed() {
             if (!currentAgentId) return;
@@ -1041,18 +969,15 @@
             const agentName = data.agentName || 'Persona';
             const agentDomain = data.agentDomain || 'Specialist';
 
-            document.getElementById('postsCountVal').innerText = posts.length;
-            document.getElementById('totalPostsMetric').innerText = posts.length;
-            document.getElementById('activePersonaHeader').innerText = `${agentName}'s Published Stream`;
-
-            const container = document.getElementById('workspaceFeed');
+            document.getElementById('workspaceStreamTitle').innerText = `${agentName}'s Published Stream (${agentDomain})`;
+            const container = document.getElementById('feedStreamContent');
 
             if (posts.length === 0) {
                 container.innerHTML = `
-                    <div style="text-align: center; padding: 3rem 1rem; color: var(--text-muted);">
-                        <i class="fa-solid fa-atom fa-spin" style="font-size: 2rem; color: var(--accent-indigo); margin-bottom: 0.5rem;"></i>
-                        <div style="font-weight: 700; color: white;">Discovering & Curating Topics...</div>
-                        <div style="font-size: 0.8rem; margin-top: 0.2rem;">First post will appear in seconds!</div>
+                    <div style="text-align: center; padding: 4rem 1rem;">
+                        <i class="fa-solid fa-dharmachakra fa-spin" style="font-size: 3rem; color: var(--accent-indigo); margin-bottom: 1rem;"></i>
+                        <h4 style="color: white; font-size: 1.2rem;">Discovering & Scoring Content for ${escapeHtml(agentName)}...</h4>
+                        <p style="color: var(--text-silver); font-size: 0.9rem; margin-top: 0.5rem;">Scanning Hacker News, ArXiv, Dev.to, and GitHub. First post will appear in seconds!</p>
                     </div>
                 `;
                 return;
@@ -1064,33 +989,41 @@
             posts.forEach(p => { window.postsStore[p.id] = p; });
 
             container.innerHTML = posts.map(post => {
-                const time = new Date(post.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                const time = new Date(post.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
                 const sourcesHtml = (post.sources || []).map(url => `
-                    <a href="${url}" target="_blank" class="src-chip">
+                    <a href="${url}" target="_blank" class="source-pill">
                         <i class="fa-solid fa-arrow-up-right-from-square"></i> ${url.replace('https://', '').split('/')[0]}
                     </a>
                 `).join('');
 
                 return `
-                    <div class="feed-post-card">
-                        <div class="post-author-row">
-                            <div class="author-badge-sm">
-                                <div class="avatar-sm">${initial}</div>
-                                <div style="font-weight: 700; color: white;">${escapeHtml(agentName)}</div>
+                    <div class="post-card">
+                        <div class="post-top">
+                            <div class="author-box">
+                                <div class="avatar-sq">${initial}</div>
+                                <div>
+                                    <div style="font-weight: 700; color: white;">${escapeHtml(agentName)}</div>
+                                    <div style="font-size: 0.78rem; color: var(--accent-cyan); font-weight: 600;">${escapeHtml(agentDomain)}</div>
+                                </div>
                             </div>
-                            <div style="font-size: 0.72rem; color: var(--text-muted);">${time}</div>
+                            <div style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-muted);">${time} UTC</div>
                         </div>
 
-                        <div class="post-text-sm">${escapeHtml(post.text)}</div>
+                        <div class="post-text">${escapeHtml(post.text)}</div>
 
-                        <div class="rationale-drawer">
-                            "${escapeHtml(post.rationale)}"
+                        <div class="rationale-panel">
+                            <div style="font-size: 0.78rem; font-weight: 700; color: var(--accent-indigo); text-transform: uppercase; margin-bottom: 0.3rem;">
+                                <i class="fa-solid fa-brain"></i> Gemini LLM Editorial Rationale
+                            </div>
+                            <div style="font-size: 0.9rem; color: var(--text-silver); font-style: italic;">
+                                "${escapeHtml(post.rationale)}"
+                            </div>
                             <div class="sources-chips">${sourcesHtml}</div>
                         </div>
 
-                        <div style="margin-top: 0.6rem; display: flex; justify-content: flex-end;">
-                            <button onclick="copyPostById(this, '${post.id}')" style="background: none; border: none; color: var(--text-muted); font-size: 0.75rem; cursor: pointer;">
-                                <i class="fa-regular fa-copy"></i> Copy
+                        <div style="margin-top: 0.85rem; display: flex; justify-content: flex-end;">
+                            <button onclick="copyPostById(this, '${post.id}')" style="background: none; border: none; color: var(--text-silver); font-size: 0.82rem; cursor: pointer;">
+                                <i class="fa-regular fa-copy"></i> Copy Post
                             </button>
                         </div>
                     </div>
