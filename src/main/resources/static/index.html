@@ -3,43 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Autonomous Persona — Neural Studio</title>
+    <title>Autonomous Persona — AI Studio Deck</title>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
         :root {
-            --bg-base: #08090d;
-            --surface-bento: #10121a;
-            --surface-hover: #161924;
-            --border-subtle: rgba(255, 255, 255, 0.07);
-            --border-glow: #6366f1;
+            --bg-body: #07090e;
+            --bg-surface: #0f131d;
+            --bg-elevated: #161b29;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-active: #6366f1;
             
-            --text-heading: #ffffff;
-            --text-body: #94a3b8;
-            --text-muted: #475569;
+            --text-title: #ffffff;
+            --text-sub: #94a3b8;
+            --text-dim: #475569;
 
-            --neon-violet: #8b5cf6;
+            --neon-indigo: #6366f1;
             --neon-cyan: #06b6d4;
             --neon-emerald: #10b981;
-            --neon-rose: #f43f5e;
-            
-            --font-sans: 'Plus Jakarta Sans', sans-serif;
-            --font-display: 'Space Grotesk', sans-serif;
-            --font-mono: 'JetBrains Mono', monospace;
-        }
+            --neon-amber: #f59e0b;
 
-        body.light-theme {
-            --bg-base: #f1f5f9;
-            --surface-bento: #ffffff;
-            --surface-hover: #f8fafc;
-            --border-subtle: rgba(0, 0, 0, 0.08);
-            --text-heading: #0f172a;
-            --text-body: #475569;
-            --text-muted: #94a3b8;
+            --font-sans: 'Outfit', sans-serif;
+            --font-title: 'Space Grotesk', sans-serif;
+            --font-mono: 'Fira Code', monospace;
         }
 
         * {
@@ -49,560 +39,428 @@
         }
 
         body {
-            background-color: var(--bg-base);
-            color: var(--text-body);
+            background-color: var(--bg-body);
+            color: var(--text-sub);
             font-family: var(--font-sans);
             min-height: 100vh;
-            overflow-x: hidden;
         }
 
-        /* Top Scrolling Telemetry Ticker */
-        .ticker-bar {
-            background: #000;
-            border-bottom: 1px solid var(--border-subtle);
-            padding: 0.4rem 1rem;
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            color: var(--neon-cyan);
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            overflow: hidden;
-            white-space: nowrap;
-        }
-
-        .ticker-content {
-            display: inline-block;
-            animation: marquee 25s linear infinite;
-        }
-
-        @keyframes marquee {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
-
-        /* App Navbar */
-        nav {
-            border-bottom: 1px solid var(--border-subtle);
-            padding: 1rem 2rem;
+        /* Top Header */
+        header {
+            border-bottom: 1px solid var(--border-color);
+            background: var(--bg-surface);
+            padding: 0.8rem 1.5rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: rgba(8, 9, 13, 0.8);
-            backdrop-filter: blur(20px);
-            position: sticky;
-            top: 0;
-            z-index: 100;
         }
 
-        .nav-brand {
+        .header-brand {
             display: flex;
             align-items: center;
             gap: 0.75rem;
         }
 
-        .brand-badge {
-            width: 38px;
-            height: 38px;
-            border-radius: 10px;
-            background: linear-gradient(135deg, var(--neon-violet), var(--neon-cyan));
+        .brand-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: linear-gradient(135deg, var(--neon-indigo), var(--neon-cyan));
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
 
-        .nav-brand h2 {
-            font-family: var(--font-display);
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--text-heading);
+        .header-brand h1 {
+            font-family: var(--font-title);
+            font-size: 1.15rem;
+            color: var(--text-title);
         }
 
-        .nav-controls {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .theme-btn {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid var(--border-subtle);
+        .status-tag {
+            font-size: 0.75rem;
+            color: var(--neon-emerald);
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            padding: 0.3rem 0.75rem;
             border-radius: 20px;
-            padding: 0.4rem 0.9rem;
-            color: var(--text-heading);
-            font-size: 0.8rem;
-            font-weight: 600;
-            cursor: pointer;
-        }
-
-        .status-pill {
             display: flex;
             align-items: center;
             gap: 0.4rem;
-            font-size: 0.78rem;
             font-weight: 600;
-            color: var(--neon-emerald);
-            background: rgba(16, 185, 129, 0.1);
-            padding: 0.35rem 0.8rem;
-            border-radius: 20px;
-            border: 1px solid rgba(16, 185, 129, 0.25);
         }
 
-        .radar-dot {
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            background: var(--neon-emerald);
-            box-shadow: 0 0 8px var(--neon-emerald);
-            animation: pulse 1.5s infinite;
+        /* Top Full-Width Control Bar (Horizontal Studio Controller) */
+        .control-banner {
+            background: var(--bg-surface);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.25rem 1.5rem;
         }
 
-        @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
-
-        /* Bento Grid Main Layout */
-        .bento-container {
-            max-width: 1400px;
-            margin: 2rem auto;
-            padding: 0 2rem;
-            display: grid;
-            grid-template-columns: 360px 1fr;
-            gap: 1.75rem;
-        }
-
-        @media (max-width: 1024px) {
-            .bento-container { grid-template-columns: 1fr; }
-        }
-
-        .bento-box {
-            background: var(--surface-bento);
-            border: 1px solid var(--border-subtle);
-            border-radius: 20px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            transition: all 0.25s ease;
-        }
-
-        .bento-box:hover {
-            border-color: var(--border-glow);
-            background: var(--surface-hover);
-        }
-
-        .bento-title {
-            font-family: var(--font-display);
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--text-heading);
-            margin-bottom: 1.2rem;
+        .preset-row {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+            overflow-x: auto;
         }
 
-        /* Preset Cards */
-        .preset-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0.6rem;
-            margin-bottom: 1.2rem;
-        }
-
-        .preset-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-subtle);
-            border-radius: 12px;
-            padding: 0.75rem;
+        .preset-pill {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 30px;
+            padding: 0.45rem 1rem;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-sub);
             cursor: pointer;
-            transition: all 0.2s;
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            font-size: 0.82rem;
-            font-weight: 600;
-            color: var(--text-body);
+            transition: all 0.2s;
+            white-space: nowrap;
         }
 
-        .preset-card:hover, .preset-card.active {
-            border-color: var(--border-glow);
-            color: var(--text-heading);
-            background: rgba(99, 102, 241, 0.12);
+        .preset-pill:hover, .preset-pill.active {
+            background: rgba(99, 102, 241, 0.15);
+            border-color: var(--neon-indigo);
+            color: var(--text-title);
         }
 
-        .preset-icon {
-            width: 28px;
-            height: 28px;
-            border-radius: 8px;
-            display: flex;
+        .controller-form {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 1rem;
             align-items: center;
-            justify-content: center;
-            font-size: 0.85rem;
         }
 
-        .form-group {
-            margin-bottom: 1.1rem;
+        @media (max-width: 768px) {
+            .controller-form { grid-template-columns: 1fr; }
         }
 
-        .form-label {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            margin-bottom: 0.4rem;
-            display: block;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 0.8rem 1rem;
+        .input-ctrl {
             background: rgba(0, 0, 0, 0.4);
-            border: 1px solid var(--border-subtle);
+            border: 1px solid var(--border-color);
             border-radius: 10px;
-            color: var(--text-heading);
+            padding: 0.75rem 1rem;
+            color: var(--text-title);
             font-family: var(--font-sans);
             font-size: 0.9rem;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: var(--border-glow);
-        }
-
-        .btn-launch {
             width: 100%;
-            padding: 0.9rem;
-            border-radius: 12px;
+        }
+
+        .input-ctrl:focus {
+            outline: none;
+            border-color: var(--neon-indigo);
+        }
+
+        .launch-btn {
+            padding: 0.75rem 1.75rem;
+            border-radius: 10px;
             border: none;
-            background: linear-gradient(135deg, var(--neon-violet), var(--border-glow));
+            background: linear-gradient(135deg, var(--neon-indigo), #8b5cf6);
             color: white;
-            font-family: var(--font-display);
+            font-family: var(--font-title);
             font-weight: 700;
             font-size: 0.95rem;
             cursor: pointer;
             display: flex;
             align-items: center;
-            justify-content: center;
             gap: 0.5rem;
-            transition: transform 0.2s;
+            white-space: nowrap;
         }
 
-        .btn-launch:hover {
-            transform: translateY(-2px);
+        /* 3-Column Studio Grid Structure */
+        .studio-grid {
+            display: grid;
+            grid-template-columns: 320px 1fr 300px;
+            gap: 1.5rem;
+            padding: 1.5rem;
+            max-width: 1600px;
+            margin: 0 auto;
         }
 
-        /* Post Card Layout */
-        .post-card {
-            background: var(--surface-bento);
-            border: 1px solid var(--border-subtle);
-            border-radius: 20px;
-            padding: 1.75rem;
-            margin-bottom: 1.5rem;
-            transition: all 0.25s ease;
+        @media (max-width: 1200px) {
+            .studio-grid { grid-template-columns: 1fr; }
         }
 
-        .post-card:hover {
-            border-color: var(--border-glow);
-            background: var(--surface-hover);
+        .studio-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.25rem;
         }
 
-        .post-header {
+        .card-header-title {
+            font-family: var(--font-title);
+            font-size: 1rem;
+            color: var(--text-title);
+            font-weight: 700;
+            margin-bottom: 1rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1.2rem;
         }
 
-        .persona-meta {
+        /* Persona Dossier Column */
+        .dossier-item {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 0.85rem;
+            margin-bottom: 0.85rem;
+        }
+
+        .dossier-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--neon-cyan);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.25rem;
+        }
+
+        .dossier-val {
+            font-size: 0.88rem;
+            color: var(--text-title);
+        }
+
+        /* Post Feed Cards */
+        .post-box {
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .post-top-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .author-info {
             display: flex;
             align-items: center;
-            gap: 0.85rem;
+            gap: 0.75rem;
         }
 
-        .persona-avatar {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, var(--neon-violet), var(--neon-cyan));
+        .avatar-circle {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, var(--neon-indigo), var(--neon-cyan));
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-weight: 700;
-            font-size: 1.1rem;
         }
 
-        .persona-name {
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--text-heading);
-        }
-
-        .persona-domain {
-            font-size: 0.78rem;
-            color: var(--neon-cyan);
-            font-weight: 600;
-        }
-
-        .post-time {
-            font-family: var(--font-mono);
-            font-size: 0.75rem;
-            color: var(--text-muted);
-        }
-
-        .post-text {
-            font-size: 1rem;
-            line-height: 1.75;
-            color: var(--text-heading);
+        .post-body-text {
+            font-size: 0.98rem;
+            line-height: 1.7;
+            color: var(--text-title);
             white-space: pre-wrap;
-            margin-bottom: 1.4rem;
+            margin-bottom: 1.2rem;
         }
 
-        .rationale-box {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px dashed var(--border-subtle);
-            border-radius: 12px;
+        .rationale-drawer {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px dashed var(--border-color);
+            border-radius: 10px;
             padding: 1rem;
             margin-top: 1rem;
         }
 
-        .rationale-label {
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: var(--border-glow);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-bottom: 0.3rem;
+        .sources-list {
             display: flex;
-            align-items: center;
             gap: 0.4rem;
-        }
-
-        .rationale-content {
-            font-size: 0.88rem;
-            color: var(--text-body);
-            font-style: italic;
-        }
-
-        .sources-flex {
-            display: flex;
-            gap: 0.5rem;
-            margin-top: 0.8rem;
+            margin-top: 0.75rem;
             flex-wrap: wrap;
         }
 
-        .source-pill {
+        .src-chip {
             font-size: 0.75rem;
-            padding: 0.3rem 0.7rem;
+            padding: 0.25rem 0.65rem;
             border-radius: 6px;
             background: rgba(6, 182, 212, 0.1);
             color: var(--neon-cyan);
             border: 1px solid rgba(6, 182, 212, 0.25);
             text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            font-weight: 600;
         }
 
-        .post-actions {
+        .post-actions-bar {
             display: flex;
-            align-items: center;
             gap: 1rem;
-            margin-top: 1.2rem;
-            border-top: 1px solid var(--border-subtle);
-            padding-top: 1rem;
+            margin-top: 1rem;
+            border-top: 1px solid var(--border-color);
+            padding-top: 0.85rem;
         }
 
         .act-btn {
             background: none;
             border: none;
-            color: var(--text-muted);
-            font-size: 0.85rem;
+            color: var(--text-dim);
+            font-size: 0.82rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             gap: 0.4rem;
-            transition: color 0.2s;
         }
 
-        .act-btn:hover { color: var(--border-glow); }
+        .act-btn:hover { color: var(--neon-indigo); }
 
-        /* Animated Equalizer Visualizer */
-        .equalizer {
-            display: inline-flex;
-            align-items: flex-end;
-            gap: 2px;
-            height: 12px;
+        /* Radar Column Items */
+        .radar-source-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 0.85rem;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
-        .eq-bar {
-            width: 3px;
-            background: var(--neon-emerald);
-            animation: eq 0.8s ease-in-out infinite alternate;
-        }
-
-        .eq-bar:nth-child(1) { height: 40%; animation-delay: 0.1s; }
-        .eq-bar:nth-child(2) { height: 100%; animation-delay: 0.3s; }
-        .eq-bar:nth-child(3) { height: 60%; animation-delay: 0.2s; }
-        .eq-bar:nth-child(4) { height: 80%; animation-delay: 0.4s; }
-
-        @keyframes eq {
-            0% { height: 20%; }
-            100% { height: 100%; }
-        }
-
-        .empty-placeholder {
+        .empty-view {
             text-align: center;
-            padding: 5rem 2rem;
-            background: var(--surface-bento);
-            border: 1px dashed var(--border-subtle);
-            border-radius: 20px;
-        }
-
-        .empty-placeholder i {
-            font-size: 3rem;
-            color: var(--border-glow);
-            margin-bottom: 1rem;
+            padding: 4rem 2rem;
         }
     </style>
 </head>
 <body>
 
-    <!-- Telemetry Marquee Ticker -->
-    <div class="ticker-bar">
-        <span style="color: var(--neon-emerald);">LIVE TICKER:</span>
-        <div class="ticker-content">
-            [SYSTEM] Multi-thread background loop active &nbsp;&bull;&nbsp; [DISCOVERY] Polling Hacker News, Dev.to, ArXiv, GitHub &nbsp;&bull;&nbsp; [MODEL] Gemini 2.0 Flash Editorial Engine &nbsp;&bull;&nbsp; [STATUS] 100% Autonomous Operation
+    <!-- Header Navigation -->
+    <header>
+        <div class="header-brand">
+            <div class="brand-icon"><i class="fa-solid fa-cube"></i></div>
+            <h1>Autonomous AI Persona Deck</h1>
         </div>
+        <div class="status-tag">
+            <i class="fa-solid fa-circle" style="font-size: 0.5rem;"></i> Live System Online
+        </div>
+    </header>
+
+    <!-- Top Horizontal Controller Banner -->
+    <div class="control-banner">
+        <div class="preset-row">
+            <span style="font-size: 0.78rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase;">Presets:</span>
+            <div class="preset-pill active" onclick="applyPreset('Ada', 'AI Security')"><i class="fa-solid fa-shield"></i> Ada (Security)</div>
+            <div class="preset-pill" onclick="applyPreset('Marcus', 'Machine Learning')"><i class="fa-solid fa-microchip"></i> Marcus (ML)</div>
+            <div class="preset-pill" onclick="applyPreset('Elena', 'AI Ethics')"><i class="fa-solid fa-scale-balanced"></i> Elena (Ethics)</div>
+            <div class="preset-pill" onclick="applyPreset('Kai', 'Robotics Engineer')"><i class="fa-solid fa-robot"></i> Kai (Robotics)</div>
+        </div>
+
+        <form id="personaForm" class="controller-form">
+            <input type="text" id="personaName" class="input-ctrl" value="Ada" placeholder="Persona Name" required>
+            <select id="personaDomain" class="input-ctrl">
+                <option value="AI Security">AI Security Researcher</option>
+                <option value="Machine Learning">Machine Learning Engineer</option>
+                <option value="AI Ethics">AI Ethics & Safety</option>
+                <option value="Robotics Engineer">Robotics & Embodied AI</option>
+                <option value="Open Source Contributor">Open Source Contributor</option>
+            </select>
+            <button type="submit" class="launch-btn" id="subBtn"><i class="fa-solid fa-bolt"></i> Launch Agent</button>
+        </form>
     </div>
 
-    <!-- App Navigation Header -->
-    <nav>
-        <div class="nav-brand">
-            <div class="brand-badge"><i class="fa-solid fa-bolt"></i></div>
-            <h2>Autonomous Persona</h2>
-        </div>
-        <div class="nav-controls">
-            <button class="theme-btn" onclick="toggleTheme()"><i class="fa-solid fa-moon"></i> Toggle Theme</button>
-            <div class="status-pill">
-                <div class="radar-dot"></div> Live Engine Active
-            </div>
-        </div>
-    </nav>
-
-    <!-- Bento Container Layout -->
-    <div class="bento-container">
+    <!-- 3-Column Studio Grid Layout -->
+    <div class="studio-grid">
         
-        <!-- Left Bento Sidebar -->
-        <aside>
-            <div class="bento-box">
-                <div class="bento-title">
-                    <span>Initialize Persona</span>
-                    <i class="fa-solid fa-sliders" style="color: var(--border-glow);"></i>
-                </div>
-
-                <div class="preset-grid">
-                    <div class="preset-card active" onclick="applyPreset('Ada', 'AI Security')">
-                        <div class="preset-icon" style="background: rgba(6, 182, 212, 0.15); color: #06b6d4;"><i class="fa-solid fa-shield"></i></div>
-                        <div>Ada (Security)</div>
-                    </div>
-                    <div class="preset-card" onclick="applyPreset('Marcus', 'Machine Learning')">
-                        <div class="preset-icon" style="background: rgba(139, 92, 246, 0.15); color: #8b5cf6;"><i class="fa-solid fa-microchip"></i></div>
-                        <div>Marcus (ML)</div>
-                    </div>
-                    <div class="preset-card" onclick="applyPreset('Elena', 'AI Ethics')">
-                        <div class="preset-icon" style="background: rgba(16, 185, 129, 0.15); color: #10b981;"><i class="fa-solid fa-scale-balanced"></i></div>
-                        <div>Elena (Ethics)</div>
-                    </div>
-                    <div class="preset-card" onclick="applyPreset('Kai', 'Robotics Engineer')">
-                        <div class="preset-icon" style="background: rgba(245, 158, 11, 0.15); color: #f59e0b;"><i class="fa-solid fa-robot"></i></div>
-                        <div>Kai (Robotics)</div>
-                    </div>
-                </div>
-
-                <form id="personaForm">
-                    <div class="form-group">
-                        <label class="form-label">Persona Name</label>
-                        <input type="text" id="personaName" class="form-input" value="Ada" required>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Domain Specialization</label>
-                        <select id="personaDomain" class="form-input">
-                            <option value="AI Security">AI Security Researcher</option>
-                            <option value="Machine Learning">Machine Learning Engineer</option>
-                            <option value="AI Ethics">AI Ethics & Safety</option>
-                            <option value="Robotics Engineer">Robotics & Embodied AI</option>
-                            <option value="Open Source Contributor">Open Source Contributor</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn-launch" id="submitBtn">
-                        <i class="fa-solid fa-play"></i> Launch Autonomous Loop
-                    </button>
-                </form>
+        <!-- Left Column: Persona Active Dossier -->
+        <div class="studio-card">
+            <div class="card-header-title">
+                <span>Active Dossier</span>
+                <i class="fa-solid fa-id-card" style="color: var(--neon-indigo);"></i>
             </div>
-
-            <div class="bento-box">
-                <div class="bento-title">
-                    <span>Engine Metrics</span>
-                    <i class="fa-solid fa-chart-line" style="color: var(--neon-cyan);"></i>
-                </div>
-                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; text-align: center;">
-                    <div style="background: rgba(0, 0, 0, 0.25); padding: 0.85rem; border-radius: 10px;">
-                        <div id="statPostCount" style="font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; color: var(--neon-cyan);">0</div>
-                        <div style="font-size: 0.72rem; color: var(--text-muted);">Posts Published</div>
-                    </div>
-                    <div style="background: rgba(0, 0, 0, 0.25); padding: 0.85rem; border-radius: 10px;">
-                        <div style="font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; color: var(--neon-emerald);">4</div>
-                        <div style="font-size: 0.72rem; color: var(--text-muted);">Live Sources</div>
-                    </div>
-                </div>
+            
+            <div class="dossier-item">
+                <div class="dossier-label">Active Agent ID</div>
+                <div class="dossier-val" id="dossierGuid" style="font-family: var(--font-mono); color: var(--neon-cyan);">Uninitialized</div>
             </div>
-        </aside>
+            <div class="dossier-item">
+                <div class="dossier-label">Current Identity</div>
+                <div class="dossier-val" id="dossierName">Ada</div>
+            </div>
+            <div class="dossier-item">
+                <div class="dossier-label">Domain Expertise</div>
+                <div class="dossier-val" id="dossierDomain">AI Security Researcher</div>
+            </div>
+            <div class="dossier-item">
+                <div class="dossier-label">Total Published Posts</div>
+                <div class="dossier-val" id="dossierPosts" style="font-size: 1.4rem; font-weight: 700; color: var(--neon-emerald);">0</div>
+            </div>
+        </div>
 
-        <!-- Right Main Feed -->
-        <main>
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem;">
-                <h3 id="feedHeadingTitle" style="font-family: var(--font-display); font-size: 1.3rem; color: var(--text-heading);">Persona Feed Stream</h3>
-                <div style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-muted);">
-                    <i class="fa-solid fa-arrows-rotate fa-spin"></i> Polling 10s
-                </div>
+        <!-- Middle Column: Main Feed Stream -->
+        <div>
+            <div class="card-header-title" style="margin-bottom: 1rem;">
+                <span id="streamHeading">Published Feed Stream</span>
+                <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim);"><i class="fa-solid fa-arrows-rotate fa-spin"></i> Polling 10s</span>
             </div>
 
             <div id="feedStream">
-                <div class="empty-placeholder">
-                    <i class="fa-solid fa-atom fa-spin"></i>
-                    <h3 style="color: var(--text-heading);">No Persona Active</h3>
-                    <p style="font-size: 0.9rem; margin-top: 0.5rem; color: var(--text-body);">
-                        Click "Launch Autonomous Loop" on the left panel to start topic discovery and Gemini LLM curation.
-                    </p>
+                <div class="studio-card empty-view">
+                    <i class="fa-solid fa-atom fa-spin" style="font-size: 3rem; color: var(--neon-indigo); margin-bottom: 1rem;"></i>
+                    <h3 style="color: var(--text-title);">No Active Feed</h3>
+                    <p style="font-size: 0.9rem; margin-top: 0.5rem;">Click "Launch Agent" above to start topic discovery and LLM post generation.</p>
                 </div>
             </div>
-        </main>
+        </div>
+
+        <!-- Right Column: Live Radar Feeds Status -->
+        <div class="studio-card">
+            <div class="card-header-title">
+                <span>Radar Sources</span>
+                <i class="fa-solid fa-radar" style="color: var(--neon-cyan);"></i>
+            </div>
+
+            <div class="radar-source-card">
+                <div style="font-size: 0.85rem; font-weight: 600; color: var(--text-title);"><i class="fa-solid fa-newspaper" style="color: #ff6600;"></i> Hacker News</div>
+                <span style="font-size: 0.75rem; color: var(--neon-emerald);">ONLINE</span>
+            </div>
+            <div class="radar-source-card">
+                <div style="font-size: 0.85rem; font-weight: 600; color: var(--text-title);"><i class="fa-solid fa-pen-nib"></i> Dev.to Articles</div>
+                <span style="font-size: 0.75rem; color: var(--neon-emerald);">ONLINE</span>
+            </div>
+            <div class="radar-source-card">
+                <div style="font-size: 0.85rem; font-weight: 600; color: var(--text-title);"><i class="fa-solid fa-file-pdf" style="color: #b31b1b;"></i> ArXiv Papers</div>
+                <span style="font-size: 0.75rem; color: var(--neon-emerald);">ONLINE</span>
+            </div>
+            <div class="radar-source-card">
+                <div style="font-size: 0.85rem; font-weight: 600; color: var(--text-title);"><i class="fa-brands fa-github"></i> GitHub Repos</div>
+                <span style="font-size: 0.75rem; color: var(--neon-emerald);">ONLINE</span>
+            </div>
+        </div>
+
     </div>
 
     <script>
         let currentAgentId = localStorage.getItem('agentId') || null;
         window.postsStore = {};
 
-        function toggleTheme() {
-            document.body.classList.toggle('light-theme');
-        }
-
         function applyPreset(name, domain) {
             document.getElementById('personaName').value = name;
             document.getElementById('personaDomain').value = domain;
-            document.querySelectorAll('.preset-card').forEach(c => c.classList.remove('active'));
+            document.querySelectorAll('.preset-pill').forEach(p => p.classList.remove('active'));
             event.currentTarget.classList.add('active');
         }
 
         if (currentAgentId) {
+            document.getElementById('dossierGuid').innerText = currentAgentId;
             fetchFeed();
         }
 
         document.getElementById('personaForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            const btn = document.getElementById('submitBtn');
+            const btn = document.getElementById('subBtn');
             btn.disabled = true;
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Initializing...';
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Launching...';
 
             const name = document.getElementById('personaName').value;
             const domain = document.getElementById('personaDomain').value;
@@ -618,13 +476,14 @@
                 if (data.agentId) {
                     currentAgentId = data.agentId;
                     localStorage.setItem('agentId', currentAgentId);
+                    document.getElementById('dossierGuid').innerText = currentAgentId;
                     fetchFeed();
                 }
             } catch (err) {
                 alert('Init error: ' + err.message);
             } finally {
                 btn.disabled = false;
-                btn.innerHTML = '<i class="fa-solid fa-play"></i> Launch Autonomous Loop';
+                btn.innerHTML = '<i class="fa-solid fa-bolt"></i> Launch Agent';
             }
         });
 
@@ -645,19 +504,19 @@
             const agentName = data.agentName || 'Persona';
             const agentDomain = data.agentDomain || 'Specialist';
 
-            document.getElementById('statPostCount').innerText = posts.length;
-            document.getElementById('feedHeadingTitle').innerText = `${agentName}'s Feed (${agentDomain})`;
+            document.getElementById('dossierName').innerText = agentName;
+            document.getElementById('dossierDomain').innerText = agentDomain;
+            document.getElementById('dossierPosts').innerText = posts.length;
+            document.getElementById('streamHeading').innerText = `${agentName}'s Feed Stream (${agentDomain})`;
 
             const container = document.getElementById('feedStream');
 
             if (posts.length === 0) {
                 container.innerHTML = `
-                    <div class="empty-placeholder">
-                        <i class="fa-solid fa-dharmachakra fa-spin"></i>
-                        <h3 style="color: var(--text-heading);">Discovering & Curating Content for ${escapeHtml(agentName)}...</h3>
-                        <p style="font-size: 0.9rem; margin-top: 0.5rem;">
-                            Scanning Hacker News, ArXiv, Dev.to, and GitHub. First post will appear in seconds!
-                        </p>
+                    <div class="studio-card empty-view">
+                        <i class="fa-solid fa-dharmachakra fa-spin" style="font-size: 3rem; color: var(--neon-indigo); margin-bottom: 1rem;"></i>
+                        <h3 style="color: var(--text-title);">Discovering Content for ${escapeHtml(agentName)}...</h3>
+                        <p style="font-size: 0.9rem; margin-top: 0.5rem;">Scanning live Hacker News, ArXiv, Dev.to, and GitHub. First post will appear in seconds!</p>
                     </div>
                 `;
                 return;
@@ -665,45 +524,43 @@
 
             const initial = agentName.charAt(0).toUpperCase();
 
-            // Save posts cleanly by ID in global dict
+            // Store posts by ID cleanly
             posts.forEach(p => { window.postsStore[p.id] = p; });
 
             container.innerHTML = posts.map(post => {
                 const time = new Date(post.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
                 const sourcesHtml = (post.sources || []).map(url => `
-                    <a href="${url}" target="_blank" class="source-pill">
+                    <a href="${url}" target="_blank" class="src-chip">
                         <i class="fa-solid fa-arrow-up-right-from-square"></i> ${url.replace('https://', '').split('/')[0]}
                     </a>
                 `).join('');
 
                 return `
-                    <div class="post-card">
-                        <div class="post-header">
-                            <div class="persona-meta">
-                                <div class="persona-avatar">${initial}</div>
+                    <div class="post-box">
+                        <div class="post-top-meta">
+                            <div class="author-info">
+                                <div class="avatar-circle">${initial}</div>
                                 <div>
-                                    <div class="persona-name">${escapeHtml(agentName)}</div>
-                                    <div class="persona-domain">${escapeHtml(agentDomain)}</div>
+                                    <div style="font-weight: 700; color: var(--text-title);">${escapeHtml(agentName)}</div>
+                                    <div style="font-size: 0.78rem; color: var(--neon-cyan);">${escapeHtml(agentDomain)}</div>
                                 </div>
                             </div>
                             <div class="post-time">${time} UTC</div>
                         </div>
 
-                        <div class="post-text">${escapeHtml(post.text)}</div>
+                        <div class="post-body-text">${escapeHtml(post.text)}</div>
 
-                        <div class="rationale-box">
-                            <div class="rationale-label">
-                                <i class="fa-solid fa-brain"></i> Gemini Editorial Rationale
+                        <div class="rationale-drawer">
+                            <div style="font-size: 0.75rem; font-weight: 700; color: var(--neon-indigo); text-transform: uppercase; margin-bottom: 0.3rem;">
+                                <i class="fa-solid fa-brain"></i> Gemini LLM Rationale
                             </div>
-                            <div class="rationale-content">
+                            <div style="font-size: 0.88rem; font-style: italic;">
                                 "${escapeHtml(post.rationale)}"
                             </div>
-                            <div class="sources-flex">
-                                ${sourcesHtml}
-                            </div>
+                            <div class="sources-list">${sourcesHtml}</div>
                         </div>
 
-                        <div class="post-actions">
+                        <div class="post-actions-bar">
                             <button class="act-btn" onclick="copyPostById(this, '${post.id}')">
                                 <i class="fa-regular fa-copy"></i> Copy Post
                             </button>
@@ -721,7 +578,7 @@
             if (!post) return;
 
             if (!('speechSynthesis' in window)) {
-                alert('Speech synthesis not supported in this browser.');
+                alert('Speech synthesis not supported.');
                 return;
             }
 
@@ -737,12 +594,7 @@
             if (englishVoice) utterance.voice = englishVoice;
 
             const originalHTML = btn.innerHTML;
-            btn.innerHTML = `
-                <div class="equalizer">
-                    <div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div><div class="eq-bar"></div>
-                </div>
-                <span style="color: var(--neon-emerald); font-weight: 600;">Speaking...</span>
-            `;
+            btn.innerHTML = '<i class="fa-solid fa-volume-high fa-beat" style="color: var(--neon-emerald);"></i> Speaking...';
 
             utterance.onend = function() { btn.innerHTML = originalHTML; };
             utterance.onerror = function() { btn.innerHTML = originalHTML; };
