@@ -3,33 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Autonomous Persona — AI Studio Deck</title>
+    <title>AUTONOMOUS PERSONA — SOLAR CORE STUDIO</title>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700;800;900&family=JetBrains+Mono:wght@500;700;800&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     <style>
         :root {
-            --bg-body: #07090e;
-            --bg-surface: #0f131d;
-            --bg-elevated: #161b29;
-            --border-color: rgba(255, 255, 255, 0.08);
-            --border-active: #6366f1;
+            --solar-bg: #0d0b0c;
+            --solar-card: #181416;
+            --solar-card-hover: #221c1f;
             
-            --text-title: #ffffff;
-            --text-sub: #94a3b8;
-            --text-dim: #475569;
+            --solar-amber: #f59e0b;
+            --solar-gold: #fbbf24;
+            --acid-lime: #a3e635;
+            --solar-crimson: #ef4444;
+            
+            --solar-border: #2a2226;
+            --solar-border-active: #f59e0b;
+            
+            --text-milk: #fefefe;
+            --text-cream: #fde68a;
+            --text-muted: #8b7982;
 
-            --neon-indigo: #6366f1;
-            --neon-cyan: #06b6d4;
-            --neon-emerald: #10b981;
-            --neon-amber: #f59e0b;
-
-            --font-sans: 'Outfit', sans-serif;
-            --font-title: 'Space Grotesk', sans-serif;
-            --font-mono: 'Fira Code', monospace;
+            --font-display: 'Space Grotesk', sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            --font-body: 'Inter', sans-serif;
         }
 
         * {
@@ -39,402 +40,469 @@
         }
 
         body {
-            background-color: var(--bg-body);
-            color: var(--text-sub);
-            font-family: var(--font-sans);
+            background-color: var(--solar-bg);
+            color: var(--text-milk);
+            font-family: var(--font-body);
             min-height: 100vh;
+            background-image: radial-gradient(circle at 50% 0%, rgba(245, 158, 11, 0.08) 0%, transparent 70%);
         }
 
-        /* Top Header */
+        /* Top Solar Voltage Indicator Bar */
+        .voltage-bar {
+            background: #000;
+            border-bottom: 2px solid var(--solar-amber);
+            padding: 0.5rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: var(--solar-cream);
+        }
+
+        .voltage-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--acid-lime);
+            font-weight: 700;
+        }
+
+        .gauge-pill {
+            width: 10px;
+            height: 10px;
+            background: var(--acid-lime);
+            box-shadow: 0 0 10px var(--acid-lime);
+        }
+
+        /* Swiss Brutalist Nav Header */
         header {
-            border-bottom: 1px solid var(--border-color);
-            background: var(--bg-surface);
-            padding: 0.8rem 1.5rem;
+            border-bottom: 2px solid var(--solar-border);
+            padding: 1.25rem 2rem;
+            background: var(--solar-bg);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .header-brand {
+        .swiss-brand {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 1rem;
         }
 
-        .brand-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
-            background: linear-gradient(135deg, var(--neon-indigo), var(--neon-cyan));
+        .solar-badge {
+            width: 44px;
+            height: 44px;
+            background: var(--solar-amber);
+            color: #000;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-size: 1rem;
+            font-size: 1.3rem;
+            font-weight: 900;
         }
 
-        .header-brand h1 {
-            font-family: var(--font-title);
-            font-size: 1.15rem;
-            color: var(--text-title);
+        .swiss-brand h1 {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            color: var(--text-milk);
+            text-transform: uppercase;
         }
 
-        .status-tag {
-            font-size: 0.75rem;
-            color: var(--neon-emerald);
-            background: rgba(16, 185, 129, 0.1);
-            border: 1px solid rgba(16, 185, 129, 0.25);
-            padding: 0.3rem 0.75rem;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            gap: 0.4rem;
-            font-weight: 600;
-        }
-
-        /* Top Full-Width Control Bar (Horizontal Studio Controller) */
-        .control-banner {
-            background: var(--bg-surface);
-            border-bottom: 1px solid var(--border-color);
-            padding: 1.25rem 1.5rem;
+        /* Top Horizontal Control Console */
+        .console-strip {
+            background: var(--solar-card);
+            border-bottom: 2px solid var(--solar-border);
+            padding: 1.5rem 2rem;
         }
 
         .preset-row {
             display: flex;
-            align-items: center;
             gap: 0.75rem;
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
             overflow-x: auto;
         }
 
-        .preset-pill {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--border-color);
-            border-radius: 30px;
-            padding: 0.45rem 1rem;
-            font-size: 0.82rem;
-            font-weight: 600;
-            color: var(--text-sub);
+        .solar-preset-btn {
+            background: #000;
+            border: 2px solid var(--solar-border);
+            padding: 0.5rem 1.1rem;
+            color: var(--text-cream);
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+            font-weight: 700;
             cursor: pointer;
             display: flex;
             align-items: center;
             gap: 0.5rem;
-            transition: all 0.2s;
-            white-space: nowrap;
+            transition: all 0.15s;
+            text-transform: uppercase;
         }
 
-        .preset-pill:hover, .preset-pill.active {
-            background: rgba(99, 102, 241, 0.15);
-            border-color: var(--neon-indigo);
-            color: var(--text-title);
+        .solar-preset-btn:hover, .solar-preset-btn.active {
+            border-color: var(--solar-amber);
+            background: var(--solar-amber);
+            color: #000;
         }
 
-        .controller-form {
+        .console-form {
             display: grid;
             grid-template-columns: 1fr 1fr auto;
             gap: 1rem;
-            align-items: center;
         }
 
         @media (max-width: 768px) {
-            .controller-form { grid-template-columns: 1fr; }
+            .console-form { grid-template-columns: 1fr; }
         }
 
-        .input-ctrl {
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 0.75rem 1rem;
-            color: var(--text-title);
-            font-family: var(--font-sans);
+        .solar-input {
+            background: #000;
+            border: 2px solid var(--solar-border);
+            padding: 0.85rem 1.1rem;
+            color: var(--text-milk);
+            font-family: var(--font-mono);
             font-size: 0.9rem;
             width: 100%;
         }
 
-        .input-ctrl:focus {
+        .solar-input:focus {
             outline: none;
-            border-color: var(--neon-indigo);
+            border-color: var(--solar-amber);
         }
 
-        .launch-btn {
-            padding: 0.75rem 1.75rem;
-            border-radius: 10px;
-            border: none;
-            background: linear-gradient(135deg, var(--neon-indigo), #8b5cf6);
-            color: white;
-            font-family: var(--font-title);
-            font-weight: 700;
-            font-size: 0.95rem;
+        .solar-cta {
+            padding: 0.85rem 2rem;
+            background: var(--solar-amber);
+            border: 2px solid var(--solar-amber);
+            color: #000;
+            font-family: var(--font-display);
+            font-weight: 900;
+            font-size: 1rem;
             cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            white-space: nowrap;
+            gap: 0.6rem;
+            transition: transform 0.15s;
         }
 
-        /* 3-Column Studio Grid Structure */
-        .studio-grid {
+        .solar-cta:hover {
+            background: var(--solar-gold);
+            transform: translateY(-2px);
+        }
+
+        /* 3-Column Swiss Grid Layout */
+        .swiss-grid {
             display: grid;
-            grid-template-columns: 320px 1fr 300px;
-            gap: 1.5rem;
-            padding: 1.5rem;
+            grid-template-columns: 340px 1fr 300px;
+            gap: 1.75rem;
+            padding: 2rem;
             max-width: 1600px;
             margin: 0 auto;
         }
 
         @media (max-width: 1200px) {
-            .studio-grid { grid-template-columns: 1fr; }
+            .swiss-grid { grid-template-columns: 1fr; }
         }
 
-        .studio-card {
-            background: var(--bg-surface);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 1.25rem;
+        .solar-panel {
+            background: var(--solar-card);
+            border: 2px solid var(--solar-border);
+            padding: 1.5rem;
         }
 
-        .card-header-title {
-            font-family: var(--font-title);
-            font-size: 1rem;
-            color: var(--text-title);
-            font-weight: 700;
-            margin-bottom: 1rem;
+        .solar-panel-title {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 900;
+            color: var(--solar-gold);
+            text-transform: uppercase;
+            margin-bottom: 1.25rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 2px solid var(--solar-border);
+            padding-bottom: 0.75rem;
         }
 
-        /* Persona Dossier Column */
-        .dossier-item {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 0.85rem;
-            margin-bottom: 0.85rem;
+        .dossier-box {
+            background: #000;
+            border: 1px solid var(--solar-border);
+            padding: 1rem;
+            margin-bottom: 1rem;
         }
 
-        .dossier-label {
+        .dossier-lbl {
+            font-family: var(--font-mono);
             font-size: 0.72rem;
-            font-weight: 700;
-            color: var(--neon-cyan);
+            color: var(--solar-amber);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
             margin-bottom: 0.25rem;
         }
 
         .dossier-val {
-            font-size: 0.88rem;
-            color: var(--text-title);
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-milk);
         }
 
-        /* Post Feed Cards */
-        .post-box {
-            background: var(--bg-elevated);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 1.5rem;
-            margin-bottom: 1.25rem;
+        /* Feed Stream Post Cards */
+        .solar-post {
+            background: var(--solar-card);
+            border: 2px solid var(--solar-border);
+            padding: 1.75rem;
+            margin-bottom: 1.5rem;
+            transition: border-color 0.2s;
         }
 
-        .post-top-meta {
+        .solar-post:hover {
+            border-color: var(--solar-amber);
+        }
+
+        .post-head {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 1rem;
+            margin-bottom: 1.25rem;
+            border-bottom: 1px solid var(--solar-border);
+            padding-bottom: 0.85rem;
         }
 
-        .author-info {
+        .author-group {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
+            gap: 0.85rem;
         }
 
-        .avatar-circle {
-            width: 40px;
-            height: 40px;
-            border-radius: 10px;
-            background: linear-gradient(135deg, var(--neon-indigo), var(--neon-cyan));
+        .author-sq {
+            width: 44px;
+            height: 44px;
+            background: var(--solar-amber);
+            color: #000;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
-            font-weight: 700;
+            font-family: var(--font-display);
+            font-weight: 900;
+            font-size: 1.2rem;
         }
 
-        .post-body-text {
-            font-size: 0.98rem;
-            line-height: 1.7;
-            color: var(--text-title);
+        .author-name {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--text-milk);
+        }
+
+        .author-domain {
+            font-family: var(--font-mono);
+            font-size: 0.78rem;
+            color: var(--solar-gold);
+        }
+
+        .post-time-stamp {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .post-body {
+            font-size: 1.02rem;
+            line-height: 1.8;
+            color: var(--text-milk);
             white-space: pre-wrap;
-            margin-bottom: 1.2rem;
+            margin-bottom: 1.5rem;
         }
 
-        .rationale-drawer {
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px dashed var(--border-color);
-            border-radius: 10px;
-            padding: 1rem;
+        .rationale-panel {
+            background: #000;
+            border: 1px solid var(--solar-amber);
+            padding: 1.1rem;
             margin-top: 1rem;
         }
 
-        .sources-list {
+        .rationale-tag {
+            font-family: var(--font-mono);
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--solar-amber);
+            text-transform: uppercase;
+            margin-bottom: 0.4rem;
+        }
+
+        .rationale-txt {
+            font-size: 0.9rem;
+            color: var(--text-cream);
+            font-style: italic;
+        }
+
+        .sources-row {
             display: flex;
-            gap: 0.4rem;
-            margin-top: 0.75rem;
+            gap: 0.5rem;
+            margin-top: 0.85rem;
             flex-wrap: wrap;
         }
 
-        .src-chip {
+        .solar-source-pill {
+            font-family: var(--font-mono);
             font-size: 0.75rem;
-            padding: 0.25rem 0.65rem;
-            border-radius: 6px;
-            background: rgba(6, 182, 212, 0.1);
-            color: var(--neon-cyan);
-            border: 1px solid rgba(6, 182, 212, 0.25);
+            padding: 0.3rem 0.75rem;
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--solar-amber);
+            border: 1px solid var(--solar-amber);
             text-decoration: none;
+            font-weight: 700;
         }
 
-        .post-actions-bar {
+        .post-actions {
             display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
-            border-top: 1px solid var(--border-color);
-            padding-top: 0.85rem;
+            gap: 1.25rem;
+            margin-top: 1.25rem;
+            border-top: 1px solid var(--solar-border);
+            padding-top: 1rem;
         }
 
-        .act-btn {
+        .solar-btn {
             background: none;
             border: none;
-            color: var(--text-dim);
+            color: var(--text-muted);
+            font-family: var(--font-mono);
             font-size: 0.82rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             gap: 0.4rem;
+            font-weight: 700;
         }
 
-        .act-btn:hover { color: var(--neon-indigo); }
+        .solar-btn:hover { color: var(--solar-amber); }
 
-        /* Radar Column Items */
-        .radar-source-card {
-            background: rgba(0, 0, 0, 0.3);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            padding: 0.85rem;
-            margin-bottom: 0.75rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-        }
-
-        .empty-view {
+        .empty-solar {
             text-align: center;
-            padding: 4rem 2rem;
+            padding: 5rem 2rem;
+            background: var(--solar-card);
+            border: 2px dashed var(--solar-border);
         }
     </style>
 </head>
 <body>
 
-    <!-- Header Navigation -->
-    <header>
-        <div class="header-brand">
-            <div class="brand-icon"><i class="fa-solid fa-cube"></i></div>
-            <h1>Autonomous AI Persona Deck</h1>
+    <!-- Voltage Gauge Top Bar -->
+    <div class="voltage-bar">
+        <div class="voltage-indicator">
+            <div class="gauge-pill"></div> SOLAR ENGINE ONLINE — VOLTAGE 100%
         </div>
-        <div class="status-tag">
-            <i class="fa-solid fa-circle" style="font-size: 0.5rem;"></i> Live System Online
+        <div>MODEL: GEMINI 2.0 FLASH &nbsp;|&nbsp; PERSISTENCE: H2 ACTIVE</div>
+    </div>
+
+    <!-- Header Navbar -->
+    <header>
+        <div class="swiss-brand">
+            <div class="solar-badge">⚡</div>
+            <h1>SOLAR CORE AUTONOMOUS PERSONA</h1>
+        </div>
+        <div style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--solar-amber);">
+            [STATUS: 100% AUTONOMOUS]
         </div>
     </header>
 
-    <!-- Top Horizontal Controller Banner -->
-    <div class="control-banner">
+    <!-- Console Controller Strip -->
+    <div class="console-strip">
         <div class="preset-row">
-            <span style="font-size: 0.78rem; font-weight: 700; color: var(--text-dim); text-transform: uppercase;">Presets:</span>
-            <div class="preset-pill active" onclick="applyPreset('Ada', 'AI Security')"><i class="fa-solid fa-shield"></i> Ada (Security)</div>
-            <div class="preset-pill" onclick="applyPreset('Marcus', 'Machine Learning')"><i class="fa-solid fa-microchip"></i> Marcus (ML)</div>
-            <div class="preset-pill" onclick="applyPreset('Elena', 'AI Ethics')"><i class="fa-solid fa-scale-balanced"></i> Elena (Ethics)</div>
-            <div class="preset-pill" onclick="applyPreset('Kai', 'Robotics Engineer')"><i class="fa-solid fa-robot"></i> Kai (Robotics)</div>
+            <span style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--solar-amber); font-weight: 700;">SOLAR PRESETS:</span>
+            <div class="solar-preset-btn active" onclick="applyPreset('Ada', 'AI Security')">⚡ Ada (Security)</div>
+            <div class="solar-preset-btn" onclick="applyPreset('Marcus', 'Machine Learning')">⚡ Marcus (ML)</div>
+            <div class="solar-preset-btn" onclick="applyPreset('Elena', 'AI Ethics')">⚡ Elena (Ethics)</div>
+            <div class="solar-preset-btn" onclick="applyPreset('Kai', 'Robotics Engineer')">⚡ Kai (Robotics)</div>
         </div>
 
-        <form id="personaForm" class="controller-form">
-            <input type="text" id="personaName" class="input-ctrl" value="Ada" placeholder="Persona Name" required>
-            <select id="personaDomain" class="input-ctrl">
+        <form id="personaForm" class="console-form">
+            <input type="text" id="personaName" class="solar-input" value="Ada" placeholder="PERSONA NAME" required>
+            <select id="personaDomain" class="solar-input">
                 <option value="AI Security">AI Security Researcher</option>
                 <option value="Machine Learning">Machine Learning Engineer</option>
                 <option value="AI Ethics">AI Ethics & Safety</option>
                 <option value="Robotics Engineer">Robotics & Embodied AI</option>
-                <option value="Open Source Contributor">Open Source Contributor</option>
             </select>
-            <button type="submit" class="launch-btn" id="subBtn"><i class="fa-solid fa-bolt"></i> Launch Agent</button>
+            <button type="submit" class="solar-cta" id="subBtn">
+                ⚡ LAUNCH AGENT LOOP
+            </button>
         </form>
     </div>
 
-    <!-- 3-Column Studio Grid Layout -->
-    <div class="studio-grid">
+    <!-- 3-Column Swiss Layout -->
+    <div class="swiss-grid">
         
-        <!-- Left Column: Persona Active Dossier -->
-        <div class="studio-card">
-            <div class="card-header-title">
-                <span>Active Dossier</span>
-                <i class="fa-solid fa-id-card" style="color: var(--neon-indigo);"></i>
+        <!-- Column 1: Dossier -->
+        <div class="solar-panel">
+            <div class="solar-panel-title">
+                <span>IDENTITY DOSSIER</span>
+                <span>01</span>
             </div>
             
-            <div class="dossier-item">
-                <div class="dossier-label">Active Agent ID</div>
-                <div class="dossier-val" id="dossierGuid" style="font-family: var(--font-mono); color: var(--neon-cyan);">Uninitialized</div>
+            <div class="dossier-box">
+                <div class="dossier-lbl">SYSTEM AGENT GUID</div>
+                <div class="dossier-val" id="dossierGuid" style="font-family: var(--font-mono); color: var(--solar-amber);">UNINITIALIZED</div>
             </div>
-            <div class="dossier-item">
-                <div class="dossier-label">Current Identity</div>
+            <div class="dossier-box">
+                <div class="dossier-lbl">ACTIVE NAME</div>
                 <div class="dossier-val" id="dossierName">Ada</div>
             </div>
-            <div class="dossier-item">
-                <div class="dossier-label">Domain Expertise</div>
+            <div class="dossier-box">
+                <div class="dossier-lbl">DOMAIN SPECIALIZATION</div>
                 <div class="dossier-val" id="dossierDomain">AI Security Researcher</div>
             </div>
-            <div class="dossier-item">
-                <div class="dossier-label">Total Published Posts</div>
-                <div class="dossier-val" id="dossierPosts" style="font-size: 1.4rem; font-weight: 700; color: var(--neon-emerald);">0</div>
+            <div class="dossier-box">
+                <div class="dossier-lbl">PUBLISHED POST COUNT</div>
+                <div class="dossier-val" id="dossierPosts" style="font-size: 1.6rem; color: var(--acid-lime);">0</div>
             </div>
         </div>
 
-        <!-- Middle Column: Main Feed Stream -->
+        <!-- Column 2: Main Solar Stream -->
         <div>
-            <div class="card-header-title" style="margin-bottom: 1rem;">
-                <span id="streamHeading">Published Feed Stream</span>
-                <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-dim);"><i class="fa-solid fa-arrows-rotate fa-spin"></i> Polling 10s</span>
+            <div class="solar-panel-title" style="margin-bottom: 1.25rem;">
+                <span id="streamTitle">SOLAR STREAM FEED</span>
+                <span style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--solar-amber);"><i class="fa-solid fa-arrows-rotate fa-spin"></i> SYNC 10S</span>
             </div>
 
             <div id="feedStream">
-                <div class="studio-card empty-view">
-                    <i class="fa-solid fa-atom fa-spin" style="font-size: 3rem; color: var(--neon-indigo); margin-bottom: 1rem;"></i>
-                    <h3 style="color: var(--text-title);">No Active Feed</h3>
-                    <p style="font-size: 0.9rem; margin-top: 0.5rem;">Click "Launch Agent" above to start topic discovery and LLM post generation.</p>
+                <div class="empty-solar">
+                    <i class="fa-solid fa-sun fa-spin" style="font-size: 3.5rem; color: var(--solar-amber); margin-bottom: 1rem;"></i>
+                    <h3 style="font-family: var(--font-display); color: var(--text-milk); font-size: 1.4rem;">SOLAR CORE INACTIVE</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">
+                        Click "LAUNCH AGENT LOOP" above to activate multi-source topic discovery and Gemini LLM curation.
+                    </p>
                 </div>
             </div>
         </div>
 
-        <!-- Right Column: Live Radar Feeds Status -->
-        <div class="studio-card">
-            <div class="card-header-title">
-                <span>Radar Sources</span>
-                <i class="fa-solid fa-radar" style="color: var(--neon-cyan);"></i>
+        <!-- Column 3: Radar Feeds -->
+        <div class="solar-panel">
+            <div class="solar-panel-title">
+                <span>RADAR FEEDS</span>
+                <span>03</span>
             </div>
 
-            <div class="radar-source-card">
-                <div style="font-size: 0.85rem; font-weight: 600; color: var(--text-title);"><i class="fa-solid fa-newspaper" style="color: #ff6600;"></i> Hacker News</div>
-                <span style="font-size: 0.75rem; color: var(--neon-emerald);">ONLINE</span>
+            <div class="dossier-box" style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-weight: 700; font-family: var(--font-mono); color: var(--text-milk);">HACKER NEWS</span>
+                <span style="color: var(--acid-lime); font-family: var(--font-mono); font-size: 0.8rem;">[ONLINE]</span>
             </div>
-            <div class="radar-source-card">
-                <div style="font-size: 0.85rem; font-weight: 600; color: var(--text-title);"><i class="fa-solid fa-pen-nib"></i> Dev.to Articles</div>
-                <span style="font-size: 0.75rem; color: var(--neon-emerald);">ONLINE</span>
+            <div class="dossier-box" style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-weight: 700; font-family: var(--font-mono); color: var(--text-milk);">DEV.TO FEEDS</span>
+                <span style="color: var(--acid-lime); font-family: var(--font-mono); font-size: 0.8rem;">[ONLINE]</span>
             </div>
-            <div class="radar-source-card">
-                <div style="font-size: 0.85rem; font-weight: 600; color: var(--text-title);"><i class="fa-solid fa-file-pdf" style="color: #b31b1b;"></i> ArXiv Papers</div>
-                <span style="font-size: 0.75rem; color: var(--neon-emerald);">ONLINE</span>
+            <div class="dossier-box" style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-weight: 700; font-family: var(--font-mono); color: var(--text-milk);">ARXIV PAPERS</span>
+                <span style="color: var(--acid-lime); font-family: var(--font-mono); font-size: 0.8rem;">[ONLINE]</span>
             </div>
-            <div class="radar-source-card">
-                <div style="font-size: 0.85rem; font-weight: 600; color: var(--text-title);"><i class="fa-brands fa-github"></i> GitHub Repos</div>
-                <span style="font-size: 0.75rem; color: var(--neon-emerald);">ONLINE</span>
+            <div class="dossier-box" style="display: flex; justify-content: space-between; align-items: center;">
+                <span style="font-weight: 700; font-family: var(--font-mono); color: var(--text-milk);">GITHUB REPOS</span>
+                <span style="color: var(--acid-lime); font-family: var(--font-mono); font-size: 0.8rem;">[ONLINE]</span>
             </div>
         </div>
 
@@ -447,7 +515,7 @@
         function applyPreset(name, domain) {
             document.getElementById('personaName').value = name;
             document.getElementById('personaDomain').value = domain;
-            document.querySelectorAll('.preset-pill').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.solar-preset-btn').forEach(b => b.classList.remove('active'));
             event.currentTarget.classList.add('active');
         }
 
@@ -460,7 +528,7 @@
             e.preventDefault();
             const btn = document.getElementById('subBtn');
             btn.disabled = true;
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Launching...';
+            btn.innerHTML = '⚡ LAUNCHING...';
 
             const name = document.getElementById('personaName').value;
             const domain = document.getElementById('personaDomain').value;
@@ -483,7 +551,7 @@
                 alert('Init error: ' + err.message);
             } finally {
                 btn.disabled = false;
-                btn.innerHTML = '<i class="fa-solid fa-bolt"></i> Launch Agent';
+                btn.innerHTML = '⚡ LAUNCH AGENT LOOP';
             }
         });
 
@@ -507,16 +575,18 @@
             document.getElementById('dossierName').innerText = agentName;
             document.getElementById('dossierDomain').innerText = agentDomain;
             document.getElementById('dossierPosts').innerText = posts.length;
-            document.getElementById('streamHeading').innerText = `${agentName}'s Feed Stream (${agentDomain})`;
+            document.getElementById('streamTitle').innerText = `SOLAR STREAM — ${agentName.toUpperCase()} (${agentDomain.toUpperCase()})`;
 
             const container = document.getElementById('feedStream');
 
             if (posts.length === 0) {
                 container.innerHTML = `
-                    <div class="studio-card empty-view">
-                        <i class="fa-solid fa-dharmachakra fa-spin" style="font-size: 3rem; color: var(--neon-indigo); margin-bottom: 1rem;"></i>
-                        <h3 style="color: var(--text-title);">Discovering Content for ${escapeHtml(agentName)}...</h3>
-                        <p style="font-size: 0.9rem; margin-top: 0.5rem;">Scanning live Hacker News, ArXiv, Dev.to, and GitHub. First post will appear in seconds!</p>
+                    <div class="empty-solar">
+                        <i class="fa-solid fa-dharmachakra fa-spin" style="font-size: 3.5rem; color: var(--solar-amber); margin-bottom: 1rem;"></i>
+                        <h3 style="font-family: var(--font-display); color: var(--text-milk); font-size: 1.4rem;">DISCOVERING & SCORING CONTENT...</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">
+                            Scanning Hacker News, ArXiv, Dev.to, and GitHub. First post will appear in seconds!
+                        </p>
                     </div>
                 `;
                 return;
@@ -530,42 +600,42 @@
             container.innerHTML = posts.map(post => {
                 const time = new Date(post.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
                 const sourcesHtml = (post.sources || []).map(url => `
-                    <a href="${url}" target="_blank" class="src-chip">
-                        <i class="fa-solid fa-arrow-up-right-from-square"></i> ${url.replace('https://', '').split('/')[0]}
+                    <a href="${url}" target="_blank" class="solar-source-pill">
+                        ⚡ ${url.replace('https://', '').split('/')[0]}
                     </a>
                 `).join('');
 
                 return `
-                    <div class="post-box">
-                        <div class="post-top-meta">
-                            <div class="author-info">
-                                <div class="avatar-circle">${initial}</div>
+                    <div class="solar-post">
+                        <div class="post-head">
+                            <div class="author-group">
+                                <div class="author-sq">${initial}</div>
                                 <div>
-                                    <div style="font-weight: 700; color: var(--text-title);">${escapeHtml(agentName)}</div>
-                                    <div style="font-size: 0.78rem; color: var(--neon-cyan);">${escapeHtml(agentDomain)}</div>
+                                    <div class="author-name">${escapeHtml(agentName)}</div>
+                                    <div class="author-domain">${escapeHtml(agentDomain)}</div>
                                 </div>
                             </div>
-                            <div class="post-time">${time} UTC</div>
+                            <div class="post-time-stamp">${time} UTC</div>
                         </div>
 
-                        <div class="post-body-text">${escapeHtml(post.text)}</div>
+                        <div class="post-body">${escapeHtml(post.text)}</div>
 
-                        <div class="rationale-drawer">
-                            <div style="font-size: 0.75rem; font-weight: 700; color: var(--neon-indigo); text-transform: uppercase; margin-bottom: 0.3rem;">
-                                <i class="fa-solid fa-brain"></i> Gemini LLM Rationale
+                        <div class="rationale-panel">
+                            <div class="rationale-tag">
+                                ⚡ GEMINI LLM EDITORIAL RATIONALE
                             </div>
-                            <div style="font-size: 0.88rem; font-style: italic;">
+                            <div class="rationale-txt">
                                 "${escapeHtml(post.rationale)}"
                             </div>
-                            <div class="sources-list">${sourcesHtml}</div>
+                            <div class="sources-row">${sourcesHtml}</div>
                         </div>
 
-                        <div class="post-actions-bar">
-                            <button class="act-btn" onclick="copyPostById(this, '${post.id}')">
-                                <i class="fa-regular fa-copy"></i> Copy Post
+                        <div class="post-actions">
+                            <button class="solar-btn" onclick="copyPostById(this, '${post.id}')">
+                                <i class="fa-regular fa-copy"></i> COPY POST
                             </button>
-                            <button class="act-btn" onclick="speakPostById(this, '${post.id}')">
-                                <i class="fa-solid fa-volume-high"></i> Listen Narration
+                            <button class="solar-btn" onclick="speakPostById(this, '${post.id}')">
+                                <i class="fa-solid fa-volume-high"></i> LISTEN NARRATION
                             </button>
                         </div>
                     </div>
@@ -594,7 +664,7 @@
             if (englishVoice) utterance.voice = englishVoice;
 
             const originalHTML = btn.innerHTML;
-            btn.innerHTML = '<i class="fa-solid fa-volume-high fa-beat" style="color: var(--neon-emerald);"></i> Speaking...';
+            btn.innerHTML = '<i class="fa-solid fa-volume-high fa-beat" style="color: var(--acid-lime);"></i> SPEAKING...';
 
             utterance.onend = function() { btn.innerHTML = originalHTML; };
             utterance.onerror = function() { btn.innerHTML = originalHTML; };
@@ -609,7 +679,7 @@
             if (!post) return;
             navigator.clipboard.writeText(post.text);
             const original = btn.innerHTML;
-            btn.innerHTML = '<i class="fa-solid fa-check" style="color: var(--neon-emerald);"></i> Copied!';
+            btn.innerHTML = '<i class="fa-solid fa-check" style="color: var(--acid-lime);"></i> COPIED!';
             setTimeout(() => { btn.innerHTML = original; }, 2000);
         }
 
