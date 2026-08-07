@@ -20,8 +20,8 @@ public class HealthController {
         ));
     }
 
-    @GetMapping("/")
-    public ResponseEntity<?> root() {
+    @GetMapping("/info")
+    public ResponseEntity<?> info() {
         return ResponseEntity.ok(Map.of(
                 "name", "Autonomous AI Persona Agent",
                 "version", "1.0.0",
