@@ -769,6 +769,8 @@
             }
         }
 
+        window.postsStore = {};
+
         function renderFeed(data) {
             const posts = data.posts || [];
             const agentName = data.agentName || 'Persona';
@@ -791,6 +793,9 @@
             }
 
             const avatarInitial = agentName.charAt(0).toUpperCase();
+
+            // Store posts by ID cleanly to avoid inline HTML attribute escaping crashes
+            posts.forEach(p => { window.postsStore[p.id] = p; });
 
             container.innerHTML = posts.map(post => {
                 const time = new Date(post.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
@@ -830,16 +835,28 @@
                         </div>
 
                         <div class="post-actions">
-                            <button class="act-btn" onclick="copyText(this, \`${escapeJs(post.text)}\`)">
+                            <button class="act-btn" onclick="copyPostById(this, '${post.id}')">
                                 <i class="fa-regular fa-copy"></i> Copy Post
                             </button>
-                            <button class="act-btn" onclick="speakPost(this, \`${escapeJs(post.text)}\`)">
+                            <button class="act-btn" onclick="speakPostById(this, '${post.id}')">
                                 <i class="fa-solid fa-volume-high"></i> Listen Narration
                             </button>
                         </div>
                     </div>
                 `;
             }).join('');
+        }
+
+        function speakPostById(btn, postId) {
+            const post = window.postsStore[postId];
+            if (!post) return;
+            speakPost(btn, post.text);
+        }
+
+        function copyPostById(btn, postId) {
+            const post = window.postsStore[postId];
+            if (!post) return;
+            copyText(btn, post.text);
         }
 
         // Pre-load voices for Chrome / Edge / Windows
