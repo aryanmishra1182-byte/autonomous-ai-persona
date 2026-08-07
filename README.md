@@ -6,7 +6,28 @@ An enterprise-grade, autonomous AI agent backend built with **Java 21** and **Sp
 
 ---
 
-## 🏗️ Tech Stack & Architecture
+## 🏗️ Architecture Diagram
+
+```mermaid
+flowchart TD
+    API[POST /api/agent/init] --> Init[Initialize Agent & Prompt]
+    Init --> Scheduler[SchedulerService Loop]
+    
+    subgraph Autonomous Cycle
+        Scheduler --> Discovery[DiscoveryService: HN, Dev.to, ArXiv, GitHub]
+        Discovery --> Dedup[Dedup & Filter Processed Topics]
+        Dedup --> Editorial[EditorialService: Gemini LLM Scoring]
+        Editorial --> Writer[WriterService: Persona Voice Generation]
+        Writer --> Save[PostRepository & H2 Storage]
+    end
+    
+    Feed[GET /api/agent/feed] --> Response[Return Reverse Chronological Feed]
+    Save --> Response
+```
+
+---
+
+## ⚡ Tech Stack
 
 - **Language**: Java 21 LTS
 - **Framework**: Spring Boot 3.4.5 (Spring MVC, Spring Data JPA, Scheduled Execution)
@@ -16,11 +37,9 @@ An enterprise-grade, autonomous AI agent backend built with **Java 21** and **Sp
 
 ---
 
-## ⚡ Quick Start (Run Locally in 3 Steps)
+## 🚀 Quick Start (Run Locally)
 
 ### Step 1: Set your Gemini API Key
-
-You already created your `.env` file! If you need to set it in your environment:
 
 **In Command Prompt (cmd):**
 ```cmd
@@ -39,76 +58,18 @@ cd C:\Users\aryan\.gemini\antigravity\scratch\autonomous-ai-persona
 .\mvnw.cmd spring-boot:run
 ```
 
-You should see:
-```
-  .   ____          _            __ _ _
- /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
-( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
- \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
-  '  |____| .__|_| |_|_| |_\__, | / / / /
- =======================================
- ✅ Gemini API configured (model: gemini-2.0-flash)
- 🚀 Autonomous AI Persona Agent running on port 3000
-```
-
 ### Step 3: Initialize the Agent
 
-Open a **new** terminal window and run:
-
-**PowerShell:**
 ```powershell
 $body = '{"persona": {"name": "Ada", "domain": "AI Security"}}'
 $response = Invoke-RestMethod -Method POST -Uri "http://localhost:3000/api/agent/init" -ContentType "application/json" -Body $body
 Write-Host "Your Agent ID: $($response.agentId)"
 ```
 
-**cURL / cmd:**
-```cmd
-curl -X POST http://localhost:3000/api/agent/init -H "Content-Type: application/json" -d "{\"persona\":{\"name\":\"Ada\",\"domain\":\"AI Security\"}}"
-```
-
 ---
 
 ## 📡 Checking the Feed
 
-After initialization:
-- **1-3 minutes**: First post is generated automatically.
-- **Every 20-45 minutes**: Subsequent posts appear autonomously.
-
-To check feed:
-
-**PowerShell:**
 ```powershell
 Invoke-RestMethod -Uri "http://localhost:3000/api/agent/feed?agentId=YOUR_AGENT_ID" | ConvertTo-Json -Depth 5
-```
-
-**cURL:**
-```cmd
-curl http://localhost:3000/api/agent/feed?agentId=YOUR_AGENT_ID
-```
-
----
-
-## 📋 API Specification
-
-### 1. `POST /api/agent/init`
-- **Request**: `{"persona": {"name": "Ada", "domain": "AI Security"}}`
-- **Response**: `{"agentId": "abc-123-def"}`
-
-### 2. `GET /api/agent/feed?agentId=<id>`
-- **Response**:
-```json
-{
-  "posts": [
-    {
-      "id": "p1",
-      "createdAt": "2026-08-07T22:35:00Z",
-      "text": "...",
-      "rationale": "Why this topic was selected, why relevant now, and why chosen over candidates.",
-      "sources": [
-        "https://arxiv.org/abs/..."
-      ]
-    }
-  ]
-}
 ```
