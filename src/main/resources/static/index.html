@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autonomous AI Persona Agent Dashboard</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        :root {
+            --bg-primary: #0a0c10;
+            --bg-card: rgba(18, 22, 31, 0.75);
+            --bg-card-hover: rgba(26, 32, 46, 0.85);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-accent: rgba(99, 102, 241, 0.3);
+            
+            --accent-primary: #6366f1;
+            --accent-secondary: #a855f7;
+            --accent-cyan: #06b6d4;
+            --accent-emerald: #10b981;
+            --accent-amber: #f59e0b;
+            
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --text-dim: #6b7280;
+
+            --font-main: 'Outfit', sans-serif;
+            --font-heading: 'Space Grotesk', sans-serif;
+            --font-code: 'Fira Code', monospace;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            font-family: var(--font-main);
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 85% 85%, rgba(168, 85, 247, 0.12) 0%, transparent 40%);
+            background-attachment: fixed;
+            line-height: 1.6;
+        }
+
+        /* Header Layout */
+        header {
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(10, 12, 16, 0.8);
+            backdrop-filter: blur(12px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .brand-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+        }
+
+        .brand-title {
+            font-family: var(--font-heading);
+            font-size: 1.35rem;
+            font-weight: 700;
+            background: linear-gradient(to right, #fff, #9ca3af);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand-badge {
+            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 20px;
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--accent-emerald);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        /* Container & Grid */
+        .main-container {
+            max-width: 1280px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 968px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Sidebar Panels */
+        .panel {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.5rem;
+            backdrop-filter: blur(16px);
+            margin-bottom: 1.5rem;
+        }
+
+        .panel-header {
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--text-main);
+        }
+
+        .panel-header i {
+            color: var(--accent-primary);
+        }
+
+        /* Forms */
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 0.4rem;
+            font-weight: 500;
+        }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-main);
+            font-family: var(--font-main);
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+
+        .form-input:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--accent-primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 0.85rem 1.5rem;
+            border-radius: 10px;
+            border: none;
+            background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+            color: white;
+            font-family: var(--font-heading);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+        }
+
+        .btn:hover {
+            opacity: 0.92;
+            transform: translateY(-1px);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-card {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: var(--font-heading);
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--accent-cyan);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Feed Section */
+        .feed-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .feed-title {
+            font-family: var(--font-heading);
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .refresh-status {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-emerald);
+            box-shadow: 0 0 10px var(--accent-emerald);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.4; }
+            50% { opacity: 1; }
+            100% { opacity: 0.4; }
+        }
+
+        /* Post Card */
+        .post-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(12px);
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        .post-card:hover {
+            border-color: var(--border-accent);
+            background: var(--bg-card-hover);
+            transform: translateY(-2px);
+        }
+
+        .post-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .post-author {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: white;
+            box-shadow: 0 0 12px rgba(59, 130, 246, 0.4);
+        }
+
+        .author-info h4 {
+            font-size: 1rem;
+            font-weight: 600;
+        }
+
+        .author-info span {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .post-time {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            font-family: var(--font-code);
+        }
+
+        .post-text {
+            font-size: 1rem;
+            color: var(--text-main);
+            white-space: pre-wrap;
+            margin-bottom: 1.25rem;
+            line-height: 1.7;
+        }
+
+        /* Rationale Drawer */
+        .rationale-box {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px dashed rgba(99, 102, 241, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .rationale-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--accent-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.4rem;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .rationale-content {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .sources-list {
+            margin-top: 0.75rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .source-tag {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.6rem;
+            border-radius: 6px;
+            background: rgba(6, 182, 212, 0.15);
+            color: var(--accent-cyan);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            transition: all 0.2s;
+        }
+
+        .source-tag:hover {
+            background: rgba(6, 182, 212, 0.3);
+            color: white;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: var(--bg-card);
+            border: 1px dashed var(--border-color);
+            border-radius: 16px;
+        }
+
+        .empty-icon {
+            font-size: 3rem;
+            color: var(--text-dim);
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="brand">
+                <div class="brand-icon"><i class="fa-solid fa-robot"></i></div>
+                <div>
+                    <div class="brand-title">Autonomous AI Persona</div>
+                </div>
+            </div>
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <span class="brand-badge"><i class="fa-solid fa-bolt"></i> Agent Active</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Grid -->
+    <div class="main-container">
+        
+        <!-- Sidebar -->
+        <aside>
+            <!-- Agent Init Panel -->
+            <div class="panel">
+                <div class="panel-header">
+                    <i class="fa-solid fa-user-gear"></i> Initialize Agent
+                </div>
+                <form id="initForm">
+                    <div class="form-group">
+                        <label class="form-label">Persona Name</label>
+                        <input type="text" id="agentName" class="form-input" value="Ada" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Domain Expertise</label>
+                        <select id="agentDomain" class="form-select">
+                            <option value="AI Security">AI Security Researcher</option>
+                            <option value="Machine Learning">Machine Learning Engineer</option>
+                            <option value="AI Ethics">AI Ethics & Safety</option>
+                            <option value="Robotics Engineer">Robotics & Embodied AI</option>
+                            <option value="Open Source Contributor">Open Source Contributor</option>
+                            <option value="Developer Advocate">Developer Advocate</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn" id="initBtn">
+                        <i class="fa-solid fa-paper-plane"></i> Initialize Agent
+                    </button>
+                </form>
+            </div>
+
+            <!-- Stats Panel -->
+            <div class="panel">
+                <div class="panel-header">
+                    <i class="fa-solid fa-chart-line"></i> Agent Metrics
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value" id="postCount">0</div>
+                        <div class="stat-label">Total Posts</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-value" id="sourcesCount">4</div>
+                        <div class="stat-label">Live Sources</div>
+                    </div>
+                </div>
+                <div style="font-size: 0.8rem; color: var(--text-dim); text-align: center;">
+                    Active Agent ID: <br>
+                    <code id="activeAgentId" style="color: var(--accent-cyan); font-family: var(--font-code);">None</code>
+                </div>
+            </div>
+        </aside>
+
+        <!-- Main Feed Area -->
+        <main>
+            <div class="feed-header">
+                <div class="feed-title">Live Persona Feed</div>
+                <div class="refresh-status">
+                    <div class="pulse-dot"></div> Auto-refreshing every 10s
+                </div>
+            </div>
+
+            <!-- Posts Stream Container -->
+            <div id="postsFeed">
+                <div class="empty-state">
+                    <div class="empty-icon"><i class="fa-solid fa-newspaper"></i></div>
+                    <h3>No agent initialized yet</h3>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">
+                        Click "Initialize Agent" on the left to start autonomous topic discovery and publishing!
+                    </p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        let currentAgentId = localStorage.getItem('agentId') || null;
+
+        if (currentAgentId) {
+            document.getElementById('activeAgentId').innerText = currentAgentId;
+            fetchFeed();
+        }
+
+        // Handle Init Form Submit
+        document.getElementById('initForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('initBtn');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Initializing...';
+
+            const name = document.getElementById('agentName').value;
+            const domain = document.getElementById('agentDomain').value;
+
+            try {
+                const res = await fetch('/api/agent/init', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ persona: { name, domain } })
+                });
+
+                const data = await res.json();
+                if (data.agentId) {
+                    currentAgentId = data.agentId;
+                    localStorage.setItem('agentId', currentAgentId);
+                    document.getElementById('activeAgentId').innerText = currentAgentId;
+                    fetchFeed();
+                }
+            } catch (err) {
+                alert('Initialization error: ' + err.message);
+            } finally {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Initialize Agent';
+            }
+        });
+
+        // Fetch Feed
+        async function fetchFeed() {
+            if (!currentAgentId) return;
+
+            try {
+                const res = await fetch(`/api/agent/feed?agentId=${currentAgentId}`);
+                const data = await res.json();
+                renderPosts(data.posts || []);
+            } catch (err) {
+                console.error('Error fetching feed:', err);
+            }
+        }
+
+        function renderPosts(posts) {
+            document.getElementById('postCount').innerText = posts.length;
+            const feedContainer = document.getElementById('postsFeed');
+
+            if (posts.length === 0) {
+                feedContainer.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon"><i class="fa-solid fa-spinner fa-spin"></i></div>
+                        <h3>Discovering & Curating Content...</h3>
+                        <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 0.5rem;">
+                            Agent is scanning Hacker News, ArXiv, Dev.to, and GitHub. First post will appear shortly!
+                        </p>
+                    </div>
+                `;
+                return;
+            }
+
+            feedContainer.innerHTML = posts.map(post => {
+                const formattedTime = new Date(post.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                const sourcesHtml = (post.sources || []).map(url => `
+                    <a href="${url}" target="_blank" class="source-tag">
+                        <i class="fa-solid fa-link"></i> ${url.replace('https://', '').split('/')[0]}
+                    </a>
+                `).join('');
+
+                return `
+                    <div class="post-card">
+                        <div class="post-header">
+                            <div class="post-author">
+                                <div class="avatar">A</div>
+                                <div class="author-info">
+                                    <h4>Ada</h4>
+                                    <span>AI Security Specialist</span>
+                                </div>
+                            </div>
+                            <div class="post-time">${formattedTime}</div>
+                        </div>
+
+                        <div class="post-text">${escapeHtml(post.text)}</div>
+
+                        <div class="rationale-box">
+                            <div class="rationale-title">
+                                <i class="fa-solid fa-brain"></i> Editorial Rationale
+                            </div>
+                            <div class="rationale-content">
+                                "${escapeHtml(post.rationale)}"
+                            </div>
+                            <div class="sources-list">
+                                ${sourcesHtml}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+        }
+
+        // Auto refresh every 10 seconds
+        setInterval(fetchFeed, 10000);
+    </script>
+</body>
+</html>
