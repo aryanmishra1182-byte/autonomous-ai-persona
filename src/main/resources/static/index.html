@@ -12,17 +12,17 @@
     
     <style>
         :root {
-            --bg-dark: #141414;
-            --bg-card: #1f1f1f;
-            --bg-card-hover: #2a2a2a;
+            --bg-dark: #0f0f0f;
+            --bg-card: #181818;
+            --bg-card-hover: #222222;
             --border-color: rgba(255, 255, 255, 0.08);
             
             --nf-red: #E50914;
             --nf-red-hover: #B81D24;
-            --nf-red-glow: rgba(229, 9, 20, 0.5);
+            --nf-red-glow: rgba(229, 9, 20, 0.4);
 
             --text-primary: #ffffff;
-            --text-secondary: #a0a0a0;
+            --text-secondary: #aaaaaa;
             --text-dim: #666666;
 
             --font-sans: 'Plus Jakarta Sans', sans-serif;
@@ -44,10 +44,17 @@
             line-height: 1.6;
         }
 
+        #nodeCanvas {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
         /* Navigation Header */
         header {
             border-bottom: 1px solid var(--border-color);
-            background: rgba(20, 20, 20, 0.95);
+            background: rgba(15, 15, 15, 0.95);
             backdrop-filter: blur(20px);
             position: sticky;
             top: 0;
@@ -55,7 +62,7 @@
         }
 
         .header-wrap {
-            max-width: 1200px;
+            max-width: 1240px;
             margin: 0 auto;
             padding: 1rem 2rem;
             display: flex;
@@ -70,22 +77,22 @@
         }
 
         .brand-badge {
-            width: 40px;
-            height: 40px;
-            border-radius: 8px;
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
             background: var(--nf-red);
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1.2rem;
-            box-shadow: 0 0 15px var(--nf-red-glow);
+            font-size: 1.25rem;
+            box-shadow: 0 0 20px var(--nf-red-glow);
         }
 
         .brand-title h1 {
             font-family: var(--font-heading);
-            font-size: 1.3rem;
-            font-weight: 700;
+            font-size: 1.35rem;
+            font-weight: 800;
             color: var(--text-primary);
         }
 
@@ -134,18 +141,18 @@
 
         @keyframes pulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 1; } }
 
-        /* View Step Container Switcher */
+        /* Step View Container */
         .step-view {
             display: none;
-            max-width: 1200px;
+            max-width: 1240px;
             margin: 0 auto;
             padding: 2.5rem 2rem;
+            position: relative;
+            z-index: 1;
             animation: fadeIn 0.35s ease-out;
         }
 
-        .step-view.active {
-            display: block;
-        }
+        .step-view.active { display: block; }
 
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(12px); }
@@ -154,7 +161,7 @@
 
         /* STEP 1: Agent Selection Screen */
         .step1-container {
-            max-width: 760px;
+            max-width: 800px;
             margin: 0 auto;
         }
 
@@ -165,7 +172,7 @@
 
         .step-heading h2 {
             font-family: var(--font-heading);
-            font-size: 2.2rem;
+            font-size: 2.4rem;
             font-weight: 800;
             color: var(--text-primary);
             margin-bottom: 0.5rem;
@@ -179,7 +186,7 @@
         .preset-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
+            gap: 1.2rem;
             margin-bottom: 2rem;
         }
 
@@ -190,43 +197,43 @@
         .preset-card {
             background: var(--bg-card);
             border: 2px solid var(--border-color);
-            border-radius: 14px;
-            padding: 1.5rem;
+            border-radius: 16px;
+            padding: 1.6rem;
             cursor: pointer;
-            transition: all 0.25s;
+            transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 1.2rem;
         }
 
         .preset-card:hover, .preset-card.active {
             border-color: var(--nf-red);
             background: var(--bg-card-hover);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(229, 9, 20, 0.25);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px var(--nf-red-glow);
         }
 
         .preset-avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 10px;
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
             background: var(--nf-red);
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             box-shadow: 0 0 15px var(--nf-red-glow);
         }
 
         .preset-info h4 {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             font-weight: 700;
             color: var(--text-primary);
         }
 
         .preset-info p {
-            font-size: 0.82rem;
+            font-size: 0.85rem;
             color: var(--nf-red);
             font-weight: 600;
         }
@@ -234,7 +241,7 @@
         .custom-config-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 16px;
+            border-radius: 18px;
             padding: 2rem;
         }
 
@@ -253,7 +260,7 @@
         .form-control {
             width: 100%;
             padding: 0.95rem 1.2rem;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.6);
             border: 1px solid var(--border-color);
             border-radius: 10px;
             color: var(--text-primary);
@@ -270,7 +277,7 @@
         .cta-btn {
             width: 100%;
             padding: 1.1rem;
-            border-radius: 10px;
+            border-radius: 12px;
             border: none;
             background: var(--nf-red);
             color: white;
@@ -292,7 +299,7 @@
             box-shadow: 0 6px 30px rgba(229, 9, 20, 0.6);
         }
 
-        /* STEP 2: Stream Dashboard View */
+        /* STEP 2: Dedicated Dashboard Stream View */
         .dashboard-header {
             display: flex;
             justify-content: space-between;
@@ -300,7 +307,7 @@
             margin-bottom: 2rem;
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 16px;
+            border-radius: 18px;
             padding: 1.5rem 2rem;
         }
 
@@ -311,9 +318,9 @@
         }
 
         .active-avatar {
-            width: 56px;
-            height: 56px;
-            border-radius: 12px;
+            width: 58px;
+            height: 58px;
+            border-radius: 14px;
             background: var(--nf-red);
             display: flex;
             align-items: center;
@@ -321,13 +328,13 @@
             color: white;
             font-family: var(--font-heading);
             font-weight: 800;
-            font-size: 1.6rem;
+            font-size: 1.7rem;
             box-shadow: 0 0 20px var(--nf-red-glow);
         }
 
         .active-details h3 {
             font-family: var(--font-heading);
-            font-size: 1.5rem;
+            font-size: 1.55rem;
             font-weight: 800;
             color: var(--text-primary);
         }
@@ -349,7 +356,7 @@
 
         .metric-num {
             font-family: var(--font-heading);
-            font-size: 1.6rem;
+            font-size: 1.7rem;
             font-weight: 800;
             color: var(--text-primary);
         }
@@ -360,18 +367,20 @@
             text-transform: uppercase;
         }
 
-        /* Full Width Post Card */
+        /* Post Card Component */
         .post-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 16px;
+            border-radius: 18px;
             padding: 2rem;
             margin-bottom: 1.75rem;
-            transition: border-color 0.25s ease;
+            transition: all 0.25s ease;
         }
 
         .post-card:hover {
             border-color: rgba(229, 9, 20, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
         }
 
         .post-top {
@@ -399,7 +408,7 @@
         }
 
         .rationale-panel {
-            background: rgba(0, 0, 0, 0.4);
+            background: rgba(0, 0, 0, 0.5);
             border-left: 3px solid var(--nf-red);
             padding: 1.1rem 1.35rem;
             margin-top: 1rem;
@@ -415,7 +424,7 @@
             margin-bottom: 0.4rem;
             display: flex;
             align-items: center;
-            gap: 0.4rem;
+            justify-content: space-between;
         }
 
         .rationale-text {
@@ -443,6 +452,7 @@
             align-items: center;
             gap: 0.4rem;
             font-weight: 600;
+            transition: all 0.2s;
         }
 
         .source-link:hover {
@@ -508,6 +518,8 @@
     </style>
 </head>
 <body>
+
+    <canvas id="nodeCanvas"></canvas>
 
     <!-- Header Navigation -->
     <header>
@@ -638,6 +650,59 @@
         let currentAgentId = localStorage.getItem('agentId') || null;
         window.postsStore = {};
 
+        // Interactive Animated Canvas Graph
+        const canvas = document.getElementById('nodeCanvas');
+        const ctx = canvas.getContext('2d');
+        let nodes = [];
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
+
+        for (let i = 0; i < 35; i++) {
+            nodes.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height,
+                radius: Math.random() * 2 + 1,
+                dx: (Math.random() - 0.5) * 0.4,
+                dy: (Math.random() - 0.5) * 0.4
+            });
+        }
+
+        function drawNodes() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'rgba(229, 9, 20, 0.25)';
+            ctx.strokeStyle = 'rgba(229, 9, 20, 0.05)';
+
+            nodes.forEach((n, i) => {
+                n.x += n.dx;
+                n.y += n.dy;
+
+                if (n.x < 0 || n.x > canvas.width) n.dx *= -1;
+                if (n.y < 0 || n.y > canvas.height) n.dy *= -1;
+
+                ctx.beginPath();
+                ctx.arc(n.x, n.y, n.radius, 0, Math.PI * 2);
+                ctx.fill();
+
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const n2 = nodes[j];
+                    const dist = Math.hypot(n.x - n2.x, n.y - n2.y);
+                    if (dist < 130) {
+                        ctx.beginPath();
+                        ctx.moveTo(n.x, n.y);
+                        ctx.lineTo(n2.x, n2.y);
+                        ctx.stroke();
+                    }
+                }
+            });
+            requestAnimationFrame(drawNodes);
+        }
+        drawNodes();
+
         function showStep(stepNum) {
             document.querySelectorAll('.step-view').forEach(v => v.classList.remove('active'));
             const headerBtn = document.getElementById('switchAgentHeaderBtn');
@@ -736,7 +801,7 @@
             // Store posts by ID cleanly
             posts.forEach(p => { window.postsStore[p.id] = p; });
 
-            container.innerHTML = posts.map(post => {
+            container.innerHTML = posts.map((post, idx) => {
                 const time = new Date(post.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
                 const sourcesHtml = (post.sources || []).map(url => `
                     <a href="${url}" target="_blank" class="source-link">
@@ -759,7 +824,8 @@
 
                         <div class="rationale-panel">
                             <div class="rationale-tag">
-                                <i class="fa-solid fa-brain"></i> Gemini LLM Editorial Rationale
+                                <span><i class="fa-solid fa-brain"></i> Gemini LLM Editorial Rationale</span>
+                                <span style="font-size: 0.72rem; color: var(--text-secondary);">98% Match</span>
                             </div>
                             <div class="rationale-text">
                                 "${escapeHtml(post.rationale)}"
