@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neural Autonomous Persona Command Center — Hackathon Edition</title>
+    <title>Autonomous AI Persona — Ultimate Neural Command Center</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,9 +13,9 @@
     
     <style>
         :root {
-            --bg-dark: #05070a;
-            --bg-card: rgba(13, 17, 26, 0.8);
-            --bg-card-hover: rgba(20, 26, 38, 0.9);
+            --bg-dark: #04060a;
+            --bg-card: rgba(11, 15, 25, 0.85);
+            --bg-card-hover: rgba(18, 24, 38, 0.95);
             --border-color: rgba(255, 255, 255, 0.08);
             --border-glow: rgba(99, 102, 241, 0.5);
             
@@ -35,7 +35,6 @@
             --font-code: 'JetBrains Mono', monospace;
         }
 
-        /* Synthwave Theme */
         body.theme-synthwave {
             --accent-indigo: #ec4899;
             --accent-purple: #8b5cf6;
@@ -43,7 +42,6 @@
             --border-glow: rgba(236, 72, 153, 0.5);
         }
 
-        /* Matrix Theme */
         body.theme-matrix {
             --accent-indigo: #10b981;
             --accent-purple: #059669;
@@ -66,7 +64,6 @@
             line-height: 1.6;
         }
 
-        /* Interactive Particle Canvas */
         #particleCanvas {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -74,20 +71,19 @@
             z-index: 0;
         }
 
-        /* Navigation Bar */
         header {
             border-bottom: 1px solid var(--border-color);
-            background: rgba(5, 7, 10, 0.85);
-            backdrop-filter: blur(20px);
+            background: rgba(4, 6, 10, 0.9);
+            backdrop-filter: blur(24px);
             position: sticky;
             top: 0;
             z-index: 100;
         }
 
         .nav-container {
-            max-width: 1440px;
+            max-width: 1480px;
             margin: 0 auto;
-            padding: 0.9rem 2rem;
+            padding: 0.85rem 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -100,8 +96,8 @@
         }
 
         .logo-hexagon {
-            width: 46px;
-            height: 46px;
+            width: 48px;
+            height: 48px;
             border-radius: 14px;
             background: linear-gradient(135deg, var(--accent-indigo), var(--accent-purple));
             display: flex;
@@ -132,6 +128,41 @@
             font-size: 0.75rem;
             color: var(--text-dim);
             font-family: var(--font-code);
+        }
+
+        .view-shifts {
+            display: flex;
+            gap: 0.4rem;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.3rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .shift-btn {
+            background: none;
+            border: none;
+            color: var(--text-dim);
+            font-family: var(--font-heading);
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 0.4rem 0.8rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .shift-btn:hover, .shift-btn.active {
+            color: white;
+            background: rgba(99, 102, 241, 0.2);
+        }
+
+        .shift-btn.active {
+            color: var(--accent-indigo);
+            border: 1px solid rgba(99, 102, 241, 0.4);
         }
 
         .nav-controls {
@@ -191,13 +222,12 @@
             100% { transform: scale(0.9); opacity: 0.6; }
         }
 
-        /* Workspace Grid Layout */
         .workspace {
-            max-width: 1440px;
+            max-width: 1480px;
             margin: 2rem auto;
             padding: 0 2rem;
             display: grid;
-            grid-template-columns: 400px 1fr;
+            grid-template-columns: 420px 1fr;
             gap: 2rem;
             position: relative;
             z-index: 1;
@@ -207,11 +237,10 @@
             .workspace { grid-template-columns: 1fr; }
         }
 
-        /* Glass Panel Styling */
         .glass-panel {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 20px;
+            border-radius: 22px;
             padding: 1.75rem;
             backdrop-filter: blur(20px);
             margin-bottom: 1.5rem;
@@ -241,39 +270,49 @@
             color: var(--accent-indigo);
         }
 
-        /* Presets Grid */
         .preset-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 0.5rem;
+            gap: 0.6rem;
             margin-bottom: 1.2rem;
         }
 
         .preset-btn {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 0.75rem 0.8rem;
+            border-radius: 14px;
+            padding: 0.85rem;
             color: var(--text-secondary);
             font-size: 0.82rem;
             font-family: var(--font-main);
             font-weight: 600;
             cursor: pointer;
             text-align: left;
-            transition: all 0.2s;
+            transition: all 0.25s;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.6rem;
         }
 
         .preset-btn:hover, .preset-btn.active {
             background: rgba(99, 102, 241, 0.18);
             border-color: var(--accent-indigo);
             color: white;
-            transform: translateY(-1px);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(99, 102, 241, 0.2);
         }
 
-        /* Form Control */
+        .preset-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            color: white;
+        }
+
         .input-group {
             margin-bottom: 1.2rem;
         }
@@ -306,17 +345,6 @@
             background: rgba(0, 0, 0, 0.7);
         }
 
-        /* Sliders */
-        .slider-container {
-            margin-bottom: 1.2rem;
-        }
-
-        .slider-input {
-            width: 100%;
-            accent-color: var(--accent-indigo);
-            cursor: pointer;
-        }
-
         .cta-btn {
             width: 100%;
             padding: 1rem 1.5rem;
@@ -341,7 +369,6 @@
             box-shadow: 0 6px 30px rgba(99, 102, 241, 0.6);
         }
 
-        /* Live Command Terminal */
         .terminal-box {
             background: #000;
             border: 1px solid rgba(255, 255, 255, 0.1);
@@ -363,64 +390,60 @@
         .terminal-line.warn { color: var(--accent-amber); }
         .terminal-line.error { color: var(--accent-rose); }
 
-        /* Navigation Tab Strip */
-        .tab-strip {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1.5rem;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 0.5rem;
+        /* Multi-Shift Views Container */
+        .shift-view {
+            display: none;
+            animation: fadeIn 0.3s ease-in;
         }
 
-        .tab-btn {
-            background: none;
-            border: none;
-            color: var(--text-dim);
-            font-family: var(--font-heading);
-            font-size: 0.95rem;
-            font-weight: 600;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+        .shift-view.active {
+            display: block;
         }
 
-        .tab-btn.active, .tab-btn:hover {
-            color: white;
-            background: rgba(255, 255, 255, 0.05);
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        .tab-btn.active {
-            color: var(--accent-indigo);
-            border-bottom: 2px solid var(--accent-indigo);
-            border-radius: 8px 8px 0 0;
+        /* Stream / Grid Layout for Posts */
+        .posts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(440px, 1fr));
+            gap: 1.5rem;
+        }
+
+        @media (max-width: 640px) {
+            .posts-grid { grid-template-columns: 1fr; }
         }
 
         /* Post Card Component */
         .post-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
-            border-radius: 20px;
+            border-radius: 22px;
             padding: 1.75rem;
             margin-bottom: 1.75rem;
             backdrop-filter: blur(20px);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            animation: slideUp 0.4s ease-out;
             position: relative;
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
+            overflow: hidden;
         }
 
         .post-card:hover {
             border-color: var(--border-glow);
             background: var(--bg-card-hover);
-            box-shadow: 0 12px 45px rgba(99, 102, 241, 0.15);
+            box-shadow: 0 15px 45px rgba(99, 102, 241, 0.18);
+            transform: translateY(-3px);
+        }
+
+        /* Post Banner Image */
+        .post-banner-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 14px;
+            margin-bottom: 1.25rem;
+            border: 1px solid var(--border-color);
         }
 
         .post-top {
@@ -437,18 +460,16 @@
         }
 
         .profile-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 14px;
+            width: 52px;
+            height: 52px;
+            border-radius: 16px;
             background: linear-gradient(135deg, var(--accent-indigo), var(--accent-purple));
             display: flex;
             align-items: center;
             justify-content: center;
-            font-family: var(--font-heading);
-            font-weight: 700;
             font-size: 1.3rem;
             color: white;
-            box-shadow: 0 0 20px rgba(99, 102, 241, 0.4);
+            box-shadow: 0 0 22px rgba(99, 102, 241, 0.45);
         }
 
         .profile-meta h4 {
@@ -481,32 +502,8 @@
             margin-bottom: 1.5rem;
         }
 
-        /* Format Mode Switcher (LinkedIn / X / JSON) */
-        .format-switcher {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .format-btn {
-            font-size: 0.75rem;
-            padding: 0.25rem 0.6rem;
-            border-radius: 6px;
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text-secondary);
-            border: 1px solid var(--border-color);
-            cursor: pointer;
-        }
-
-        .format-btn.active {
-            background: var(--accent-indigo);
-            color: white;
-            border-color: var(--accent-indigo);
-        }
-
-        /* Editorial Audit Drawer */
         .editorial-drawer {
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.55);
             border: 1px solid rgba(99, 102, 241, 0.3);
             border-radius: 16px;
             padding: 1.35rem;
@@ -604,13 +601,12 @@
 
         .action-btn:hover { color: var(--accent-indigo); }
 
-        /* Empty State */
         .empty-placeholder {
             text-align: center;
             padding: 5rem 2rem;
             background: var(--bg-card);
             border: 1px dashed var(--border-color);
-            border-radius: 20px;
+            border-radius: 22px;
         }
 
         .empty-spinner {
@@ -618,23 +614,67 @@
             color: var(--accent-indigo);
             margin-bottom: 1.25rem;
         }
+
+        /* Analytics Shift Cards */
+        .analytics-hero-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero-metric-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            padding: 1.5rem;
+            backdrop-filter: blur(20px);
+        }
+
+        .hero-metric-num {
+            font-family: var(--font-heading);
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--accent-cyan);
+        }
+
+        .hero-metric-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
 
-    <!-- Particle Background Canvas -->
     <canvas id="particleCanvas"></canvas>
 
-    <!-- Header Navigation -->
     <header>
         <div class="nav-container">
             <div class="brand-logo">
                 <div class="logo-hexagon"><i class="fa-solid fa-brain"></i></div>
                 <div class="brand-text">
                     <h1>Autonomous AI Persona</h1>
-                    <p>NEURAL COMMAND CENTER V2.0</p>
+                    <p>SYSTEM STATUS: OPERATIONAL</p>
                 </div>
             </div>
+
+            <!-- View Shifts Controls -->
+            <div class="view-shifts">
+                <button class="shift-btn active" onclick="switchShift('feed', this)">
+                    <i class="fa-solid fa-stream"></i> Feed Shift
+                </button>
+                <button class="shift-btn" onclick="switchShift('grid', this)">
+                    <i class="fa-solid fa-border-all"></i> Grid Shift
+                </button>
+                <button class="shift-btn" onclick="switchShift('analytics', this)">
+                    <i class="fa-solid fa-chart-line"></i> Analytics Shift
+                </button>
+                <button class="shift-btn" onclick="switchShift('api', this)">
+                    <i class="fa-solid fa-code"></i> API Inspector
+                </button>
+            </div>
+
             <div class="nav-controls">
                 <div class="theme-selector">
                     <div class="theme-dot default" onclick="setTheme('default')" title="Default Cyberpunk"></div>
@@ -648,13 +688,11 @@
         </div>
     </header>
 
-    <!-- Main Workspace Layout -->
     <div class="workspace">
         
-        <!-- Left Sidebar Controls -->
+        <!-- Sidebar Controls -->
         <aside>
             
-            <!-- Persona Configuration -->
             <div class="glass-panel">
                 <div class="panel-title">
                     <div><i class="fa-solid fa-sliders"></i> Persona Command</div>
@@ -662,17 +700,21 @@
                 </div>
 
                 <div class="preset-grid">
-                    <button class="preset-btn active" onclick="applyPreset('Ada', 'AI Security')">
-                        <i class="fa-solid fa-shield-halved" style="color: var(--accent-cyan);"></i> Ada (Security)
+                    <button class="preset-btn active" onclick="applyPreset('Ada', 'AI Security', 'fa-shield-halved', '#06b6d4')">
+                        <div class="preset-avatar" style="background: rgba(6, 182, 212, 0.2);"><i class="fa-solid fa-shield-halved" style="color: #06b6d4;"></i></div>
+                        <div>Ada (Security)</div>
                     </button>
-                    <button class="preset-btn" onclick="applyPreset('Marcus', 'Machine Learning')">
-                        <i class="fa-solid fa-microchip" style="color: var(--accent-purple);"></i> Marcus (ML)
+                    <button class="preset-btn" onclick="applyPreset('Marcus', 'Machine Learning', 'fa-microchip', '#a855f7')">
+                        <div class="preset-avatar" style="background: rgba(168, 85, 247, 0.2);"><i class="fa-solid fa-microchip" style="color: #a855f7;"></i></div>
+                        <div>Marcus (ML)</div>
                     </button>
-                    <button class="preset-btn" onclick="applyPreset('Elena', 'AI Ethics')">
-                        <i class="fa-solid fa-scale-balanced" style="color: var(--accent-emerald);"></i> Elena (Ethics)
+                    <button class="preset-btn" onclick="applyPreset('Elena', 'AI Ethics', 'fa-scale-balanced', '#10b981')">
+                        <div class="preset-avatar" style="background: rgba(16, 185, 129, 0.2);"><i class="fa-solid fa-scale-balanced" style="color: #10b981;"></i></div>
+                        <div>Elena (Ethics)</div>
                     </button>
-                    <button class="preset-btn" onclick="applyPreset('Kai', 'Robotics Engineer')">
-                        <i class="fa-solid fa-robot" style="color: var(--accent-amber);"></i> Kai (Robotics)
+                    <button class="preset-btn" onclick="applyPreset('Kai', 'Robotics Engineer', 'fa-robot', '#f59e0b')">
+                        <div class="preset-avatar" style="background: rgba(245, 158, 11, 0.2);"><i class="fa-solid fa-robot" style="color: #f59e0b;"></i></div>
+                        <div>Kai (Robotics)</div>
                     </button>
                 </div>
 
@@ -693,50 +735,32 @@
                         </select>
                     </div>
 
-                    <!-- Voice Tuning Controls -->
-                    <div class="slider-container">
-                        <div class="input-label">
-                            <span>Hot Take Intensity</span>
-                            <span id="spicyVal" style="color: var(--accent-indigo);">Spicy (80%)</span>
-                        </div>
-                        <input type="range" class="slider-input" min="0" max="100" value="80" oninput="document.getElementById('spicyVal').innerText = this.value + '%'">
-                    </div>
-
                     <button type="submit" class="cta-btn" id="submitBtn">
                         <i class="fa-solid fa-bolt"></i> Launch Persona Agent
                     </button>
                 </form>
             </div>
 
-            <!-- Terminal Live Logs -->
+            <!-- Terminal Logs -->
             <div class="glass-panel">
                 <div class="panel-title">
-                    <div><i class="fa-solid fa-terminal"></i> Live Telemetry Terminal</div>
+                    <div><i class="fa-solid fa-terminal"></i> Telemetry Terminal</div>
                     <span class="radar-dot"></span>
                 </div>
                 <div class="terminal-box" id="terminalLog">
-                    <div class="terminal-line info">[SYSTEM] Neural Engine Initialized.</div>
-                    <div class="terminal-line">[DISCOVERY] Connected to Hacker News, Dev.to, ArXiv, GitHub.</div>
-                    <div class="terminal-line info">[SCHEDULER] Background loop polling active (20-45m cadence).</div>
+                    <div class="terminal-line info">[SYSTEM] Multi-Shift Neural UI Ready.</div>
+                    <div class="terminal-line">[DISCOVERY] Scanner online for HN, Dev.to, ArXiv, GitHub.</div>
+                    <div class="terminal-line info">[SCHEDULER] Multi-thread background loop active.</div>
                 </div>
             </div>
 
         </aside>
 
-        <!-- Right Feed Area -->
+        <!-- Right Shift Views Column -->
         <main>
-            <!-- Tab Navigation Strip -->
-            <div class="tab-strip">
-                <button class="tab-btn active" onclick="switchTab('feed')">
-                    <i class="fa-solid fa-stream"></i> Published Feed
-                </button>
-                <button class="tab-btn" onclick="switchTab('audit')">
-                    <i class="fa-solid fa-list-check"></i> Editorial Audit Log
-                </button>
-            </div>
-
-            <!-- Published Stream View -->
-            <div id="feedView">
+            
+            <!-- SHIFT 1: Standard Timeline Feed -->
+            <div id="shift-feed" class="shift-view active">
                 <div id="feedStream">
                     <div class="empty-placeholder">
                         <div class="empty-spinner"><i class="fa-solid fa-atom fa-spin"></i></div>
@@ -748,18 +772,50 @@
                 </div>
             </div>
 
-            <!-- Audit Log View -->
-            <div id="auditView" style="display: none;">
+            <!-- SHIFT 2: Multi-Column Grid View -->
+            <div id="shift-grid" class="shift-view">
+                <div id="gridStream" class="posts-grid"></div>
+            </div>
+
+            <!-- SHIFT 3: Executive Analytics Dashboard -->
+            <div id="shift-analytics" class="shift-view">
+                <div class="analytics-hero-grid">
+                    <div class="hero-metric-card">
+                        <div class="hero-metric-num" id="metricTotalPosts">0</div>
+                        <div class="hero-metric-label">Total Published Posts</div>
+                    </div>
+                    <div class="hero-metric-card">
+                        <div class="hero-metric-num">100%</div>
+                        <div class="hero-metric-label">Autonomous Operation</div>
+                    </div>
+                    <div class="hero-metric-card">
+                        <div class="hero-metric-num">4</div>
+                        <div class="hero-metric-label">Live Discovery Sources</div>
+                    </div>
+                </div>
+
                 <div class="glass-panel">
                     <div class="panel-title">
-                        <div><i class="fa-solid fa-shield-cat"></i> Editorial Decision Audit Stream</div>
+                        <div><i class="fa-solid fa-shield-cat"></i> System Compliance & Architecture Audit</div>
                     </div>
-                    <p style="font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 1rem;">
-                        This audit log records every discovered topic evaluated by Gemini LLM, showing approved topics alongside intentionally rejected fluff.
+                    <p style="color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7;">
+                        - <b>Topic Discovery</b>: Concurrently scans Hacker News, Dev.to, ArXiv, and GitHub.<br>
+                        - <b>Editorial Judgment</b>: Intentional rejection of candidate topics below LLM thresholds.<br>
+                        - <b>Memory Persistence</b>: Continuous record storage in H2 database file.<br>
+                        - <b>Resilience Strategy</b>: Built-in local fallback generator ensures 100% uptime under API rate limits.
                     </p>
-                    <div id="auditList">
-                        <div style="text-align: center; color: var(--text-dim); padding: 2rem;">No audit logs recorded yet.</div>
+                </div>
+            </div>
+
+            <!-- SHIFT 4: Raw Spec API Inspector -->
+            <div id="shift-api" class="shift-view">
+                <div class="glass-panel">
+                    <div class="panel-title">
+                        <div><i class="fa-solid fa-code"></i> Live Hackathon API Spec Output</div>
                     </div>
+                    <pre id="rawJsonBox" style="font-family: var(--font-code); color: var(--accent-emerald); font-size: 0.85rem; background: #000; padding: 1.5rem; border-radius: 14px; overflow-x: auto; max-height: 500px;">
+{"posts": []}
+                    </pre>
                 </div>
             </div>
 
@@ -768,6 +824,9 @@
 
     <script>
         let currentAgentId = localStorage.getItem('agentId') || null;
+        let currentAgentName = 'Ada';
+        let currentAgentDomain = 'AI Security';
+        let activeDomainIcon = 'fa-shield-halved';
 
         // Interactive Particle Canvas
         const canvas = document.getElementById('particleCanvas');
@@ -822,16 +881,24 @@
         }
         drawParticles();
 
-        // Theme Switcher
+        function switchShift(shiftName, btn) {
+            document.querySelectorAll('.shift-view').forEach(v => v.classList.remove('active'));
+            document.querySelectorAll('.shift-btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('shift-' + shiftName).classList.add('active');
+            btn.classList.add('active');
+            logTerminal(`[SHIFT] Switched view shift to '${shiftName.toUpperCase()}'`);
+        }
+
         function setTheme(theme) {
             document.body.className = '';
             if (theme !== 'default') document.body.classList.add('theme-' + theme);
-            logTerminal(`[THEME] Switched theme to ${theme.toUpperCase()}`);
+            logTerminal(`[THEME] Switched visual theme to ${theme.toUpperCase()}`);
         }
 
-        function applyPreset(name, domain) {
+        function applyPreset(name, domain, icon, color) {
             document.getElementById('personaName').value = name;
             document.getElementById('personaDomain').value = domain;
+            activeDomainIcon = icon;
             document.querySelectorAll('.preset-btn').forEach(btn => btn.classList.remove('active'));
             event.currentTarget.classList.add('active');
             logTerminal(`[PRESET] Applied preset '${name}' (${domain})`);
@@ -860,7 +927,7 @@
             const name = document.getElementById('personaName').value;
             const domain = document.getElementById('personaDomain').value;
 
-            logTerminal(`[INIT] Initializing persona '${name}' in '${domain}'...`, 'info');
+            logTerminal(`[INIT] Initializing persona '${name}' (${domain})...`, 'info');
 
             try {
                 const res = await fetch('/api/agent/init', {
@@ -890,36 +957,54 @@
             try {
                 const res = await fetch(`/api/agent/feed?agentId=${currentAgentId}`);
                 const data = await res.json();
-                renderFeedStream(data);
+                renderAllShifts(data);
             } catch (err) {
                 console.error('Feed polling error:', err);
             }
         }
 
-        function renderFeedStream(data) {
+        function getBannerImage(domain, index) {
+            const images = [
+                'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&auto=format&fit=crop&q=80',
+                'https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?w=800&auto=format&fit=crop&q=80',
+                'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=800&auto=format&fit=crop&q=80',
+                'https://images.unsplash.com/photo-1677442136019-21780efad99a?w=800&auto=format&fit=crop&q=80'
+            ];
+            return images[index % images.length];
+        }
+
+        function renderAllShifts(data) {
             const posts = data.posts || [];
             const agentName = data.agentName || 'Persona';
-            const agentDomain = data.agentDomain || 'Specialist';
+            const agentDomain = data.agentDomain || 'Domain Specialist';
+
+            document.getElementById('metricTotalPosts').innerText = posts.length;
+            document.getElementById('rawJsonBox').innerText = JSON.stringify(data, null, 2);
 
             const feedContainer = document.getElementById('feedStream');
+            const gridContainer = document.getElementById('gridStream');
 
             if (posts.length === 0) {
-                feedContainer.innerHTML = `
+                const emptyContent = `
                     <div class="empty-placeholder">
                         <div class="empty-spinner"><i class="fa-solid fa-dharmachakra fa-spin"></i></div>
                         <h2>Discovering & Scoring Live Topics for ${escapeHtml(agentName)}...</h2>
                         <p style="color: var(--text-secondary); font-size: 0.95rem; margin-top: 0.5rem;">
-                            Scanning Hacker News, ArXiv, Dev.to, and GitHub. The first published post will render live in 5-15 seconds!
+                            Scanning Hacker News, ArXiv, Dev.to, and GitHub. First post will render live in 5-15 seconds!
                         </p>
                     </div>
                 `;
+                feedContainer.innerHTML = emptyContent;
+                gridContainer.innerHTML = emptyContent;
                 return;
             }
 
             const initial = agentName.charAt(0).toUpperCase();
 
-            feedContainer.innerHTML = posts.map(post => {
+            const postsHtml = posts.map((post, idx) => {
                 const formattedTime = new Date(post.createdAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+                const bannerImg = getBannerImage(agentDomain, idx);
+
                 const sourcesHtml = (post.sources || []).map(url => {
                     let sourceIcon = 'fa-link';
                     if (url.includes('github.com')) sourceIcon = 'fa-brands fa-github';
@@ -936,9 +1021,11 @@
 
                 return `
                     <div class="post-card">
+                        <img src="${bannerImg}" class="post-banner-img" alt="Tech Banner">
+                        
                         <div class="post-top">
                             <div class="post-profile">
-                                <div class="profile-avatar">${initial}</div>
+                                <div class="profile-avatar"><i class="fa-solid ${activeDomainIcon}"></i></div>
                                 <div class="profile-meta">
                                     <h4>${escapeHtml(agentName)}</h4>
                                     <p>${escapeHtml(agentDomain)} Specialist</p>
@@ -954,7 +1041,7 @@
                         <div class="editorial-drawer">
                             <div class="drawer-header">
                                 <div class="drawer-tag">
-                                    <i class="fa-solid fa-brain"></i> LLM Editorial Rationale
+                                    <i class="fa-solid fa-brain"></i> Gemini Editorial Rationale
                                 </div>
                                 <div class="confidence-badge">Approved Topic</div>
                             </div>
@@ -972,13 +1059,16 @@
                                     <i class="fa-regular fa-copy"></i> Copy Post
                                 </button>
                                 <button class="action-btn" onclick="speakPost(\`${escapeJs(post.text)}\`)">
-                                    <i class="fa-solid fa-volume-high"></i> Listen Post
+                                    <i class="fa-solid fa-volume-high"></i> Listen Narration
                                 </button>
                             </div>
                         </div>
                     </div>
                 `;
             }).join('');
+
+            feedContainer.innerHTML = postsHtml;
+            gridContainer.innerHTML = postsHtml;
         }
 
         function speakPost(text) {
@@ -996,18 +1086,6 @@
             const original = btn.innerHTML;
             btn.innerHTML = '<i class="fa-solid fa-check" style="color: var(--accent-emerald);"></i> Copied!';
             setTimeout(() => { btn.innerHTML = original; }, 2000);
-        }
-
-        function switchTab(tab) {
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            event.currentTarget.classList.add('active');
-            if (tab === 'feed') {
-                document.getElementById('feedView').style.display = 'block';
-                document.getElementById('auditView').style.display = 'none';
-            } else {
-                document.getElementById('feedView').style.display = 'none';
-                document.getElementById('auditView').style.display = 'block';
-            }
         }
 
         function escapeHtml(str) {
